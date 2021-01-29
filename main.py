@@ -24,11 +24,11 @@ driver = webdriver.Firefox()
 driver.get(url)
 
 u = driver.find_element_by_name('CompanyName')
-u.send_keys('seamlessdata')
+u.send_keys('')
 s = driver.find_element_by_name('UserName')
-s.send_keys('NOrellana')
+s.send_keys('')
 p = driver.find_element_by_name('Password')
-p.send_keys('SDS0313no!')
+p.send_keys('')
 p.send_keys(Keys.RETURN)
 
 # this is the xpath for the ubtton i need to clik on. /html/body/div[3]/table/tbody/tr[2]/td/input[1]

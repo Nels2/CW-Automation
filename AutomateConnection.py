@@ -24,10 +24,10 @@ driver.get(url)
 
 time.sleep(3)
 enter_user = driver.find_element_by_id('loginUsername')
-enter_user.send_keys('NOrellana' + Keys.RETURN)
+enter_user.send_keys('' + Keys.RETURN)
 time.sleep(2)
 pw = driver.find_element_by_id('loginPassword')
-pw.send_keys('SDS0313no!' + Keys.RETURN)
+pw.send_keys('' + Keys.RETURN)
 time.sleep(1.5)
 
 # now to login into my email and get code and go back to verify. Must be done withing 3-8 minutes or code is no longer valid.
@@ -37,10 +37,10 @@ driver.switch_to.window("tab2")
 driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')
 time.sleep(2)
 userN = driver.find_element_by_name('loginfmt')
-userN.send_keys('norellana@seamlessdata.com' + Keys.RETURN)
+userN.send_keys('' + Keys.RETURN)
 time.sleep(3)
 passwd = driver.find_element_by_name('passwd')
-passwd.send_keys('NoSeamless20' + Keys.RETURN)
+passwd.send_keys('' + Keys.RETURN)
 passwd.send_keys(Keys.RETURN)
 
 # select 'No' to stay signed in.
