@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
 import time
+import pickle
 # import AutomateConnection.py -- un'#' once Automate Connection has been finished.
 
 
@@ -63,6 +64,22 @@ time.sleep(3)
 grab = driver.find_element_by_tag_name('html')
 grab.send_keys(Keys.PAGE_DOWN * 5)
 
+# also need to save what ticket is about so BrinxBot isn't lost..
+time.sleep(3)
+#       ticket_info = driver.find_element_xpath("/html/body/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div[1]/div[2]/div/div[3]/table/tbody/tr/td[1]/table/tbody/tr[3]/td/div/div[2]/div[1]/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div/div[3]/div[4]/div/label/p").text
+#       print(ticket_info)
+# break text up so I only have computer name so brinxbot can look it up.
+def computerz():
+    ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
+    print("#### " + ticket_info + "####")
+    computer = ticket_info.split("\\",1)[1]
+    pickle.dump( computer, open( "save.p", "wb"))
+    print(computer)
+    print("[CW-Main][BrinxBot]: Looking for...: " + computer)
+computerz()
+# ---- The above should be saved to a variable called 'computer' for use in AutomateConnection.py when this file(main[.py]) is imported in.
+# make sure internal note section is selected.
+click_internal = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div:nth-child(2) > div > table > tbody > tr > td:nth-child(2)").click();
 #next up is clicking 'New Note'...
 
 new_note = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div.CwButton-wrap.TicketNote-newNoteButton > div > div > div > svg").click();
@@ -85,8 +102,8 @@ check_disucssion = driver.find_element_by_css_selector("#cw-manage-service_servi
 
 enter_notes = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(2) > div > div.ManageNoteRichTextEditor-richEditor > div > div.DraftEditor-editorContainer > div")
 enter_notes.send_keys('[BrinxBot]: This ticket is being completed using Python & Selenium!')
-enter_notes.send_keys('[BrinxBot]: Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
-enter_notes.send_keys('[BrinxBot]: The issue appears to be resolved, a reboot will occur tonight.')
+enter_notes.send_keys('.....Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
+enter_notes.send_keys('.....The issue appears to be resolved, a reboot will occur tonight.')
 #will now check the resolution box -- I will add a method that goes into Automate and sends the reboot script. Still testing..
 mark_as_done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(3) > div > div > div").click();
 #and finally.. hit SAVE!
