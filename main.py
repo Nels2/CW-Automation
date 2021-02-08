@@ -4,6 +4,8 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import termcolor
+from termcolor import colored, cprint
 from time import sleep
 import time
 import pickle
@@ -20,6 +22,32 @@ import pickle
 #
 #
 #
+print_blue = lambda x: cprint(x, 'blue')
+print_yellow = lambda x: cprint(x, 'yellow')
+print_red = lambda x: cprint(x, 'red')
+print_green = lambda x: cprint(x, 'green')
+
+def Server_Connect():
+    try:
+        print_yellow("#### -- Establishing External Connection to Server .. -- ####")
+        the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        driverTwo = webdriver.Firefox(options=options)
+        driverTwo.get(the_url)
+
+        time.sleep(1)
+        Connection = driverTwo.find_element_by_css_selector("#message")
+        Connection.send_keys("/name BrinxBot" + Keys.RETURN)
+        Connection.send_keys("Connection has been established..." + Keys.RETURN)
+        print_green("#### -- SUCCESS -- #####")
+    except RuntimeError:
+        print_red("#### -- FAIL -- ####")
+        print_red("Server Connection Failed. Continuing...")
+    driverTwo.quit()
+Server_Connect()
+
+
 url = "https://na.myconnectwise.net/v2020_3/connectwise.aspx?fullscreen=false&locale=en_US#startscreen=sr200"
 driver = webdriver.Firefox()
 driver.get(url)
@@ -28,6 +56,7 @@ driver.get(url)
 comp = ''
 userd = ''
 pasd = ''
+
 
 u = driver.find_element_by_name('CompanyName')
 u.send_keys(comp)
@@ -42,9 +71,12 @@ p.send_keys(Keys.RETURN)
 ##  include the first # -> #session-dialog > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > input:nth-child(1)
 
 # clicking proceed so i can continue
-time.sleep(3)
-driver.find_element_by_xpath("//input[@value='Proceed']").click()
-
+try:
+    time.sleep(3)
+    driver.find_element_by_xpath("//input[@value='Proceed']").click()
+    print_yellow("#### -- Proceed was clicked -- ####")
+except RuntimeError:
+    print_green("#### -- Logged in! --")
 # so page can load then clicks on summary description and looks for the specifced ticket.
 # time.sleep(20)
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
@@ -76,11 +108,11 @@ time.sleep(3)
 # break text up so I only have computer name so brinxbot can look it up.
 def computerz():
     ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
-    print("#### " + ticket_info + "####")
+    print_yellow("#### " + ticket_info + "####")
     computer = ticket_info.split("\\",1)[1]
     pickle.dump( computer, open( "save.p", "wb"))
-    print(computer)
-    print("[CW-Main][BrinxBot]: Looking for...: " + computer)
+    print_yellow(computer)
+    print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
 computerz()
 # ---- The above should be saved to a variable called 'computer' for use in AutomateConnection.py when this file(main[.py]) is imported in.
 # make sure internal note section is selected.
@@ -114,5 +146,20 @@ mark_as_done = driver.find_element_by_css_selector("#cw-manage-service_service_t
 #and finally.. hit SAVE!
 done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-buttons > div.CwButton-wrap.TicketNote-newNoteDialogSaveButton").click()
 
+def Server_ReConnect():
+    try:
+        the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        driverTwo = webdriver.Firefox(options=options)
+        driverTwo.get(the_url)
+
+        time.sleep(1)
+        Connection = driverTwo.find_element_by_css_selector("#message")
+        Connection.send_keys("Ticket has been noted and marked as resolved in CW" + Keys.RETURN)
+    except RuntimeError:
+        print_red("Server Connection Failed. Continuing...")
+    driverTwo.quit()
+Server_ReConnect()
 #------------------------------------ENTER AUTOMATE-------------------------
 
