@@ -36,13 +36,13 @@ print_green = lambda x: cprint(x, 'green')
 
 now = datetime.datetime.now()
 
-url = "https://seamlessdata.hostedrmm.com/automate/login"
+url = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, whereever it is hosted..
 driver = webdriver.Firefox()
 driver.get(url)
-pre = "[" + now.strftime('%Y-%m-%d %H:%M:%S') + "]: "
+pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
 # time to make this easy to use for anyone..
 print("------------------------------------------------------------------")
-# change the below fields to match your login info.
+# change the below fields to match your login info for automate login.
 usrname = ''
 passwd = ''
 
@@ -82,7 +82,7 @@ driver.switch_to.window("tab2")
 print_blue(pre + "[BrinxBot]: Switched to second tab. Focus is here currently.")
 driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')
 time.sleep(2)
-
+# enter your email and password for your O365 login.
 email = ''
 epwd = ''
 
@@ -122,9 +122,17 @@ print_yellow("#### -- Automate Control Center Connecton Established... -- ####")
 computer = pickle.load( open( "save.p", "rb"))
 print_yellow("#### -- Pickle has loaded in the following saved variable from main: " + computer + " -- #####")
 print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + "!")
+try:
+    click_ok_for_unhandled_exp = driver.find_element_by_css_selector(".CwDialog-buttons > div:nth-child(1) > div:nth-child(1)")
+    click_ok_for_unhandled_exp.click()
+    print_yellow("#### -- There was an unhandled error but it is OK Login is successful! -- ####")
+except NoSuchElementException: 
+    pass
+    print_green("#### -- DashBoard Loaded Successfully with No Errors! -- ####")
 # now time to search for computer and double click on it
-print_yellow("#### .....searching in automate.... ####")
-time.sleep(6)
+print_yellow("#### -- Searching in Automate for computer... -- ####")
+# time.sleep(6) uncomment if below method of webdriverwait does not work.   
+WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
 search_for_comp.send_keys(computer + Keys.RETURN)
@@ -161,16 +169,27 @@ NextDay_Date_Formatted = NextDay_Date.strftime ('%m' + '-' + '%d' + '-' + '%Y') 
 print_yellow('#### tomorrows date is ' + str(NextDay_Date_Formatted))
 time.sleep(1)
 date.send_keys(str(NextDay_Date_Formatted))
+date.send_keys(Keys.RETURN)
+date.send_keys(Keys.TAB) # add a # to the front of this line and add # comment to the front of lines 178-180 and remove the # in front of Lines 181-185 to use a different method.
 print_green(pre + "[BrinxBot]: Date has been changed.")
-# --------------------------------------
 # change time script is ran to 12:00:00 AM
 print_blue(pre + "[BrinxBot]: Changing the time to 12a")
-times = driver.find_elements_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
-times.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
+date.send_keys(Keys.CONTROL + 'a')
+date.send_keys(Keys.DELETE)
+date.send_keys("12a" + Keys.RETURN)
+#date.send_keys(Keys.RETURN)
+date.send_keys(Keys.TAB)
+date.send_keys(Keys.TAB)
+date.send_keys(Keys.TAB)
+date.send_keys(Keys.RETURN)
+#set_TheT = driver.find_elements_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
+#set_TheT.send_keys(Keys.CONTROL + 'a')
+#set_TheT.send_keys(Keys.DELETE)
+# set_TheT.send_keys(Keys.TAB) 
+#set_TheT.send_keys("12a" + Keys.RETURN)
 time.sleep(1)
-times.send_keys("12a" + Keys.RETURN)
 print_green(pre + "[BrinxBot]: Time has been changed")
-# -------------------------------
+
 # click SCHEDULE
 print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
 click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
@@ -192,5 +211,6 @@ def Server_ReReConnect():
         print_red(pre + "Server Connection Failed. Continuing with shutdown")
     driverTwo.quit()
 Server_ReReConnect()
+driver.quit()
 print_red(pre + "Connection has been lost to BrinxBot.")
 print("---------------------------------------------------------------")
