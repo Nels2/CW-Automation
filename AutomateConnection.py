@@ -17,13 +17,11 @@ from termcolor import colored, cprint
 import CW
 from CW import computerz, Ticket_info_method
 
-
 # -- -- -- -- -- -- -- -- -- #
 #    Created by Nelson O.    #
 #        2021.01.29          #
 #    AutomateConnection      #
 # -- -- -- -- -- -- -- -- -- #
-
 # --
 # This script is intended to login into Automate and grab the verification code from an email to login.
 # Should be used before 'CW.py'
@@ -156,7 +154,6 @@ elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stoppe
 script_search.send_keys(script_to_send)
 script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
 print_blue(pre + "[BrinxBot]: Inside " + computer + " menu now, launching script...")
-
 # -- wait for dialog box to appear.. -- #
 print_blue(pre + "[BrinxBot]: waiting for dialog box..")
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
@@ -167,7 +164,6 @@ do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_b
 print_blue(pre + "[BrinxBot]: Changing the date to tomorrow.")
 date = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(1) > div.CwDatePicker-datePickerRoot > div > input")
 date.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-
 # a bit of time calculation going on here... 
 NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
 NextDay_Date_Formatted = NextDay_Date.strftime ('%m' + '-' + '%d' + '-' + '%Y') # format the date to ddmmyyyy
@@ -194,7 +190,6 @@ date.send_keys(Keys.RETURN)
 #set_TheT.send_keys("12a" + Keys.RETURN)
 time.sleep(1)
 print_green(pre + "[BrinxBot]: Time has been changed")
-
 # click SCHEDULE
 print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
 click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
