@@ -15,7 +15,7 @@ from pyfiglet import Figlet
 import termcolor
 from termcolor import colored, cprint
 import CW
-from CW import computerz
+from CW import computerz, Ticket_info_method
 
 
 # -- -- -- -- -- -- -- -- -- #
@@ -33,7 +33,7 @@ print_blue = lambda x: cprint(x, 'blue')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
-
+ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 now = datetime.datetime.now()
 
 url = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, whereever it is hosted..
@@ -95,8 +95,8 @@ passwd.send_keys(Keys.RETURN)
 print_green("#### -- Office Account Has Been Signed in. -- ####")
 # select 'No' to stay signed in.
 time.sleep(1.5)
-no = driver.find_element_by_css_selector("#idBtn_Back").click()
 print_blue(pre + "[BrinxBot]: No. I dont want to stay signed in... continuing")
+no = driver.find_element_by_css_selector("#idBtn_Back").click()
 # time to open the email and grab the code...
 print_blue(pre + "[BrinxBot]: I'm in! Going to look for the email and save the code..")
 time.sleep(7)
@@ -147,9 +147,14 @@ script_start = driver.find_element_by_css_selector("#root > div > div > div > di
 time.sleep(0.5)
 script_search = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > input")
 print_green(pre + "[BrinxBot]: ..script has been found.")
-script_search.send_keys("reboot script")
+if ticket_type == 'UPDATES': # UPDATES pending tickets
+            script_to_send = 'reboot script'
+            pass
+elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stopped
+            script_to_send = 'S_R_V'
+            pass
+script_search.send_keys(script_to_send)
 script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
-
 print_blue(pre + "[BrinxBot]: Inside " + computer + " menu now, launching script...")
 
 # -- wait for dialog box to appear.. -- #
@@ -206,9 +211,9 @@ def Server_ReReConnect():
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name CWABrinxBot" + Keys.RETURN)
-        Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center!" + Keys.RETURN)
+        Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
     except RuntimeError:
-        print_red(pre + "Server Connection Failed. Continuing with shutdown")
+        print_red(pre + "Server Connection Failed. Continuing with shutdown.")
     driverTwo.quit()
 Server_ReReConnect()
 driver.quit()
