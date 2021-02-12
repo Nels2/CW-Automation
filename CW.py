@@ -24,7 +24,7 @@ import pickle
 #
 #
 #
-print_blue = lambda x: cprint(x, 'blue')
+print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
@@ -37,7 +37,6 @@ def Server_Connect():
         options.headless = True
         driverTwo = webdriver.Firefox(options=options)
         driverTwo.get(the_url)
-
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name BrinxBot" + Keys.RETURN)
@@ -113,10 +112,10 @@ time.sleep(0.5)
 search.send_keys(ticket_type)
 search.send_keys(Keys.RETURN)
 # let the field populate... then searches for tickets that start with "UPDATES" then clicks on the first one
-WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
+WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
 #WebDriverWait(driver, 1000).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#srboard-listview-scroller > div.GE0S-T1CAVF > table > tbody:nth-child(2) > tr.GE0S-T1CGWF.cw-ml-row.GE0S-T1CEWF > td:nth-child(6) > div > a")))
-time.sleep(5)
 try:
+    time.sleep(4.5)
     ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
     action = ActionChains(driver)
     action.double_click(ticket)
@@ -206,13 +205,12 @@ def Server_ReConnect():
         options.headless = True
         driverTwo = webdriver.Firefox(options=options)
         driverTwo.get(the_url)
-
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
-        Connection.send_keys("/name CWBrinxBot" + Keys.RETURN)
+        Connection.send_keys("/name (CW)BrinxBot" + Keys.RETURN)
         Connection.send_keys("Ticket has been noted and marked as resolved in CW" + Keys.RETURN)
     except NoSuchElementException:
         print_red("Server Connection Failed. Continuing...")
     driverTwo.quit()
 Server_ReConnect()
-#------------------------------------ENTER AUTOMATE-------------------------
+#------------------------------------ENTER AUTOMATE-------------------------#

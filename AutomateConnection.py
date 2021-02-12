@@ -27,7 +27,7 @@ from CW import computerz, Ticket_info_method
 # Should be used before 'CW.py'
 # Working to be able to use to complete scripts 
 # --
-print_blue = lambda x: cprint(x, 'blue')
+print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
@@ -45,12 +45,9 @@ usrname = ''
 passwd = ''
 
 print("...")
-print("...")
-print("...")
 print_yellow("#### --------- Begin Automate Connection --------- ####")
-print("")
 custom_fig = Figlet(font='hollywood')
-print_red(custom_fig.renderText('B'))
+print_red(custom_fig.renderText('Brinx'))
 print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
 NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
 time.sleep(3)
@@ -121,6 +118,7 @@ computer = pickle.load( open( "save.p", "rb"))
 print_yellow("#### -- Pickle has loaded in the following saved variable from main: " + computer + " -- #####")
 print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + "!")
 try:
+    find_internal_error = driver.find_element_by_css_selector(".CwDialog-modal")
     click_ok_for_unhandled_exp = driver.find_element_by_css_selector(".CwDialog-buttons > div:nth-child(1) > div:nth-child(1)")
     click_ok_for_unhandled_exp.click()
     print_yellow("#### -- There was an unhandled error but it is OK Login is successful! -- ####")
@@ -154,42 +152,35 @@ elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stoppe
 script_search.send_keys(script_to_send)
 script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
 print_blue(pre + "[BrinxBot]: Inside " + computer + " menu now, launching script...")
-# -- wait for dialog box to appear.. -- #
-print_blue(pre + "[BrinxBot]: waiting for dialog box..")
-WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
-# -- check the do later box -- #
-print_blue(pre + "[BrinxBot]: checking the 'do late' option so the script runs at a different time.")
-do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
-# change the date for script to be ran at, usually at the moment or the next day at 12:00:00 AM
-print_blue(pre + "[BrinxBot]: Changing the date to tomorrow.")
-date = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(1) > div.CwDatePicker-datePickerRoot > div > input")
-date.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-# a bit of time calculation going on here... 
-NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
-NextDay_Date_Formatted = NextDay_Date.strftime ('%m' + '-' + '%d' + '-' + '%Y') # format the date to ddmmyyyy
-print_yellow('#### tomorrows date is ' + str(NextDay_Date_Formatted))
-time.sleep(1)
-date.send_keys(str(NextDay_Date_Formatted))
-date.send_keys(Keys.RETURN)
-date.send_keys(Keys.TAB) # add a # to the front of this line and add # comment to the front of lines 178-180 and remove the # in front of Lines 181-185 to use a different method.
-print_green(pre + "[BrinxBot]: Date has been changed.")
-# change time script is ran to 12:00:00 AM
-print_blue(pre + "[BrinxBot]: Changing the time to 12a")
-date.send_keys(Keys.CONTROL + 'a')
-date.send_keys(Keys.DELETE)
-date.send_keys("12a" + Keys.RETURN)
-#date.send_keys(Keys.RETURN)
-date.send_keys(Keys.TAB)
-date.send_keys(Keys.TAB)
-date.send_keys(Keys.TAB)
-date.send_keys(Keys.RETURN)
-#set_TheT = driver.find_elements_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
-#set_TheT.send_keys(Keys.CONTROL + 'a')
-#set_TheT.send_keys(Keys.DELETE)
-# set_TheT.send_keys(Keys.TAB) 
-#set_TheT.send_keys("12a" + Keys.RETURN)
-time.sleep(1)
-print_green(pre + "[BrinxBot]: Time has been changed")
+if ticket_type == 'UPDATES': # UPDATES pending tickets
+    # -- wait for dialog box to appear.. -- #
+    print_blue(pre + "[BrinxBot]: waiting for dialog box..")
+    WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
+    # -- check the do later box -- #
+    print_blue(pre + "[BrinxBot]: checking the 'do late' option so the script runs at a different time.")
+    do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
+    # change the date for script to be ran at, usually at the moment or the next day at 12:00:00 AM
+    print_blue(pre + "[BrinxBot]: Changing the date to tomorrow.")
+    date = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(1) > div.CwDatePicker-datePickerRoot > div > input")
+    date.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
+    # a bit of time calculation going on here... 
+    NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
+    NextDay_Date_Formatted = NextDay_Date.strftime ('%m' + '/' + '%d' + '/' + '%Y') # format the date to ddmmyyyy
+    print_yellow('#### -- tomorrows date is ' + str(NextDay_Date_Formatted) + ' -- ####')
+    time.sleep(1)
+    date.send_keys(str(NextDay_Date_Formatted) + Keys.RETURN)
+    date.send_keys(Keys.TAB) # add a # to the front of this line and add # comment to the front of lines 178-180 and remove the # in front of Lines 181-185 to use a different method.
+    print_green(pre + "[BrinxBot]: Date has been changed.")
+    # change time script is ran to 12:00:00 AM
+    print_blue(pre + "[BrinxBot]: Changing the time to 12am")
+    tomrrw = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
+    tomrrw.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
+    tomrrw.send_keys("12a" + Keys.TAB)
+    time.sleep(3)
+    print_green(pre + "[BrinxBot]: Time has been changed")
+    pass
+elif ticket_type == '*edgeupdate*':
+    pass
 # click SCHEDULE
 print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
 click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
@@ -205,7 +196,7 @@ def Server_ReReConnect():
 
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
-        Connection.send_keys("/name CWABrinxBot" + Keys.RETURN)
+        Connection.send_keys("/name (CWA)BrinxBot" + Keys.RETURN)
         Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
     except RuntimeError:
         print_red(pre + "Server Connection Failed. Continuing with shutdown.")
