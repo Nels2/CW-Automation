@@ -8,7 +8,7 @@ Requires selenium and geckodriver.
 # NOTICE: This is WIP project.
 CW-Automation is project I took on to teach myself how to web-scrape, and to make noise tickets a thing of the past. This script(s) is product of hours of research and testing.
 # Step 1 - Starting Out
-To start you need a *nix VM or *nix Machine. You need Python 3.5+ & Distro does not matter. I used Arch btw.
+To start you **need** a *nix VM or *nix Machine. Works on mac as well(Tested on Big Sur) You need Python 3.5+ & Distro does not matter. I used Arch btw.
 
 - You need to have the geckodriver in your /usr/local/bin directory.
 geckodriver is a program that provides the HTTP API described by the WebDriver protocol to communicate with Gecko browsers, such as Firefox. It translates calls into the Marionette remote protocol by acting as a proxy between the local- and remote ends.
@@ -17,8 +17,8 @@ geckodriver is a program that provides the HTTP API described by the WebDriver p
 # Step 2 - The Set Up
 Next is to open up a terminal on your *nix install. 
 - First you need to install the file requirements which are 1. selenium and 2. pyfiglet.
-you can install both using ```pip install selenium``` and ```pip install pyfiglet```
-- Great! next is cloning my repository from GitHub and changing into its directory.
+you can install both using ```pip install selenium``` and ```pip install pyfiglet``` \
+Great! next is cloning my repository from GitHub and changing into its directory.
 - In a terminal, type out: ```git clone https://github.com/Nels2/CW-Automation.git```
 after it is finished, change into its' directory by typing out: ```cd CW-Automation```
 That is all for this step.
@@ -29,20 +29,20 @@ We will start first with 'CW.py'\
 - Once inside the file, press CTRL+F, this will bring a search bar.
 - In the search bar, you want type: userd \
 This will bring you to THREE values you need to change.
-- **'comp'** is where you will input your company name INSIDE  the quotation marks. for example for us it is 'centurytest'
-- **'userd'** is your username for ConnectWise. make sure you type it INSIDE the quotation marks.
-- **'pasd'** is your password for ConnectWise. make sure you type it INSIDE the quotation marks.
-That is all you need to do for CW.py. make sure you hit SAVE! You can now close CW.py
+- **'comp'** is where you will input your company name **INSIDE**  the quotation marks. for example for us it is 'centurytest'
+- **'userd'** is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
+- **'pasd'** is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
+That is all you need to do for CW.py. make sure you hit **SAVE!** You can now close CW.py
 # Editing! Part 2 of 2
 Now that CW.py is taken care of, go back and open up 'AutomateConnection.py' in your choice of code editor.\
 Once the file 'AutomateConnection.py' is open, press CTRL+F\
-- You are going to CTRL+F more than once.
-- You are looking for the value 'usrname'
-Once it is found, you need to edit the values for 'usrname' and 'passwd'. Make sure you edit inside the the quotation marks( ' ' ). 
+- **You are going to CTRL+F more than once.**
+- You are looking for the value **'usrname'**
+Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
 - 'passwd' is your password for your login at Automate Control Center.
 Once these fields have been entered, press CTRL+F again.
-- The next value we are looking for is 'epwd'
+- The next value we are looking for is **'epwd'**
 This will take you down to the Office 365 login information values. Make sure to enter your data INSIDE the quotation marks.
 - **'email'** is your email for Office 365.
 - **'epwd'** is your password for Office 365.
