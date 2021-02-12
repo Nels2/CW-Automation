@@ -32,9 +32,10 @@ print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
+ticket_info = pickle.load( open( "ticket.p", "rb"))
 now = datetime.datetime.now()
 
-url = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, whereever it is hosted..
+url = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, where-ever it is hosted..
 driver = webdriver.Firefox()
 driver.get(url)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
@@ -46,8 +47,13 @@ passwd = ''
 
 print("...")
 print_yellow("#### --------- Begin Automate Connection --------- ####")
-custom_fig = Figlet(font='hollywood')
-print_red(custom_fig.renderText('Brinx'))
+try:
+    custom_fig = Figlet(font='hollywood')
+    print_red(custom_fig.renderText('Brinx'))
+except NotImplementedError: 
+    pass
+alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 1.2.0 -- ####', 'red', attrs=['reverse', 'blink'])
+print(alt_logo)
 print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
 NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
 time.sleep(3)
@@ -64,8 +70,7 @@ print_green("#### -- Automate Control Center Login Sumbitted.. Awaiting Token.. 
 #time.sleep(0.3)---------------------------------------------------------------------------------------------------------------------------------------||
 #click_login = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(5) > div:nth-child(1) > div").click() -----uncomment if Keys.RETURN is not working in Line 65.
 time.sleep(1.5)
-print_blue(pre + "[BrinxBot]: We just need the token now to login! Opening new tab... and switching to it!")
-# now to login into my email and get code and go back to verify. Must be done withing 3-8 minutes or code is no longer valid.
+print_blue(pre + "[BrinxBot]: A Token is needed to login! Opening new tab... and switching to it to login into O365!")
 # --- second tab --- #
 # the 2 lines after this comment are meant to collect the current window handle info. --#
 # Opening Tab 2 up [Office 365 Email Inbox]
@@ -90,10 +95,10 @@ passwd.send_keys(Keys.RETURN)
 print_green("#### -- Office Account Has Been Signed in. -- ####")
 # select 'No' to stay signed in.
 time.sleep(1.5)
-print_blue(pre + "[BrinxBot]: No. I dont want to stay signed in... continuing")
+print_blue(pre + "[BrinxBot]: Selecting 'No'.. I dont want to stay signed in... continuing")
 no = driver.find_element_by_css_selector("#idBtn_Back").click()
 # time to open the email and grab the code...
-print_blue(pre + "[BrinxBot]: I'm in! Going to look for the email and save the code..")
+print_blue(pre + "[BrinxBot]: Login to O365 was successful! Going to look for the email and save the code(the token)..")
 time.sleep(7)
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'BVgxayg_IGpXi5g7S77GK')))
 search_email = driver.find_element_by_css_selector('._1Qs0_GHrFMawJzYAmLNL2x')
@@ -131,12 +136,20 @@ print_yellow("#### -- Searching in Automate for computer... -- ####")
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
-search_for_comp.send_keys(computer + Keys.RETURN)
+if ticket_type == 'UPDATES': # UPDATES pending tickets
+            search_for_comp.send_keys(computer + Keys.RETURN)
+            pass
+elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stopped
+            search_for_comp.send_keys(computer + Keys.RETURN)
+            #search_for_comp.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
+            #time.sleep(3)
+            #search_for_comp.send_keys(computer + Keys.RETURN) # for some reason through testing this PC only shows up if you enter it, then delete it and re enter it.
+            pass
 time.sleep(3)
 select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
 # save this tab so i can return to it in case a new window is launched.
 second_tab_handle = driver.current_window_handle
-print_yellow("second_tab_handle : "+str(second_tab_handle)) # right before computer screen 
+print_yellow("#### -- second_tab_handle : "+str(second_tab_handle) + " -- ####") # right before computer screen 
 
 ## --- new method to do the script.
 script_start = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div > div > div > div").click()
@@ -176,7 +189,7 @@ if ticket_type == 'UPDATES': # UPDATES pending tickets
     tomrrw = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
     tomrrw.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
     tomrrw.send_keys("12a" + Keys.TAB)
-    time.sleep(3)
+    time.sleep(1)
     print_green(pre + "[BrinxBot]: Time has been changed")
     pass
 elif ticket_type == '*edgeupdate*':
@@ -197,11 +210,13 @@ def Server_ReReConnect():
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name (CWA)BrinxBot" + Keys.RETURN)
+        Connection.send_keys('Here is the ticket I completed today: [' + ticket_info + ']' + Keys.RETURN)
         Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
     except RuntimeError:
         print_red(pre + "Server Connection Failed. Continuing with shutdown.")
     driverTwo.quit()
 Server_ReReConnect()
 driver.quit()
-print_red(pre + "Connection has been lost to BrinxBot.")
+Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
+print_red(pre + Connectionloss)
 print("---------------------------------------------------------------")

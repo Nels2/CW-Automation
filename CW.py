@@ -5,6 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 import termcolor
 from termcolor import colored, cprint
@@ -42,7 +43,7 @@ def Server_Connect():
         Connection.send_keys("/name BrinxBot" + Keys.RETURN)
         Connection.send_keys("Connection has been established..." + Keys.RETURN)
         print_green("#### -- SUCCESS -- #####")
-    except NoSuchElementException:
+    except WebDriverException:
         print_red("#### -- FAIL -- ####")
         print_red("Server Connection Failed. No login was made to the Server. Continuing...")
     driverTwo.quit()
@@ -84,12 +85,15 @@ print_green("#### -- Logged in! -- ####")
 # time.sleep(20)
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
+
+ticket_Si = colored('####                -- Ticket Search Information --               ####', 'yellow', attrs=['reverse', 'blink'])
+print(ticket_Si)
 print_yellow("####                -- Ticket Search Information --               ####")
 print_yellow("|     You can look for different ticket types!                       |")
 print_yellow("| OP1 = Look for update tickets                                      |")
 print_yellow("| OP2 = Look for Service EdgeUpdate stopped tickets                  |")
 print_yellow("| This input is also case sensitive so please enter EXACTLY as seen! |")
-print_yellow("######################################################################")
+print_yellow('|####################################################################|')
 def Ticket_info_method():
     while True:
         ticket_type = input("| Please Enter Either 'OP1' or 'OP2' without quotes: ")
@@ -104,7 +108,8 @@ def Ticket_info_method():
             pass
             break
         else:
-            print_red("please enter either OP1 or OP2.")
+            enterError = colored('please enter either OP1 or OP2.', 'red', attrs=['reverse', 'blink'])
+            print(enterError)
             continue
 Ticket_info_method()
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
@@ -137,20 +142,22 @@ time.sleep(3)
 def computerz():
     if ticket_type == 'UPDATES':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
+        pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
         computer = ticket_info.split("\\",1)[1]
         pickle.dump( computer, open( "save.p", "wb"))
-        print_yellow(computer)
+        #print_yellow(computer)
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
         pass
     elif ticket_type == '*edgeupdate*':
         time.sleep(0.5)
         ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
-        print_yellow("#### " + ticket_info + "####")
-        computer = ticket_info.split("for",1)[1]
+        print_yellow("#### -- " + ticket_info + " -- ####")
+        pickle.dump( ticket_info, open( "ticket.p", "wb"))
+        computer = ticket_info.split("for ",1)[1]
         pickle.dump( computer, open( "save.p", "wb"))
-        print_yellow(computer)
-        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
+        #print_yellow(computer)
+        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
         pass  
 computerz()
 # ---- The above should be saved to a variable called 'computer' for use in AutomateConnection.py when this file(main[.py]) is imported in.
