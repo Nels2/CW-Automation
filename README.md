@@ -27,7 +27,9 @@ That is all for this step.
 Open up a code editor of your choice, and open up both 'CW.py' and 'AutomateConnection.py'\
 We will start first with 'CW.py'\
 - Once inside the file, press CTRL+F, this will bring a search bar.
-- In the search bar, you want type: userd \
+- First you need to search for 'url'(Line )
+- **Change the url to match your connectwise login site.**
+- In the search bar, again, you want type: userd \
 This will bring you to THREE values you need to change.
 - **'comp'** is where you will input your company name **INSIDE**  the quotation marks. for example for us it is 'centurytest'
 - **'userd'** is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
@@ -37,7 +39,10 @@ That is all you need to do for CW.py. make sure you hit **SAVE!** You can now cl
 Now that CW.py is taken care of, go back and open up 'AutomateConnection.py' in your choice of code editor.\
 Once the file 'AutomateConnection.py' is open, press CTRL+F\
 - **You are going to CTRL+F more than once.**
-- You are looking for the value **'usrname'**
+- First you need to search for 'url' (line 37)
+- **Change the url to match your hoested rmm automate login site.**
+- Next you need to change another thing, on Line 79, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
+- You are now looking for the value **'usrname'**
 Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
 - 'passwd' is your password for your login at Automate Control Center.
