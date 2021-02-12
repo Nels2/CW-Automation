@@ -16,7 +16,6 @@ import termcolor
 from termcolor import colored, cprint
 import CW
 from CW import computerz, Ticket_info_method
-
 # -- -- -- -- -- -- -- -- -- #
 #    Created by Nelson O.    #
 #        2021.01.29          #
@@ -66,13 +65,10 @@ time.sleep(1.5)
 pw = driver.find_element_by_id('loginPassword')
 time.sleep(0.5) 
 pw.send_keys(passwd + Keys.RETURN)
-print_green("#### -- Automate Control Center Login Sumbitted.. Awaiting Token.. -- ####")
-#time.sleep(0.3)---------------------------------------------------------------------------------------------------------------------------------------||
-#click_login = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(5) > div:nth-child(1) > div").click() -----uncomment if Keys.RETURN is not working in Line 65.
+print_green("#### -- Automate Control Center Login Sumbitted.. Awaiting Token.. -- ####")#-----------------------------------------------------------------------------------------------------
 time.sleep(1.5)
 print_blue(pre + "[BrinxBot]: A Token is needed to login! Opening new tab... and switching to it to login into O365!")
-# --- second tab --- #
-# the 2 lines after this comment are meant to collect the current window handle info. --#
+# the 74-765 lines after this comment are meant to collect the current window handle info. --#
 # Opening Tab 2 up [Office 365 Email Inbox]
 first_tab_handle = driver.current_window_handle
 print_yellow("first_tab_handle : "+str(first_tab_handle))
@@ -131,8 +127,7 @@ except NoSuchElementException:
     pass
     print_green("#### -- DashBoard Loaded Successfully with No Errors! -- ####")
 # now time to search for computer and double click on it
-print_yellow("#### -- Searching in Automate for computer... -- ####")
-# time.sleep(6) uncomment if below method of webdriverwait does not work.   
+print_yellow("#### -- Searching in Automate for computer... -- ####")  
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
@@ -141,17 +136,12 @@ if ticket_type == 'UPDATES': # UPDATES pending tickets
             pass
 elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stopped
             search_for_comp.send_keys(computer + Keys.RETURN)
-            #search_for_comp.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-            #time.sleep(3)
-            #search_for_comp.send_keys(computer + Keys.RETURN) # for some reason through testing this PC only shows up if you enter it, then delete it and re enter it.
             pass
 time.sleep(3)
 select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
 # save this tab so i can return to it in case a new window is launched.
 second_tab_handle = driver.current_window_handle
 print_yellow("#### -- second_tab_handle : "+str(second_tab_handle) + " -- ####") # right before computer screen 
-
-## --- new method to do the script.
 script_start = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div > div > div > div").click()
 time.sleep(0.5)
 script_search = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > input")
@@ -182,7 +172,7 @@ if ticket_type == 'UPDATES': # UPDATES pending tickets
     print_yellow('#### -- tomorrows date is ' + str(NextDay_Date_Formatted) + ' -- ####')
     time.sleep(1)
     date.send_keys(str(NextDay_Date_Formatted) + Keys.RETURN)
-    date.send_keys(Keys.TAB) # add a # to the front of this line and add # comment to the front of lines 178-180 and remove the # in front of Lines 181-185 to use a different method.
+    date.send_keys(Keys.TAB) 
     print_green(pre + "[BrinxBot]: Date has been changed.")
     # change time script is ran to 12:00:00 AM
     print_blue(pre + "[BrinxBot]: Changing the time to 12am")

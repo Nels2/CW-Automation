@@ -13,8 +13,6 @@ from time import sleep
 import time
 import pickle
 # import AutomateConnection.py -- un'#' once Automate Connection has been finished.
-
-
 #
 #
 #  --------------ConnectWise Automator, By Nelson Orellana -----------------
@@ -22,9 +20,6 @@ import pickle
 # Introducing a selenium + python script that logs into my ConnectWise, looks for tickets starting with 'UPDATE'(the ticket it looks for can be change. I plan to add more complexion to this script as time goes on.)
 #
 # ---------------Built 2021.01.27 ------------------------------------------
-#
-#
-#
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
@@ -49,7 +44,6 @@ def Server_Connect():
     driverTwo.quit()
 Server_Connect()
 
-
 url = "https://na.myconnectwise.net/v2020_3/connectwise.aspx?fullscreen=false&locale=en_US#startscreen=sr200" # change to your specific company login site.
 driver = webdriver.Firefox()
 driver.get(url)
@@ -67,11 +61,6 @@ s.send_keys(userd)
 p = driver.find_element_by_name('Password')
 p.send_keys(pasd)
 p.send_keys(Keys.RETURN)
-
-# this is the xpath for the ubtton i need to clik on. /html/body/div[3]/table/tbody/tr[2]/td/input[1]
-# this is ccs selector path for button i need. below
-##  include the first # -> #session-dialog > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > input:nth-child(1)
-
 # clicking proceed so i can continue
 try:
     time.sleep(3)
@@ -85,7 +74,7 @@ print_green("#### -- Logged in! -- ####")
 # time.sleep(20)
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
-
+#
 ticket_Si = colored('####                -- Ticket Search Information --               ####', 'yellow', attrs=['reverse', 'blink'])
 print(ticket_Si)
 print_yellow("####                -- Ticket Search Information --               ####")
@@ -118,7 +107,6 @@ search.send_keys(ticket_type)
 search.send_keys(Keys.RETURN)
 # let the field populate... then searches for tickets that start with "UPDATES" then clicks on the first one
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
-#WebDriverWait(driver, 1000).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#srboard-listview-scroller > div.GE0S-T1CAVF > table > tbody:nth-child(2) > tr.GE0S-T1CGWF.cw-ml-row.GE0S-T1CEWF > td:nth-child(6) > div > a")))
 try:
     time.sleep(4.5)
     ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
@@ -127,8 +115,7 @@ try:
 except ElementNotInteractableException:
     pass
 #Next is viewing what the ticket is about to make sure it is correct before continuing...
-# Internal Note tabe should now be selected.. 
-#--------------------------    Now to click on new note and begin the process of TRUE automation without CW's useless scripting...
+#-Now to click on new note and begin the process of TRUE automation without CW's useless scripting...
 time.sleep(3)
 # now to scroll the view down.. hopefully!
 try:
