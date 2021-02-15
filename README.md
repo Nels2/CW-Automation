@@ -27,13 +27,13 @@ That is all for this step.
 Open up a code editor of your choice, and open up both 'CW.py' and 'AutomateConnection.py'\
 We will start first with 'CW.py'\
 - Once inside the file, press CTRL+F, this will bring a search bar.
-- First you need to search for 'url'(Line )
+- First you need to search for 'url'(Line 48)
 - **Change the url to match your connectwise login site.**
 - In the search bar, again, you want type: userd \
 This will bring you to THREE values you need to change.
-- **'comp'** is where you will input your company name **INSIDE**  the quotation marks. for example for us it is 'centurytest'
-- **'userd'** is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
-- **'pasd'** is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
+- **'comp'**(line 53) is where you will input your company name **INSIDE**  the quotation marks. for example for us it is 'centurytest'
+- **'userd'**(line 54) is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
+- **'pasd'**(line 55) is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 That is all you need to do for CW.py. make sure you hit **SAVE!** You can now close CW.py
 # Editing! Part 2 of 2
 Now that CW.py is taken care of, go back and open up 'AutomateConnection.py' in your choice of code editor.\
@@ -41,7 +41,7 @@ Once the file 'AutomateConnection.py' is open, press CTRL+F\
 - **You are going to CTRL+F more than once.**
 - First you need to search for 'url' (line 37)
 - **Change the url to match your hoested rmm automate login site.**
-- Next you need to change another thing, on Line 79, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
+- Next you need to change another thing, on Line 78, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
 - You are now looking for the value **'usrname'**
 Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
@@ -49,8 +49,8 @@ Once it is found, you need to edit the values for **'usrname'** and **'passwd'**
 Once these fields have been entered, press CTRL+F again.
 - The next value we are looking for is **'epwd'**
 This will take you down to the Office 365 login information values. Make sure to enter your data INSIDE the quotation marks.
-- **'email'** is your email for Office 365.
-- **'epwd'** is your password for Office 365.
+- **'email'**(line 81) is your email for Office 365.
+- **'epwd'**(line 82) is your password for Office 365.
 That is all for this step!, you should be good to go.
 
 # Optional Step - Watch Live Steps at Server!
