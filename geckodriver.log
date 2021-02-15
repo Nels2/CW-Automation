@@ -2090,3 +2090,65 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 
 ###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1613428262620	geckodriver	INFO	Listening on 127.0.0.1:58411
+1613428262625	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileYOqOqv"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428263777	Marionette	INFO	Listening on port 42249
+1613428263847	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613428263858	Marionette	ERROR	[15] No reply from Marionette:Register
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428266001	Marionette	INFO	Stopped listening on port 42249
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1613428266473	geckodriver	INFO	Listening on 127.0.0.1:45987
+1613428266482	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilechSQmr"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428268072	Marionette	INFO	Listening on port 45253
+1613428268118	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613428268128	Marionette	ERROR	[15] No reply from Marionette:Register
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1613428302592	Marionette	INFO	Stopped listening on port 45253
+1613428303125	geckodriver	INFO	Listening on 127.0.0.1:34061
+1613428303128	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilewpewaV"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428304296	Marionette	INFO	Listening on port 42341
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428304352	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613428304363	Marionette	ERROR	[15] No reply from Marionette:Register
+1613428306542	Marionette	INFO	Stopped listening on port 42341
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1613428307012	geckodriver	INFO	Listening on 127.0.0.1:52687
+1613428307020	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileKBgGkr"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428308524	Marionette	INFO	Listening on port 35883
+1613428308661	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613428308672	Marionette	ERROR	[15] No reply from Marionette:Register
+1613428320053	Marionette	ERROR	[2147483654] No reply from Marionette:Register
+JavaScript error: https://outlook.office365.com/owa/prefetch.aspx, line 18: NS_ERROR_NOT_INITIALIZED: 
+1613428327331	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1613428327882	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1613428357279	geckodriver	INFO	Listening on 127.0.0.1:34011
+1613428357282	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileWnFmCv"
+*** You are running in headless mode.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1613428358511	Marionette	INFO	Listening on port 41733
+1613428358601	Marionette	WARN	TLS certificate errors will be ignored for this session
+1613428358612	Marionette	ERROR	[15] No reply from Marionette:Register
+1613428360724	Marionette	INFO	Stopped listening on port 41733
+1613428361193	Marionette	INFO	Stopped listening on port 35883

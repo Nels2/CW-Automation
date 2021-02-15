@@ -73,7 +73,7 @@ print_green("#### -- Logged in! -- ####")
 # so page can load then clicks on summary description and looks for the specifced ticket.    
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
-#
+
 ticket_Si = colored('####                -- Ticket Search Information --               ####', 'yellow', attrs=['reverse', 'blink'])
 print(ticket_Si)
 print_yellow("####                -- Ticket Search Information --               ####")
@@ -121,7 +121,7 @@ except ElementNotInteractableException:
     pass
     print_yellow('#### -- Ticket Function Was Not Used! -- ####')
 #Next is viewing what the ticket is about to make sure it is correct before continuing...
-#-Now to click on new note and begin the process of TRUE automation without CW's useless scripting...
+#-Now to click on new note and begin the process of TRUE automation without CW's semi useless scripting...
 time.sleep(3)
 # now to scroll the view down.. hopefully!
 try:
@@ -173,7 +173,6 @@ WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 
 time.sleep(2)
 #now check discussion. after discussion is checked we begin entering our notes.
 check_disucssion = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(1) > div > div > div").click()
-
 enter_notes = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(2) > div > div.ManageNoteRichTextEditor-richEditor > div > div.DraftEditor-editorContainer > div")
 if ticket_type == 'UPDATES':
     enter_notes.send_keys('[BrinxBot]: This ticket is being completed using Python & Selenium!')
