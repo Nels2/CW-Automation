@@ -76,16 +76,16 @@ search = driver.find_element_by_xpath("//input[@id='Summary-input']")
 
 ticket_Si = colored('####                -- Ticket Search Information --               ####', 'yellow', attrs=['reverse', 'blink'])
 print(ticket_Si)
-print_yellow("####                -- Ticket Search Information --               ####")
 print_yellow("|     You can look for different ticket types!                       |")
-print_yellow("| OP1 = Look for update(reboot pending) tickets                      |")
-print_yellow("| OP2 = Look for Service EdgeUpdate stopped tickets                  |")
-print_yellow("| OP3 = Look for Disk Cleanup tickets                                |")
+print_yellow("| OP1: Look for update(reboot pending) tickets                       |")
+print_yellow("| OP2: Look for Service EdgeUpdate stopped tickets                   |")
+print_yellow("| OP3: Look for Disk Cleanup tickets                                 |")
+print_yellow("| OP4: Look for NIC Packet Error tickets                             |")
 print_yellow("| This input is also case sensitive so please enter EXACTLY as seen! |")
 print_yellow('|####################################################################|')
 def Ticket_info_method():
     while True:
-        ticket_type = input("| Please Enter Either 'OP1', 'OP2', or 'OP3' without quotes: ")
+        ticket_type = input("| Please Enter Either 'OP1', 'OP2', 'OP3' or 'OP4' without quotes: ")
         if ticket_type == 'OP1':
             ticket_type = '*Reboot*' # UPDATES pending tickets
             pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
@@ -101,8 +101,13 @@ def Ticket_info_method():
             pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
             pass
             break
+        elif ticket_type == 'OP4':
+            ticket_type = '*NIC*' # service tickets where a disk clean up is needed
+            pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
+            pass
+            break
         else:
-            enterError = colored('please enter either OP1 or OP2.', 'red', attrs=['reverse', 'blink'])
+            enterError = colored('Please Enter Either OP1, OP2, OP3, or OP4.', 'red', attrs=['reverse', 'blink'])
             print(enterError)
             continue
 Ticket_info_method()
@@ -133,7 +138,7 @@ except NoSuchElementException:
 time.sleep(3)
 # break text up so I only have computer name so brinxbot can look it up.
 def computerz():
-    if ticket_type == '*Reboot*':
+    if ticket_type == '*Reboot*' or '*NIC*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
@@ -211,8 +216,15 @@ elif ticket_type == '*Disk Cleanup*':
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
     enter_notes.send_keys('[BrinxBot]: No further action is needed, the Disk Clean up will run, if another error occurs during the script, a ticket will be created.')
     pass
+elif ticket_type == '*NIC*':
+    enter_notes.send_keys('[BrinxBot]: Python was used to complete this ticket!')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: Issuing NICPactSolver script to machine....done!')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: No further action is needed, the NICPactSolver script has investigated and resolved NIC packet issues.')
+    pass
 else:
-    print_red("Unknown Ticket type. BrinxBot does not know what to do.")
+    print_red("Unknown Ticket type. BrinxBot does not know what to do here.")
 #will now check the resolution box -- I will add a method that goes into Automate and sends the reboot script. Still testing..
 mark_as_done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(3) > div > div > div").click()
 #and finally.. hit SAVE!

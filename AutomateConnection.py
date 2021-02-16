@@ -24,7 +24,7 @@ from CW import computerz, Ticket_info_method
 # --
 # This script is intended to login into Automate and grab the verification code from an email to login.
 # Should ALWAYS be used before 'CW.py'
-# So far this script can complete script types 'updates'  and 'service edgeupdate has stopped'
+# So far this script can complete script types 'updates', 'Disk Cleanup'  and 'service edgeupdate has stopped'
 # --
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
@@ -131,15 +131,11 @@ print_yellow("#### -- Searching in Automate for computer... -- ####")
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
-if ticket_type == '*Reboot*': # UPDATES pending tickets
+if ticket_type == '*Reboot*' or '*edgeupdate*' or '*Disk Cleanup*' or '*NIC*' : # UPDATES pending tickets
             search_for_comp.send_keys(computer + Keys.RETURN)
             pass
-elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stopped 
-            search_for_comp.send_keys(computer + Keys.RETURN)
-            pass
-elif ticket_type == '*Disk Cleanup*': # service tickets where edgeupdate is stopped 
-            search_for_comp.send_keys(computer + Keys.RETURN)
-            pass
+else:
+    print_red("ERROR! LINE 147")
 time.sleep(3)
 select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
 # save this tab so i can return to it in case a new window is launched.
@@ -158,6 +154,9 @@ elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stoppe
 elif ticket_type == '*Disk Cleanup*': # service tickets where Disk Clean up is needed
             script_to_send = 'Disk Cleanup'
             pass
+elif ticket_type == '*NIC*': # service tickets where NIC packets are erroring and NicPactSolver script is needed
+            script_to_send = 'NicPactSolver'
+            pass
 script_search.send_keys(script_to_send)
 if ticket_type == '*Disk Cleanup*':
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div:nth-child(2) > div.CwTreeViewNode-subTree > div:nth-child(2) > div > label").click()
@@ -166,7 +165,9 @@ else:
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
     pass
 print_blue(pre + "[BrinxBot]: Inside " + computer + " script launch menu now, launching the script...")
-if ticket_type == '*Reboot*' or '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
+if ticket_type == '*edgeupdate*' or '*NIC*': # this just runs the script right away for edgeupdate or NIC tickets.
+    pass
+elif ticket_type == '*Reboot*' or '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
     # -- wait for dialog box to appear.. -- #
     print_blue(pre + "[BrinxBot]: waiting for dialog box..")
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
@@ -192,8 +193,6 @@ if ticket_type == '*Reboot*' or '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean
     tomrrw.send_keys("12a" + Keys.TAB)
     time.sleep(1)
     print_green(pre + "[BrinxBot]: Time has been changed")
-    pass
-elif ticket_type == '*edgeupdate*':
     pass
 # click SCHEDULE
 print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
