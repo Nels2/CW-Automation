@@ -131,7 +131,7 @@ print_yellow("#### -- Searching in Automate for computer... -- ####")
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
-if ticket_type == 'UPDATES': # UPDATES pending tickets
+if ticket_type == '*Reboot*': # UPDATES pending tickets
             search_for_comp.send_keys(computer + Keys.RETURN)
             pass
 elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stopped 
@@ -149,7 +149,7 @@ script_start = driver.find_element_by_css_selector("#root > div > div > div > di
 time.sleep(0.5)
 script_search = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > input")
 print_green(pre + "[BrinxBot]: ..searching for script.")
-if ticket_type == 'UPDATES': # UPDATES pending tickets
+if ticket_type == '*Reboot*': # UPDATES pending tickets
             script_to_send = 'reboot script'
             pass
 elif ticket_type == '*edgeupdate*': # service tickets where edgeupdate is stopped
@@ -166,7 +166,7 @@ else:
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
     pass
 print_blue(pre + "[BrinxBot]: Inside " + computer + " script launch menu now, launching the script...")
-if ticket_type == 'UPDATES' or '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
+if ticket_type == '*Reboot*' or '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
     # -- wait for dialog box to appear.. -- #
     print_blue(pre + "[BrinxBot]: waiting for dialog box..")
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))

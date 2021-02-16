@@ -78,7 +78,7 @@ ticket_Si = colored('####                -- Ticket Search Information --        
 print(ticket_Si)
 print_yellow("####                -- Ticket Search Information --               ####")
 print_yellow("|     You can look for different ticket types!                       |")
-print_yellow("| OP1 = Look for update tickets                                      |")
+print_yellow("| OP1 = Look for update(reboot pending) tickets                      |")
 print_yellow("| OP2 = Look for Service EdgeUpdate stopped tickets                  |")
 print_yellow("| OP3 = Look for Disk Cleanup tickets                                |")
 print_yellow("| This input is also case sensitive so please enter EXACTLY as seen! |")
@@ -87,7 +87,7 @@ def Ticket_info_method():
     while True:
         ticket_type = input("| Please Enter Either 'OP1', 'OP2', or 'OP3' without quotes: ")
         if ticket_type == 'OP1':
-            ticket_type = 'UPDATES' # UPDATES pending tickets
+            ticket_type = '*Reboot*' # UPDATES pending tickets
             pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
             pass
             break
@@ -133,11 +133,15 @@ except NoSuchElementException:
 time.sleep(3)
 # break text up so I only have computer name so brinxbot can look it up.
 def computerz():
-    if ticket_type == 'UPDATES':
+    if ticket_type == '*Reboot*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
-        computer = ticket_info.split("\\",1)[1]
+        #computer = ticket_info.split("\\",1)[1]
+        str = ticket_info
+        z = str.split("\\",1)[1]
+        str = z
+        computer = str.split(" at ",1)[0]
         pickle.dump( computer, open( "save.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
         pass
@@ -174,7 +178,7 @@ time.sleep(2)
 #now check discussion. after discussion is checked we begin entering our notes.
 check_disucssion = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(1) > div > div > div").click()
 enter_notes = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(2) > div > div.ManageNoteRichTextEditor-richEditor > div > div.DraftEditor-editorContainer > div")
-if ticket_type == 'UPDATES':
+if ticket_type == '*Reboot*':
     enter_notes.send_keys('[BrinxBot]: This ticket is being completed using Python & Selenium!')
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
     enter_notes.send_keys('[BrinxBot]: Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
