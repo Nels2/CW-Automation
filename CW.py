@@ -135,8 +135,13 @@ try:
 except NoSuchElementException:
     grab = driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 # also need to save what ticket is about so BrinxBot isn't lost..
-time.sleep(3)
+time.sleep(2)
 # break text up so I only have computer name so brinxbot can look it up.
+Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input')
+Mark_Resolved.click()
+Mark_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
+Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
+print_green("[BrinxBot]: Marked as Resolved.")
 def computerz():
     if ticket_type == '*Reboot*' or '*NIC*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
