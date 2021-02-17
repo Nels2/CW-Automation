@@ -62,4 +62,8 @@ this website chats with the Bot or in other words the script. You can see the st
 Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Next to run the script, type out: ```python3 AutomateConnection.py```\
+#Optional
+- Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
+- Instead type out: ```sudo chmod +x start.sh```
+- And to run it type out: ```./start.sh```
 The script will begin to run. Make sure to pay attention to the terminal as well. 
