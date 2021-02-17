@@ -1,6 +1,6 @@
 # CW-Automation
 Attempting to fully automate ticketing...
-
+So far this script can **complete** 4 different ticket types: (Disk Cleanup, Reboot/Update Pending, service edgeupdate has stopped, & NIC packet issue tickets)
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
@@ -62,4 +62,8 @@ this website chats with the Bot or in other words the script. You can see the st
 Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Next to run the script, type out: ```python3 AutomateConnection.py```\
+#Optional
+- Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
+- Instead type out: ```sudo chmod +x start.sh```
+- And to run it type out: ```./start.sh```
 The script will begin to run. Make sure to pay attention to the terminal as well. 
