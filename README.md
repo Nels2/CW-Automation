@@ -1,6 +1,6 @@
 # CW-Automation
 Attempting to fully automate ticketing...
-
+So far this script can **complete** 4 different ticket types: (Disk Cleanup, Reboot/Update Pending, service edgeupdate has stopped, & NIC packet issue tickets)
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
