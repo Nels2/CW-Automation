@@ -122,6 +122,7 @@ click_on_token.send_keys(da_code + Keys.RETURN)
 print_yellow("#### -- Automate Control Center Connecton Established... -- ####")
 # check variable to see if it is the same. 
 computer = pickle.load( open( "save.p", "rb"))
+compenny = pickle.load( open( "company_info.p", "rb"))
 print_yellow("#### -- Pickle has loaded in the following saved variable from main: " + computer + " -- #####")
 try:
     find_internal_error = driver.find_element_by_css_selector(".CwDialog-modal")
@@ -135,15 +136,22 @@ print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + 
 # now time to search for computer and double click on it
 print_yellow("#### -- Searching in Automate for computer... -- ####")  
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
+search_first_by_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
+search_first_by_peny.send_keys(compenny + Keys.RETURN)
+time.sleep(2)
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
 search_for_comp.send_keys(computer + Keys.RETURN)
 time.sleep(3)
-try:
-    Agnt_Status = driver.find_element_by_css_selector('div.CwDataGrid-row:nth-child(1) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1) > div:nth-child(1) > div:nth-child(1)')
-except NoSuchElementException:
-    print_red('#### -- Agent Status: OFFLINE! -- #####')
+Agnt_Status = driver.find_elements_by_css_selector('.CwDataGrid-success')
+s = len(Agnt_Status)
+# check condition, if list size > 0, element exists
+if(s>0):
+    print_green('#### -- Agent Status: ONLINE! -- #####')
+    pass
+else:
     while True:
+        print_red('#### -- Agent Status: OFFLINE! -- #####')
         decide = input("| Do you want to continue anyway?(y/n): ")
         if decide == 'y':
             pass
@@ -151,9 +159,11 @@ except NoSuchElementException:
         elif decide == 'n':
             print_yellow('#### -- !! Force Quitting !! -- ####')
             sys.exit()
+            pass
         else:
             print_red(' #### -- ERROR: You need to enter either y/n. -- ####')
             continue
+    
 select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
 # save this tab so i can return to it in case a new window is launched.
 second_tab_handle = driver.current_window_handle
@@ -181,7 +191,7 @@ if ticket_type == '*Disk Cleanup*':
 else:
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
     pass
-print_blue(pre + "[BrinxBot]: Inside " + computer + " script launch menu now, launching the script...")
+print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny + " script launch menu now, launching the script...")
 if ticket_type == '*edgeupdate*': # this just runs the script right away for edgeupdate or NIC tickets.
     pass
 elif ticket_type == '*NIC*': # this just runs the script right away for edgeupdate or NIC tickets.

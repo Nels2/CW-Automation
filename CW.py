@@ -44,8 +44,7 @@ def Server_Connect():
     driverTwo.quit()
 Server_Connect()
 
-#url = "https://na.myconnectwise.net/v2020_3/connectwise.aspx?fullscreen=false&locale=en_US#startscreen=sr200" # OLD CW
-url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&locale=en_US#XQAACACvAwAAAAAAAAA9iIoG07$U9XMFhXt2f868IPYf62qRKAxqo4FiH$vrtK88YNLCH6jbzqTv13gkkK5gq2pD4e9sgLVo9GYfZyYMkYGo5ZJjYW_yOxpx4m2MNnghIUok2qOypftthoh5a68JA7qy1h2NEnx9QtMjqbu_GeHNL6kipCQ1dpWMjNdHpIotEzI0fU7Ni2XcVu84LVycGidzIzZIUjt63a$WxmSexty3cR5Ty9l$g28qJQ1O8LKd6_i8acZiyO8zg6tEDkhrZIF9yO4rFbuz5uigo7zmNa$9nHi3r4DUPJnB7rhNG63MOC3jZ8ccwvFR1snmAP1sY5$nqoAN$XIvQ_og4ChyDx1O1d7hT3u70hodYzWygyWCUW7tokvyurwSin5ALIsOdqouE9OMdJdl8COpgGaHROgasBv2Xd6dn5CLs60G$lLZnGZfl2CncrkNOn8c2khXzfj8hoCW2LP95eoe??ServiceBoard" # change to your specific company login site.
+url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&locale=en_US#XQAACADDAwAAAAAAAAA9iIoG07$U9W$OXqU2f868IPYhCwZbCCkqIYRFHeyR$YSSk0sjl7aoF9AsnZZhVeOB946uvkjbEleT3$QSnKOPbfpwf5Rpm4pnPk1eG4JyNyw4s7vLKmXij22FiyTB2oZqWkMCXeweztjksT8JcyXpS28QKVqeMlfeQIvA6iv_pI0FYhAHuS0e3Vbt$Zuae_TWOIh8pyoekVhIeLWFUx_iHiIqFKZ0IFkX0MfeFPUaeW$zvKgRLesGKter7cZIwQmc4Y8195JVWByziRMs2$xmbn18d0ZwG_Ib9tkU6VB9_Ub4niPdSZ$nHIDC$UVoVEOC1Fb8ofrtjiSViR9pq753hcTAPM$PSGDKQQ4djIuGXbE1ZZ0YRUI$qlQONhHfCLrqlUVDP$dCYMDBOkko2Spdq3Z2q$tdG7BACM$b$uAF0IEoXGYAAqoKelgCSjAJ$$Bz93AIVMAy8miuOgfwl$8KxX3SNWL_84lOAA==??ServiceBoard"
 driver = webdriver.Firefox()
 driver.get(url)
 
@@ -148,27 +147,40 @@ Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
 print_green("[BrinxBot]: Marked as Resolved.")
 def computerz():
     if ticket_type == '*Reboot*':
+        time.sleep(0.7)
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
-        #computer = ticket_info.split("\\",1)[1]
         str = ticket_info
         z = str.split("\\",1)[1]
         str = z
         computer = str.split(" at ",1)[0]
         pickle.dump( computer, open( "save.p", "wb"))
+        company_info = driver.find_element_by_xpath('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text
+        str = company_info
+        ci = str.split("on ",1)[1]
+        str = ci
+        ci_complete = str.split("\\",1)[0]
+        print_yellow('#### -- ' + ci_complete + ' -- ####')
+        pickle.dump( computer, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
         pass
     elif ticket_type == '*NIC*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
-        #computer = ticket_info.split("\\",1)[1]
         str = ticket_info
         z = str.split("\\",1)[1]
         str = z
         computer = str.split(" at ",1)[0]
         pickle.dump( computer, open( "save.p", "wb"))
+        company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text
+        str = company_info
+        ci = str.split("on ",1)[1]
+        str = ci
+        ci_complete = str.split("\\",1)[0]
+        print_yellow('#### -- ' + ci_complete + ' -- ####')
+        pickle.dump( computer, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
         pass
     elif ticket_type == '*edgeupdate*':
@@ -178,11 +190,11 @@ def computerz():
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         computer = ticket_info.split("for ",1)[1]
         pickle.dump( computer, open( "save.p", "wb"))
+        #add company method
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
         pass  
     elif ticket_type == '*Disk Cleanup*':
         time.sleep(0.5)
-        
         ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
         print_yellow("#### -- " + ticket_info + " -- ####")
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
@@ -197,6 +209,7 @@ def computerz():
             str = z
             computer = str.split(" has",1)[0]
         pickle.dump( computer, open( "save.p", "wb"))
+        #add company method
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
         pass  
 computerz()
