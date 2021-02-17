@@ -127,7 +127,7 @@ except ElementNotInteractableException:
     print_yellow('#### -- Ticket Function Was Not Used! -- ####')
 #Next is viewing what the ticket is about to make sure it is correct before continuing...
 #-Now to click on new note and begin the process of TRUE automation without CW's semi useless scripting...
-time.sleep(3)
+time.sleep(0.2)
 # now to scroll the view down.. hopefully!
 try:
     grab = driver.find_element_by_name('html')
@@ -137,13 +137,29 @@ except NoSuchElementException:
 # also need to save what ticket is about so BrinxBot isn't lost..
 time.sleep(2)
 # break text up so I only have computer name so brinxbot can look it up.
-Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input')
+try:
+    Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input')
+    pass
+except NoSuchElementException:
+    Mark_Resolved = driver.find_element_by_css_selector('#x-auto-137-input') # sometimes the input changes, dont know why.(Referring to Line 141.)
 Mark_Resolved.click()
 Mark_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
 Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
 print_green("[BrinxBot]: Marked as Resolved.")
 def computerz():
-    if ticket_type == '*Reboot*' or '*NIC*':
+    if ticket_type == '*Reboot*':
+        ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
+        pickle.dump( ticket_info, open( "ticket.p", "wb"))
+        print_yellow("#### " + ticket_info + "####")
+        #computer = ticket_info.split("\\",1)[1]
+        str = ticket_info
+        z = str.split("\\",1)[1]
+        str = z
+        computer = str.split(" at ",1)[0]
+        pickle.dump( computer, open( "save.p", "wb"))
+        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
+        pass
+    elif ticket_type == '*NIC*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
@@ -166,19 +182,27 @@ def computerz():
         pass  
     elif ticket_type == '*Disk Cleanup*':
         time.sleep(0.5)
+        
         ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
         print_yellow("#### -- " + ticket_info + " -- ####")
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
-        str = ticket_info
-        z = str.split("for ",2)[1]
-        str = z
-        computer = str.split(" at ",1)[0]
+        try:
+            str = ticket_info
+            z = str.split("for ",2)[1]
+            str = z
+            computer = str.split(" at ",1)[0]
+        except IndexError:
+            str = ticket_info
+            z = str.split("detected ",2)[1]
+            str = z
+            computer = str.split(" has",1)[0]
         pickle.dump( computer, open( "save.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
         pass  
 computerz()
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
 # make sure internal note section is selected.
+time.sleep(2.7)
 click_internal = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div:nth-child(2) > div > table > tbody > tr > td:nth-child(2)").click()
 #next up is clicking 'New Note'...
 new_note = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div.CwButton-wrap.TicketNote-newNoteButton > div > div > div > svg").click()
@@ -230,10 +254,13 @@ elif ticket_type == '*NIC*':
     pass
 else:
     print_red("Unknown Ticket type. BrinxBot does not know what to do here.")
-#will now check the resolution box -- I will add a method that goes into Automate and sends the reboot script. Still testing..
+#will now check the resolution box 
 mark_as_done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(3) > div > div > div").click()
 #and finally.. hit SAVE!
 done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-buttons > div.CwButton-wrap.TicketNote-newNoteDialogSaveButton").click()
+WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#x-auto-312')))
+click_yes = driver.find_element_by_css_selector(".GE0S-T1CANG > div:nth-child(1)").click()
+time.sleep(2)
 driver.quit()
 def Server_ReConnect():
     try:
