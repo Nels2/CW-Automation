@@ -283,6 +283,8 @@ def Server_ReReConnect():
     driverTwo.quit()
 Server_ReReConnect()
 driver.quit()
+execTym = (time.time() - now)
+print_yellow("#### -- BrinxBot completed ticket for " + computer + " of " + compenny_info + "in: " + execTym + " seconds -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)
 while True:

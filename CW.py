@@ -170,7 +170,7 @@ def computerz():
         str = ci
         ci_complete = str.split("\\",1)[0]
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
+        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
     elif ticket_type == '*NIC*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
@@ -218,7 +218,7 @@ def computerz():
         str = ci
         ci_complete = str
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
+        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
         pass  
     elif ticket_type == '*Disk Cleanup*':
         time.sleep(0.5)
@@ -250,7 +250,7 @@ def computerz():
         str = ci
         ci_complete = str.split("\\",1)[0]
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
+        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
         pass  
 computerz()
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
