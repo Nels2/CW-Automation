@@ -139,15 +139,11 @@ print_yellow("#### -- Searching in Automate for computer... -- ####")
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
 time.sleep(1)
-if ticket_type == '*Reboot*':
+try:
     search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
     search_peny.send_keys(compenny_info + Keys.RETURN)
     pass
-elif ticket_type == '*NIC*':
-    search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
-    search_peny.send_keys(compenny_info + Keys.RETURN)
-    pass
-else:
+except NoSuchElementException:
     print_yellow('#### -- BrinxBot did not find a company for ' + computer) 
     pass
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
@@ -162,7 +158,7 @@ if(s>0):
 else:
     while True:
         print_red('#### -- Agent Status: OFFLINE! -- #####')
-        decide = input("| Do you want to continue anyway?(y/n): ")
+        decide = input("| Do you want to continue anyway? (y/n): ")
         if decide == 'y':
             pass
             break
@@ -201,38 +197,9 @@ else:
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
     pass
 print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny_info + " script launch menu now, launching the script...")
-if ticket_type == '*edgeupdate*': # this just runs the script right away for edgeupdate or NIC tickets.
+if ticket_type == '*edgeupdate*' or ticket_type == '*NIC*': # this just runs the script right away for edgeupdate or NIC tickets.
     pass
-elif ticket_type == '*NIC*': # this just runs the script right away for edgeupdate or NIC tickets.
-    pass
-elif ticket_type == '*Reboot*': # UPDATES(reboot) & Disk Clean up tickets
-    # -- wait for dialog box to appear.. -- #
-    print_blue(pre + "[BrinxBot]: waiting for dialog box..")
-    WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
-    # -- check the do later box -- #
-    print_blue(pre + "[BrinxBot]: checking the 'do later' option so the script runs at a different time.")
-    do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
-    # change the date for script to be ran at, usually at the moment or the next day at 12:00:00 AM
-    print_blue(pre + "[BrinxBot]: Changing the date to tomorrow.")
-    date = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(1) > div.CwDatePicker-datePickerRoot > div > input")
-    date.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-    # a bit of time calculation going on here... 
-    NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
-    NextDay_Date_Formatted = NextDay_Date.strftime ('%m' + '/' + '%d' + '/' + '%Y') # format the date to ddmmyyyy
-    print_yellow('#### -- tomorrows date is ' + str(NextDay_Date_Formatted) + ' -- ####')
-    time.sleep(1)
-    date.send_keys(str(NextDay_Date_Formatted) + Keys.RETURN)
-    date.send_keys(Keys.TAB) 
-    print_green(pre + "[BrinxBot]: Date has been changed.")
-    # change time script is ran to 12:00:00 AM
-    print_blue(pre + "[BrinxBot]: Changing the time to 12am")
-    tomrrw = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
-    tomrrw.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-    tomrrw.send_keys("12a" + Keys.TAB)
-    time.sleep(1)
-    print_green(pre + "[BrinxBot]: Time has been changed")
-    pass
-elif ticket_type == '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
+elif ticket_type == '*Reboot*' or ticket_type == '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
     # -- wait for dialog box to appear.. -- #
     print_blue(pre + "[BrinxBot]: waiting for dialog box..")
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))

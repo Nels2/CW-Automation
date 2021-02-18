@@ -155,7 +155,7 @@ def computerz():
         z = str.split("\\",1)[1]
         str = z
         computer = str.split(" at ",1)[0]
-        if '_' in computer:
+        if '_' in computer: #for some reason on the Automate website the '_' character is not allowed, at all. I have tried to put it in manually and the chracter jsut does not show, instead the screen refreshes and that is all, this is a bug on Automates end. This is a simple workaround to replace the character with a space and then to remove any trailing letters
             print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
             unique = computer.replace('_', ' ')
             uniqued = unique.split(" ",1)[0]
@@ -169,7 +169,7 @@ def computerz():
         ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
-        pickle.dump( ci_complete, open( "company_info.p", "wb"))
+        pickle.dump( ci_complete, open( "company_info.p", "wb")) # dumps the variable ci_complete to a file called 'company_info.p'.
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
     elif ticket_type == '*NIC*':
@@ -188,8 +188,8 @@ def computerz():
             pass
         else:
             pass
-        pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text
+        pickle.dump( computer, open( "save.p", "wb")) 
+        company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text # this is where the company name is stored
         str = company_info
         ci = str.split("on ",1)[1]
         str = ci
@@ -265,7 +265,7 @@ time.sleep(2)
 #now check discussion. after discussion is checked we begin entering our notes.
 check_disucssion = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(1) > div > div > div").click()
 enter_notes = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(2) > div > div.ManageNoteRichTextEditor-richEditor > div > div.DraftEditor-editorContainer > div")
-if ticket_type == '*Reboot*':
+if ticket_type == '*Reboot*': # a bunch of if/then statements until I figure out a way to reduce the size of all this(optimization)
     enter_notes.send_keys('[BrinxBot]: This ticket is being completed using Python & Selenium!')
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
     enter_notes.send_keys('[BrinxBot]: Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
@@ -314,8 +314,8 @@ done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_di
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#x-auto-312')))
 click_yes = driver.find_element_by_css_selector(".GE0S-T1CANG > div:nth-child(1)").click()
 time.sleep(2)
-#driver.quit()
-def Server_ReConnect():
+#driver.quit() uncomment when running in production (using to complete tickets or you will have to force close this window. )
+def Server_ReConnect():# reconnects to the server instead of keeping the first initial connection alive to save some CPU usage.
     try:
         the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
         options = webdriver.FirefoxOptions()
