@@ -125,7 +125,7 @@ print_yellow("#### -- Automate Control Center Connecton Established... -- ####")
 computer = pickle.load( open( "save.p", "rb"))
 compenny_info = pickle.load( open( "company_info.p", "rb"))
 print_yellow("#### -- Pickle has loaded in the following saved variable from main: " + computer + " -- #####")
-try:
+try:#sometimes an error comes up when logging into automate.
     find_internal_error = driver.find_element_by_css_selector(".CwDialog-modal")
     click_ok_for_unhandled_exp = driver.find_element_by_css_selector(".CwDialog-buttons > div:nth-child(1) > div:nth-child(1)") 
     click_ok_for_unhandled_exp.click()
@@ -173,7 +173,6 @@ else:
         else:
             print_red(' #### -- ERROR: You need to enter either y/n. -- ####')
             continue
-    
 select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
 # save this tab so i can return to it in case a new window is launched.
 second_tab_handle = driver.current_window_handle
@@ -195,7 +194,7 @@ elif ticket_type == '*NIC*': # service tickets where NIC packets are erroring an
             script_to_send = 'NicPactSolver'
             pass
 script_search.send_keys(script_to_send)
-if ticket_type == '*Disk Cleanup*':
+if ticket_type == '*Disk Cleanup*': #Disk clean up shows up lower in tthe script menu than the others as there are similary named scripts.
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div:nth-child(2) > div.CwTreeViewNode-subTree > div:nth-child(2) > div > label").click()
     pass
 else:
@@ -265,7 +264,7 @@ print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
 click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
 print_green(pre + "[BrinxBot]: I have completed the task assigned... shutting off after letting server know...")
 # establish external connection to let server know job completed right
-def Server_ReReConnect():
+def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
     try:
         the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
         options = webdriver.FirefoxOptions()
@@ -286,8 +285,8 @@ driver.quit()
 execTym = (time.time() - now)
 print_yellow("#### -- BrinxBot completed ticket for " + computer + " of " + compenny_info + "in: " + execTym + " seconds -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
-print_red(pre + Connectionloss)
-while True:
+print_red(pre + Connectionloss)# oh no! 
+while True:#my try at issuing a restart..
     prompt = input("Do you want to reconnect? (y/n): ")
     if prompt == 'y':
         os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
