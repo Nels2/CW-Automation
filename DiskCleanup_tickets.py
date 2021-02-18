@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
-import timeit
+from timeit import default_timer as timer
 import termcolor
 from termcolor import colored, cprint
 from time import sleep
@@ -26,7 +26,7 @@ print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 def startTym():
-    start = timeit.timeit()
+    start = timer()
     print_yellow(start)
     pickle.dump( start, open( "startTime.p", "wb"))
 def Server_Connect():
