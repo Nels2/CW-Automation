@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 import time
-import timeit
+from timeit import default_timer as timer
 from time import sleep
 import re
 import pickle
@@ -251,14 +251,15 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
     driverTwo.quit()
 Server_ReReConnect()
 driver.quit()
-endTym = timeit.timeit()
-measurement = endTym - start
+end = timer()
+measurement = (end - start)
 print_yellow("#### -- BrinxBot completed ticket for " + computer + " of " + compenny_info + "in: " + measurement + " seconds -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..
     prompt = input("Do you want to reconnect? (y/n): ")
     if prompt == 'y':
+        print("#### -- Restarting BrinxBot... -- ####")
         os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
         pass
         break

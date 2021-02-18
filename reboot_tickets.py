@@ -7,17 +7,17 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
-from timeit import default_timer as timer
+import timeit
 import termcolor
 from termcolor import colored, cprint
 from time import sleep
 import time
 import pickle
-# original file to do everything.
+# 
 #
 #
 #  --------------ConnectWise Automator, By Nelson Orellana -----------------
-#
+# THIS IS TO BE RAN FOR OP1 OR IN OTHER WORDS, REBOOT TICKETS ONLY
 # Introducing a selenium + python script that logs into my ConnectWise, varies what it(where it is the ticket type) looks for depending on user input.
 #
 # ---------------Built 2021.01.27 ------------------------------------------
@@ -26,7 +26,7 @@ print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 def startTym():
-    start = timer()
+    start = timeit.timeit()
     print_yellow(start)
     pickle.dump( start, open( "startTime.p", "wb"))
 def Server_Connect():
@@ -76,44 +76,8 @@ print_green("#### -- Logged in! -- ####")
 # so page can load then clicks on summary description and looks for the specifced ticket.    
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
-
-ticket_Si = colored('####                -- Ticket Search Information --               ####', 'yellow', attrs=['reverse', 'blink'])
-print(ticket_Si)
-print_yellow("|     You can look for different ticket types!                       |")
-print_yellow("| OP1: Look for update(reboot pending) tickets                       |")
-print_yellow("| OP2: Look for Service EdgeUpdate stopped tickets                   |")
-print_yellow("| OP3: Look for Disk Cleanup tickets                                 |")
-print_yellow("| OP4: Look for NIC Packet Error tickets                             |")
-print_yellow("| This input is also case sensitive so please enter EXACTLY as seen! |")
-print_yellow('|####################################################################|')
-def Ticket_info_method():
-    while True:
-        ticket_type = input("| Please Enter Either 'OP1', 'OP2', 'OP3' or 'OP4' without quotes: ")
-        if ticket_type == 'OP1':
-            ticket_type = '*Reboot*' # UPDATES pending tickets
-            pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
-            pass
-            break
-        elif ticket_type == 'OP2':
-            ticket_type = '*edgeupdate*' # service tickets where edgeupdate is stopped
-            pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
-            pass
-            break
-        elif ticket_type == 'OP3':
-            ticket_type = '*Disk Cleanup*' # service tickets where a disk clean up is needed
-            pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
-            pass
-            break
-        elif ticket_type == 'OP4':
-            ticket_type = '*NIC*' # service tickets where a disk clean up is needed
-            pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
-            pass
-            break
-        else:
-            enterError = colored('Please Enter Either OP1, OP2, OP3, or OP4.', 'red', attrs=['reverse', 'blink'])
-            print(enterError)
-            continue
-Ticket_info_method()
+ticket_type = '*Reboot*' # UPDATES pending tickets
+pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 time.sleep(0.5)
 search.send_keys(ticket_type)
@@ -216,89 +180,8 @@ def computerz():
         pickle.dump( ci_complete, open( "company_info.p", "wb")) # dumps the variable ci_complete to a file called 'company_info.p'.
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
-    elif ticket_type == '*NIC*':
-        ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
-        pickle.dump( ticket_info, open( "ticket.p", "wb"))
-        print_yellow("#### " + ticket_info + "####")
-        str = ticket_info
-        z = str.split("\\",1)[1]
-        str = z
-        computer = str.split(" at ",1)[0]
-        if '_' in computer:
-            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
-            unique = computer.replace('_', ' ')
-            uniqued = unique.split(" ",1)[0]
-            computer = uniqued
-            pass
-        else:
-            pass
-        pickle.dump( computer, open( "save.p", "wb")) 
-        company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text # this is where the company name is stored
-        str = company_info
-        ci = str.split("on ",1)[1]
-        str = ci
-        ci_complete = str.split("\\",1)[0]
-        company()
-        pickle.dump( ci_complete, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
+    else:
         pass
-    elif ticket_type == '*edgeupdate*':
-        time.sleep(0.5)
-        ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
-        print_yellow("#### -- " + ticket_info + " -- ####")
-        pickle.dump( ticket_info, open( "ticket.p", "wb"))
-        computer = ticket_info.split("for ",1)[1]
-        if '_' in computer:
-            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
-            unique = computer.replace('_', ' ')
-            uniqued = unique.split(" ",1)[0]
-            computer = uniqued
-            pass
-        else:
-            pass
-        pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_xpath('//*[@id="x-auto-193-label"]').text
-        str = company_info
-        ci = str.split(": ",1)[1]
-        str = ci
-        ci_complete = str
-        company()
-        pickle.dump( ci_complete, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
-        pass  
-    elif ticket_type == '*Disk Cleanup*':
-        time.sleep(0.5)
-        ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
-        print_yellow("#### -- " + ticket_info + " -- ####")
-        pickle.dump( ticket_info, open( "ticket.p", "wb"))
-        try:
-            str = ticket_info
-            z = str.split("for ",2)[1]
-            str = z
-            computer = str.split(" at ",1)[0]
-        except IndexError:
-            str = ticket_info
-            z = str.split("detected ",2)[1]
-            str = z
-            computer = str.split(" has",1)[0]
-        if '_' in computer:
-            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
-            unique = computer.replace('_', ' ')
-            uniqued = unique.split(" ",1)[0]
-            computer = uniqued
-            pass
-        else:
-            pass
-        pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
-        str = company_info
-        ci = str.split("at ",1)[1]
-        str = ci
-        ci_complete = str.split("\\",1)[0]
-        company()
-        pickle.dump( ci_complete, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
-        pass  
 computerz()
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
 # make sure internal note section is selected.
@@ -318,39 +201,6 @@ if ticket_type == '*Reboot*': # a bunch of if/then statements until I figure out
     enter_notes.send_keys('[BrinxBot]: Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
     enter_notes.send_keys('[BrinxBot]: The issue appears to be resolved, a reboot will occur tonight.')
-    pass
-elif ticket_type == '*edgeupdate*':
-    enter_notes.send_keys('[BrinxBot]: Python was used to complete this ticket!')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: Issuing SRV1.0 script to machine....done!')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: Results.. :')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: The Microsoft Edge Update Service (edgeupdate) service could not be started.')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: The service did not report an error.')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: More help is available by typing NET HELPMSG 3534.')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: The Microsoft Edge Update Service (edgeupdate) service is starting')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: [SC] ChangeServiceConfig SUCCESS')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: No further action is needed, the service has been set to auto-restart.')
-    pass
-elif ticket_type == '*Disk Cleanup*':
-    enter_notes.send_keys('[BrinxBot]: Python was used to complete this ticket!')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: Issuing Disk Cleanup script to machine to run tonight at 12:00:00 AM....done!')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: No further action is needed, the Disk Clean up will run, if another error occurs during the script, a ticket will be created.')
-    pass
-elif ticket_type == '*NIC*':
-    enter_notes.send_keys('[BrinxBot]: Python was used to complete this ticket!')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: Issuing NICPactSolver script to machine....done!')
-    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: No further action is needed, the NICPactSolver script has investigated and resolved NIC packet issues.')
     pass
 else:
     print_red("Unknown Ticket type. BrinxBot does not know what to do here.")
