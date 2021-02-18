@@ -147,22 +147,29 @@ Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
 print_green("[BrinxBot]: Marked as Resolved.")
 def computerz():
     if ticket_type == '*Reboot*':
-        time.sleep(0.7)
-        ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
+        time.sleep(3)
+        ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         print_yellow("#### " + ticket_info + "####")
         str = ticket_info
         z = str.split("\\",1)[1]
         str = z
         computer = str.split(" at ",1)[0]
+        if '_' in computer:
+            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+            unique = computer.replace('_', ' ')
+            uniqued = unique.split(" ",1)[0]
+            computer = uniqued
+            pass
+        else:
+            pass
         pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_xpath('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text
+        company_info = driver.find_element_by_css_selector('.TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)').text
         str = company_info
         ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
-        print_yellow('#### -- ' + ci_complete + ' -- ####')
-        pickle.dump( computer, open( "company_info.p", "wb"))
+        pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
         pass
     elif ticket_type == '*NIC*':
@@ -173,15 +180,22 @@ def computerz():
         z = str.split("\\",1)[1]
         str = z
         computer = str.split(" at ",1)[0]
+        if '_' in computer:
+            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+            unique = computer.replace('_', ' ')
+            uniqued = unique.split(" ",1)[0]
+            computer = uniqued
+            pass
+        else:
+            pass
         pickle.dump( computer, open( "save.p", "wb"))
         company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text
         str = company_info
         ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
-        print_yellow('#### -- ' + ci_complete + ' -- ####')
-        pickle.dump( computer, open( "company_info.p", "wb"))
-        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer)
+        pickle.dump( ci_complete, open( "company_info.p", "wb"))
+        print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
     elif ticket_type == '*edgeupdate*':
         time.sleep(0.5)
@@ -189,8 +203,21 @@ def computerz():
         print_yellow("#### -- " + ticket_info + " -- ####")
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         computer = ticket_info.split("for ",1)[1]
+        if '_' in computer:
+            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+            unique = computer.replace('_', ' ')
+            uniqued = unique.split(" ",1)[0]
+            computer = uniqued
+            pass
+        else:
+            pass
         pickle.dump( computer, open( "save.p", "wb"))
-        #add company method
+        company_info = driver.find_element_by_css_selector("#x-auto-25-label").text
+        str = company_info
+        ci = str.split(": ",1)[1]
+        str = ci
+        ci_complete = str
+        pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
         pass  
     elif ticket_type == '*Disk Cleanup*':
@@ -208,8 +235,21 @@ def computerz():
             z = str.split("detected ",2)[1]
             str = z
             computer = str.split(" has",1)[0]
+        if '_' in computer:
+            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+            unique = computer.replace('_', ' ')
+            uniqued = unique.split(" ",1)[0]
+            computer = uniqued
+            pass
+        else:
+            pass
         pickle.dump( computer, open( "save.p", "wb"))
-        #add company method
+        company_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
+        str = company_info
+        ci = str.split("at ",1)[1]
+        str = ci
+        ci_complete = str.split("\\",1)[0]
+        pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer)
         pass  
 computerz()
@@ -274,7 +314,7 @@ done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_di
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#x-auto-312')))
 click_yes = driver.find_element_by_css_selector(".GE0S-T1CANG > div:nth-child(1)").click()
 time.sleep(2)
-driver.quit()
+#driver.quit()
 def Server_ReConnect():
     try:
         the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"

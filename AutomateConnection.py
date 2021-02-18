@@ -11,6 +11,7 @@ import re
 import pickle
 import datetime
 import sys
+import os
 import pyfiglet
 from pyfiglet import Figlet
 import termcolor
@@ -122,7 +123,7 @@ click_on_token.send_keys(da_code + Keys.RETURN)
 print_yellow("#### -- Automate Control Center Connecton Established... -- ####")
 # check variable to see if it is the same. 
 computer = pickle.load( open( "save.p", "rb"))
-compenny = pickle.load( open( "company_info.p", "rb"))
+compenny_info = pickle.load( open( "company_info.p", "rb"))
 print_yellow("#### -- Pickle has loaded in the following saved variable from main: " + computer + " -- #####")
 try:
     find_internal_error = driver.find_element_by_css_selector(".CwDialog-modal")
@@ -136,10 +137,19 @@ print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + 
 # now time to search for computer and double click on it
 print_yellow("#### -- Searching in Automate for computer... -- ####")  
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
-search_first_by_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
-search_first_by_peny.send_keys(compenny + Keys.RETURN)
-time.sleep(2)
 search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
+time.sleep(1)
+if ticket_type == '*Reboot*':
+    search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
+    search_peny.send_keys(compenny_info + Keys.RETURN)
+    pass
+elif ticket_type == '*NIC*':
+    search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
+    search_peny.send_keys(compenny_info + Keys.RETURN)
+    pass
+else:
+    print_yellow('#### -- BrinxBot did not find a company for ' + computer) 
+    pass
 print_blue(pre + "[BrinxBot]: Computer has been found clicking on it to continue the task...")
 search_for_comp.send_keys(computer + Keys.RETURN)
 time.sleep(3)
@@ -191,7 +201,7 @@ if ticket_type == '*Disk Cleanup*':
 else:
     script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
     pass
-print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny + " script launch menu now, launching the script...")
+print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny_info + " script launch menu now, launching the script...")
 if ticket_type == '*edgeupdate*': # this just runs the script right away for edgeupdate or NIC tickets.
     pass
 elif ticket_type == '*NIC*': # this just runs the script right away for edgeupdate or NIC tickets.
@@ -275,3 +285,14 @@ Server_ReReConnect()
 driver.quit()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)
+while True:
+    prompt = input("Do you want to reconnect? (y/n): ")
+    if prompt == 'y':
+        os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
+        pass
+        break
+    elif prompt == 'n':
+        sys.exit()
+        pass
+    else:
+        continue
