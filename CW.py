@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
+import timeit
 import termcolor
 from termcolor import colored, cprint
 from time import sleep
@@ -24,7 +25,10 @@ print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
-
+def startTym():
+    start = timeit.timeit()
+    print_yellow(start)
+    pickle.dump( start, open( "startTime.p", "wb"))
 def Server_Connect():
     try:
         print_yellow("#### -- Establishing External Connection to Server .. -- ####")
@@ -137,14 +141,53 @@ except NoSuchElementException:
 time.sleep(2)
 # break text up so I only have computer name so brinxbot can look it up.
 try:
-    Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input')
+    Mark_Resolved = driver.find_element_by_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
     pass
 except NoSuchElementException:
-    Mark_Resolved = driver.find_element_by_css_selector('#x-auto-137-input') # sometimes the input changes, dont know why.(Referring to Line 141.)
+        Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input') # sometimes the input changes, dont know why.(Referring to Line 141.)
+        pass
 Mark_Resolved.click()
 Mark_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
 Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
 print_green("[BrinxBot]: Marked as Resolved.")
+def company():
+    if 'Fanestil Meats' in ci_complete:
+            print_yellow("#### -- renaming " + ci_complete + " to just 'Fanestil' as 'Fanestil Meats' does not exist in Automate")
+            replaced = ci_complete.replace(' Meats', " ")
+            ci_complete = replaced
+            pass
+    elif 'SR Coffman Construction' in ci_complete:
+        print_yellow("#### -- renaming " + ci_complete + " to just 'Coffman Construction' as 'SR Coffman Construction' does not exist in Automate")
+        replaced = ci_complete.replace('SR Coffman Construction Inc.', "Coffman Construction")
+        ci_complete = replaced
+        pass
+    elif 'Bluestem Insurance Group' in ci_complete:
+        print_yellow("#### -- renaming " + ci_complete + " to just 'Bluestem Insurance' as 'Bluestem Insurance Group' does not exist in Automate")
+        replaced = ci_complete.replace('Bluestem Insurance Group', "Bluestem Insurance")
+        ci_complete = replaced
+        pass
+    elif 'Dr. Marlin Flanagin, DDS' in ci_complete:
+        print_yellow("#### -- renaming " + ci_complete + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
+        replaced = ci_complete.replace('Dr. Marlin Flanagin, DDS', "Dr. Marlin Flanagin")
+        ci_complete = replaced
+        pass
+    elif 'Lyon County Title LLC' in ci_complete:
+        print_yellow("#### -- renaming " + ci_complete + " to just 'Lyon Co Title' as 'Lyon County Title LLC' does not exist in Automate")
+        replaced = ci_complete.replace('Lyon County Title LLC', "Lyon Co Title")
+        ci_complete = replaced
+        pass
+    elif 'Diamond Everley Roofing' in ci_complete:
+        print_yellow("#### -- renaming " + ci_complete + " to just 'Diamond Everley' as 'Diamond Everley Roofing' does not exist in Automate")
+        replaced = ci_complete.replace('Diamond Everley Roofing', "Diamond Everley")
+        ci_complete = replaced
+        pass
+    elif 'Lore & Hagemann, Inc' in ci_complete:
+        print_yellow("#### -- renaming " + ci_complete + " to just 'Lore & Hagemann' as 'Lore & Hagemann, Inc' does not exist in Automate")
+        replaced = ci_complete.replace('Lore & Hagemann, Inc', "Lore & Hagemann")
+        ci_complete = replaced
+        pass
+    else:
+        pass
 def computerz():
     if ticket_type == '*Reboot*':
         time.sleep(3)
@@ -169,6 +212,7 @@ def computerz():
         ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
+        company()
         pickle.dump( ci_complete, open( "company_info.p", "wb")) # dumps the variable ci_complete to a file called 'company_info.p'.
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
@@ -194,6 +238,7 @@ def computerz():
         ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
+        company()
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
@@ -212,11 +257,12 @@ def computerz():
         else:
             pass
         pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_css_selector("#x-auto-25-label").text
+        company_info = driver.find_element_by_xpath('//*[@id="x-auto-193-label"]').text
         str = company_info
         ci = str.split(": ",1)[1]
         str = ci
         ci_complete = str
+        company()
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
         pass  
@@ -249,6 +295,7 @@ def computerz():
         ci = str.split("at ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
+        company()
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
         pass  

@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 import time
+import timeit
 from time import sleep
 import re
 import pickle
@@ -17,7 +18,7 @@ from pyfiglet import Figlet
 import termcolor
 from termcolor import colored, cprint
 import CW
-from CW import computerz, Ticket_info_method
+from CW import computerz, Ticket_info_method, startTym
 # -- -- -- -- -- -- -- -- -- #
 #    Created by Nelson O.    #
 #        2021.01.29          #
@@ -34,6 +35,7 @@ print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 ticket_info = pickle.load( open( "ticket.p", "rb"))
+start = pickle.load( open( "startTime.p", "rb"))
 now = datetime.datetime.now()
 
 url = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, where-ever it is hosted..
@@ -249,8 +251,9 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
     driverTwo.quit()
 Server_ReReConnect()
 driver.quit()
-execTym = (time.time() - now)
-print_yellow("#### -- BrinxBot completed ticket for " + computer + " of " + compenny_info + "in: " + execTym + " seconds -- ####")
+endTym = timeit.timeit()
+measurement = endTym - start
+print_yellow("#### -- BrinxBot completed ticket for " + computer + " of " + compenny_info + "in: " + measurement + " seconds -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..
