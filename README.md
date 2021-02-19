@@ -65,5 +65,8 @@ Now that everything has been configured, you are ready to begin the automation!\
 #Optional
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Instead type out: ```sudo chmod +x start.sh```
-- And to run it type out: ```./start.sh```
+- And to run it type out: ```./start.sh``` with either 1-4 or CW as an arguement
+- So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type)
+- Another Example is ```./start.sh CW``` would run the script with v1.5-2 method of completing tickets.
+- type ```./start.sh h``` to see more information.
 The script will begin to run. Make sure to pay attention to the terminal as well. 
