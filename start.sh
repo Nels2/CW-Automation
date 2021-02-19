@@ -3,6 +3,18 @@ clear
 echo $1
 echo [BrinxBot]: Hello, $USER. I am BrinxBot and I will solve your ticketing issues!
 echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $1.
+if [ $1 == "h" ]
+then 
+    echo ------------ Ticket Types Information -------------
+    echo  OP1 are Reboot pending Ticket types(start.sh 1)
+    echo  OP2 are edgeupdate stopped Ticket types(start.sh 2)
+    echo  OP3 are Disk Cleanup Ticket types(start.sh 3)
+    echo  OP4 are Nic Packet Error Ticket types(start.sh 4)
+    echo  CW is a compatability mode for using the v1.5-5 method(start.sh CW)
+    echo ---------------------------------------------------
+    echo above are the following arguments you can use with start.sh.
+    echo the parenthesis are the correct way to pass an argument to start.sh
+fi
 if [ $1 == "1" ]
 then 
     echo [BrinxBot]: Running reboot ticket type solver with new method...
