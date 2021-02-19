@@ -17,18 +17,16 @@ import pyfiglet
 from pyfiglet import Figlet
 import termcolor
 from termcolor import colored, cprint
-import CW
-from CW import computerz, Ticket_info_method, startTym
+import reboot_tickets
+from reboot_tickets import computerz, startTym
 # -- -- -- -- -- -- -- -- -- #
 #    Created by Nelson O.    #
 #        2021.01.29          #
 #    AutomateConnection      #
 # -- -- -- -- -- -- -- -- -- #
 # --
-# This script is intended to login into Automate and grab the verification code from an email to login.
-# Should ALWAYS be used before 'CW.py'
-# So far this script can complete script types 'updates', 'Disk Cleanup'  and 'service edgeupdate has stopped'
-# --
+# reboot ticket version.
+# # --
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')

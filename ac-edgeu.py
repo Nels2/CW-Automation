@@ -17,8 +17,8 @@ import pyfiglet
 from pyfiglet import Figlet
 import termcolor
 from termcolor import colored, cprint
-import CW
-from CW import computerz, Ticket_info_method, startTym
+import edgeu_tickets
+from edgeu_tickets import computerz, startTym
 # -- -- -- -- -- -- -- -- -- #
 #    Created by Nelson O.    #
 #        2021.01.29          #

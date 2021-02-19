@@ -7,11 +7,12 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
-import timeit
+from timeit import default_timer as timer
 import termcolor
 from termcolor import colored, cprint
 from time import sleep
 import time
+import sys
 import pickle
 # use ONLY FOR NIC PACKET ERROR TYPE TICKETS!
 #
@@ -26,9 +27,10 @@ print_yellow = lambda x: cprint(x, 'yellow')
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 def startTym():
-    start = timeit.timeit()
+    start = timer()
     print_yellow(start)
     pickle.dump( start, open( "startTime.p", "wb"))
+startTym()
 def Server_Connect():
     try:
         print_yellow("#### -- Establishing External Connection to Server .. -- ####")
@@ -92,7 +94,27 @@ try:
 except ElementNotInteractableException:
     pass
     print_yellow('#### -- Ticket Function Was Not Used! -- ####')
-#Next is viewing what the ticket is about to make sure it is correct before continuing...
+
+    while True:
+        print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
+        option = input("| Do you want to look again? (yes/no): ")
+        if option == 'yes':
+            ticket_type = pickle.load( open( "ticket_info.p", "rb"))
+            time.sleep(0.5)
+            search.send_keys(ticket_type)
+            search.send_keys(Keys.RETURN)
+            ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
+            action = ActionChains(driver)
+            action.double_click(ticket)
+            pass
+            break
+        elif option == 'no':
+            print_yellow('#### -- !! Exiting.. !! -- ####')
+            sys.exit()
+            pass
+        else:
+            print_red(' #### -- ERROR: You need to enter either "yes" or "no". -- ####')
+            continue#Next is viewing what the ticket is about to make sure it is correct before continuing...
 #-Now to click on new note and begin the process of TRUE automation without CW's semi useless scripting...
 time.sleep(0.2)
 # now to scroll the view down.. hopefully!
@@ -105,53 +127,21 @@ except NoSuchElementException:
 time.sleep(2)
 # break text up so I only have computer name so brinxbot can look it up.
 try:
-    Mark_Resolved = driver.find_element_by_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
+    time.sleep(2)
+    Mark_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
     pass
 except NoSuchElementException:
+    try:# sometimes you just have to try again.
+        time.sleep(0.5)
+        Mark_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
+        pass
+    except NoSuchElementException:
         Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input') # sometimes the input changes, dont know why.(Referring to Line 141.)
         pass
 Mark_Resolved.click()
 Mark_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
 Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
 print_green("[BrinxBot]: Marked as Resolved.")
-def company():
-    if 'Fanestil Meats' in ci_complete:
-            print_yellow("#### -- renaming " + ci_complete + " to just 'Fanestil' as 'Fanestil Meats' does not exist in Automate")
-            replaced = ci_complete.replace(' Meats', " ")
-            ci_complete = replaced
-            pass
-    elif 'SR Coffman Construction' in ci_complete:
-        print_yellow("#### -- renaming " + ci_complete + " to just 'Coffman Construction' as 'SR Coffman Construction' does not exist in Automate")
-        replaced = ci_complete.replace('SR Coffman Construction Inc.', "Coffman Construction")
-        ci_complete = replaced
-        pass
-    elif 'Bluestem Insurance Group' in ci_complete:
-        print_yellow("#### -- renaming " + ci_complete + " to just 'Bluestem Insurance' as 'Bluestem Insurance Group' does not exist in Automate")
-        replaced = ci_complete.replace('Bluestem Insurance Group', "Bluestem Insurance")
-        ci_complete = replaced
-        pass
-    elif 'Dr. Marlin Flanagin, DDS' in ci_complete:
-        print_yellow("#### -- renaming " + ci_complete + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
-        replaced = ci_complete.replace('Dr. Marlin Flanagin, DDS', "Dr. Marlin Flanagin")
-        ci_complete = replaced
-        pass
-    elif 'Lyon County Title LLC' in ci_complete:
-        print_yellow("#### -- renaming " + ci_complete + " to just 'Lyon Co Title' as 'Lyon County Title LLC' does not exist in Automate")
-        replaced = ci_complete.replace('Lyon County Title LLC', "Lyon Co Title")
-        ci_complete = replaced
-        pass
-    elif 'Diamond Everley Roofing' in ci_complete:
-        print_yellow("#### -- renaming " + ci_complete + " to just 'Diamond Everley' as 'Diamond Everley Roofing' does not exist in Automate")
-        replaced = ci_complete.replace('Diamond Everley Roofing', "Diamond Everley")
-        ci_complete = replaced
-        pass
-    elif 'Lore & Hagemann, Inc' in ci_complete:
-        print_yellow("#### -- renaming " + ci_complete + " to just 'Lore & Hagemann' as 'Lore & Hagemann, Inc' does not exist in Automate")
-        replaced = ci_complete.replace('Lore & Hagemann, Inc', "Lore & Hagemann")
-        ci_complete = replaced
-        pass
-    else:
-        pass
 def computerz():
     if ticket_type == '*NIC*':
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
@@ -175,7 +165,6 @@ def computerz():
         ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
-        company()
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for...: " + computer + " from " + ci_complete + "....")
         pass
