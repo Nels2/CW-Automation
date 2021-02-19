@@ -177,6 +177,12 @@ def company():
         compenny = replaced
         pickle.dump( compenny, open( "company_info.p", "wb"))
         pass
+    elif 'Emporia Chamber of Commerce' in compenny:
+        print_yellow("#### -- Renaming " + compenny + " to just 'Emporia Chamber of Commer' as 'Emporia Chamber of Commerce' does not exist in Automate")
+        replaced = compenny.replace('Emporia Chamber of Commerce', "Emporia Chamber of Commer")
+        compenny = replaced
+        pickle.dump( compenny, open( "company_info.p", "wb"))
+        pass
     else:
         pass  
 company()
