@@ -384,50 +384,11 @@ def AutomateConnection():
                 break
             elif decide == 'n':
                 print_yellow('#### -- !! Force Quitting !! -- ####')
-                time.sleep(3)
-                print_yellow('#### -- Switched to Tab1: -- ####')
-                #driver.switch_to.window(first_tab_handle)
-                c_url = pickle.load( open( "url.p", "rb"))
-                driver.execute_script("window.open('about:blank', 'tab3');")
-                driver.switch_to.window("tab3")
-                driver.get(c_url)
-                print_yellow('#### -- !! Removing Time Entry !! -- ####')
-                click_dots = driver.find_element_by_css_selector("div.TicketNote-rowWrap:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > svg:nth-child(1)").click()
-                click_delete = driver.find_element_by_css_selector("div.CwDropdown-dropDownItem:nth-child(2)").click()
-                print_green('#### -- !! Time Entry Has Been Cleared !! -- ####')
-                print_yellow('#### -- !! Resetting Ticket Status !! -- ####')
-                try:
-                    time.sleep(1.3)
-                    Remove_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
-                    pass
-                except NoSuchElementException:
-                    try:# sometimes you just have to try again.
-                        time.sleep(0.5)
-                        Remove_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
-                        pass
-                    except NoSuchElementException:
-                        Remove_Resolved = driver.find_element_by_css_selector('#x-auto-200-input') # sometimes the input changes, dont know why.(Referring to Line 141.)
-                    pass
-                Remove_Resolved.click()
-                Remove_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-                Remove_Resolved.send_keys('New (Automate)' + Keys.RETURN)
-                Remove_Resolved.send_keys(Keys.CONTROL + 's')
-                print_green('#### -- !! Ticket Status Has Been Cleared !! -- ####')
-                Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
-                print_red(pre + Connectionloss)# oh no! 
-                while True:#my try at issuing a restart..
-                    prompt = input("Do you want to reconnect? (y/n): ")
-                    if prompt == 'y':
-                        print("#### -- Restarting BrinxBot... -- ####")
-                        os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
-                        pass
-                        break
-                    elif prompt == 'n':
-                        sys.exit()
-                        pass
-                    else:
-                        print_red(' #### -- ERROR: You need to enter either y/n. -- ####')
-                        continue
+                sys.exit()
+                pass
+            else:
+                print_red(' #### -- ERROR: You need to enter either y/n. -- ####')
+                continue
     select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
     # save this tab so i can return to it in case a new window is launched.
     second_tab_handle = driver.current_window_handle
