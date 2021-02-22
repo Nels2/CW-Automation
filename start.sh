@@ -40,3 +40,25 @@ then
     echo [BrinxBot]: WARNING: This method is not fully automated and requires your terminal attention.
     python3 AutomateConnection.py
 fi
+if [ $1 == "B1" ]
+then 
+    echo [BrinxBot]: Running BETA method w/ intergrated AC.py to check for computer before work...
+    python3 cw-reboot.py
+fi
+if [ $1 == "B2" ]
+then 
+    echo [BrinxBot]: Running BETA method w/ intergrated AC.py to check for computer before work...
+    python3 cw-edgeu.py
+fi
+if [ $1 == "B3" ]
+then 
+    echo [BrinxBot]: Running BETA method w/ intergrated AC.py to check for computer before work...
+    python3 cw-diskcleanup.py
+fi
+if [ $1 == "B4" ]
+then 
+    echo [BrinxBot]: Running BETA method w/ intergrated AC.py to check for computer before work...
+    python3 cw-nic.py
+fi
+
+

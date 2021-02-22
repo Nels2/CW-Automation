@@ -79,7 +79,8 @@ try:
 except NoSuchElementException: 
     pass
 print_green("#### -- Logged in! -- ####")
-# so page can load then clicks on summary description and looks for the specifced ticket.    
+# so page can load then clicks on summary description and looks for the specifced ticket.   
+
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
 ticket_type = '*edgeupdate*' # service tickets where edgeupdate is stopped

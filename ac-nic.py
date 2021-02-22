@@ -56,6 +56,7 @@ alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 1.2.0 -- ####', 
 print(alt_logo)
 print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
 NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
+WebDriverWait(driver, 300).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.login-loginContainer'))) 
 time.sleep(3)
 enter_user = driver.find_element_by_id('loginUsername')
 time.sleep(0.5)
@@ -138,7 +139,7 @@ def company():
     compenny = pickle.load( open( "company_info.p", "rb"))
     if 'Fanestil Meats' in compenny:
         print_yellow("#### -- renaming " + compenny + " to just 'Fanestil' as 'Fanestil Meats' does not exist in Automate")
-        replaced = compenny.replace('Fanestil Meats', "Fanestil")
+        replaced = compenny.replace('Fanestil Meats', 'Fanestil')
         compenny = replaced
         pickle.dump( compenny, open( "company_info.p", "wb"))
         pass
@@ -181,6 +182,18 @@ def company():
     elif 'Emporia Chamber of Commerce' in compenny:
         print_yellow("#### -- Renaming " + compenny + " to just 'Emporia Chamber of Commer' as 'Emporia Chamber of Commerce' does not exist in Automate")
         replaced = compenny.replace('Emporia Chamber of Commerce', "Emporia Chamber of Commer")
+        compenny = replaced
+        pickle.dump( compenny, open( "company_info.p", "wb"))
+        pass
+    elif 'Diamond Everley' in compenny:
+        print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley' does not exist in Automate")
+        replaced = compenny.replace('Diamond Everley', "Diamond Everly")
+        compenny = replaced
+        pickle.dump( compenny, open( "company_info.p", "wb"))
+        pass
+    elif 'Burnap Bros. Inc.' in compenny:
+        print_yellow("#### -- Renaming " + compenny + " to just 'Burnap Brothers' as 'Burnap Bros. Inc.' does not exist in Automate")
+        replaced = compenny.replace('Burnap Bros. Inc.', "Burnap Brothers")
         compenny = replaced
         pickle.dump( compenny, open( "company_info.p", "wb"))
         pass
