@@ -2,10 +2,14 @@
 Attempting to fully automate ticketing...
 So far this script can **complete** 4 different ticket types: 
 
-- Reboot/Update Pending(./start.sh 1 or ./start.sh B1)(FILES TO EDIT: ac-reboot.py, reboot_tickets.py(for v2.0 and below) & cw-reboot.py) 
-- service edgeupdate has stopped(./start.sh 2 or ./start.sh B2)(FILES TO EDIT: ac-edgeu.py, edgeu_tickets.py(for v2.0 and below) & cw-edgeu.py) 
-- Disk Cleanup(./start.sh 3 or ./start.sh B3)(FILES TO EDIT: ac-diskcleanup.py, DiskCleanup_tickets.py(for v2.0 and below) & cw-disckcleanup.py) 
-- NIC packet issue tickets(./start.sh 4 or ./start.sh B4)(FILES TO EDIT: ac-nic.py, NIC_tickets.py(for v2.0 and below) & cw-nic.py) 
+- Reboot/Update Pending(./start.sh 1 or ./start.sh B1) \
+(FILES TO EDIT: ac-reboot.py, reboot_tickets.py(for v2.0 and below) & cw-reboot.py) 
+- service edgeupdate has stopped(./start.sh 2 or ./start.sh B2) \
+(FILES TO EDIT: ac-edgeu.py, edgeu_tickets.py(for v2.0 and below) & cw-edgeu.py) 
+- Disk Cleanup(./start.sh 3 or ./start.sh B3) \
+(FILES TO EDIT: ac-diskcleanup.py, DiskCleanup_tickets.py(for v2.0 and below) & cw-disckcleanup.py) 
+- NIC packet issue tickets(./start.sh 4 or ./start.sh B4) \
+(FILES TO EDIT: ac-nic.py, NIC_tickets.py(for v2.0 and below) & cw-nic.py) 
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
