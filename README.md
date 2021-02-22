@@ -4,7 +4,7 @@ So far this script can **complete** 4 different ticket types: (Disk Cleanup, Reb
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
-
+# Below Instructions are outdated.
 # NOTICE: This is WIP project.
 CW-Automation is project I took on to teach myself how to web-scrape, and to make noise tickets a thing of the past. This script(s) is product of hours of research and testing.
 # Step 1 - Starting Out
