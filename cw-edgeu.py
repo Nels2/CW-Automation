@@ -59,26 +59,28 @@ driver = webdriver.Firefox()
 driver.get(url)
 
 # change the below fields to match your login info for YOUR connectwise site as well as the URL above it is specific to my login page.
-comp = ''
-userd = ''
-pasd = ''
+def CWlogin():
+    comp = ''
+    userd = ''
+    pasd = ''
 
-u = driver.find_element_by_name('CompanyName')
-u.send_keys(comp)
-s = driver.find_element_by_name('UserName')
-s.send_keys(userd)
-p = driver.find_element_by_name('Password')
-p.send_keys(pasd)
-p.send_keys(Keys.RETURN)
-# clicking proceed so i can continue
-try:
-    time.sleep(3)
-    pro_clk = driver.find_element_by_xpath("//input[@value='Proceed']")
-    pro_clk.click()
-    print_yellow("#### -- Proceed was clicked -- ####")
-except NoSuchElementException: 
-    pass
-print_green("#### -- Logged in! -- ####")
+    u = driver.find_element_by_name('CompanyName')
+    u.send_keys(comp)
+    s = driver.find_element_by_name('UserName')
+    s.send_keys(userd)
+    p = driver.find_element_by_name('Password')
+    p.send_keys(pasd)
+    p.send_keys(Keys.RETURN)
+    # clicking proceed so i can continue
+    try:
+        time.sleep(3)
+        pro_clk = driver.find_element_by_xpath("//input[@value='Proceed']")
+        pro_clk.click()
+        print_yellow("#### -- Proceed was clicked -- ####")
+    except NoSuchElementException: 
+        pass
+    print_green("#### -- Logged in! -- ####")
+CWlogin()
 # so page can load then clicks on summary description and looks for the specifced ticket.    
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
@@ -119,32 +121,34 @@ except ElementNotInteractableException:
             print_red(' #### -- ERROR: You need to enter either "yes" or "no". -- ####')
             continue#Next is viewing what the ticket is about to make sure it is correct before continuing...
 #-Now to click on new note and begin the process of TRUE automation without CW's semi useless scripting...
-time.sleep(0.2)
-# now to scroll the view down.. hopefully!
-try:
-    grab = driver.find_element_by_name('html')
-    grab.send_keys(Keys.PAGE_DOWN)
-except NoSuchElementException:
-    grab = driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-# also need to save what ticket is about so BrinxBot isn't lost..
-time.sleep(2)
-# break text up so I only have computer name so brinxbot can look it up.
-try:
-    time.sleep(1.3)
-    Mark_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
-    pass
-except NoSuchElementException:
-    try:# sometimes you just have to try again.
-        time.sleep(0.5)
+def MarkResolve():
+    time.sleep(0.2)
+    # now to scroll the view down.. hopefully!
+    try:
+        grab = driver.find_element_by_name('html')
+        grab.send_keys(Keys.PAGE_DOWN)
+    except NoSuchElementException:
+        grab = driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    # also need to save what ticket is about so BrinxBot isn't lost..
+    time.sleep(2)
+    # break text up so I only have computer name so brinxbot can look it up.
+    try:
+        time.sleep(1.3)
         Mark_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
         pass
     except NoSuchElementException:
-        Mark_Resolved = driver.find_element_by_css_selector('#x-auto-200-input') # sometimes the input changes, dont know why.(Referring to Line 141.)
-        pass
-Mark_Resolved.click()
-Mark_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
-Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
-print_green("[BrinxBot]: Marked as Resolved.")
+        try:# sometimes you just have to try again.
+            time.sleep(0.5)
+            Mark_Resolved = driver.find_element_by_class_name('GE0S-T1COTH GE0S-T1CJUH cw_status')
+            pass
+        except NoSuchElementException:
+            Mark_Resolved = driver.find_element_by_xpath('//input[@value="New (Automate)"]') # sometimes the input changes, dont know why.(Referring to Line 141.) best case scenario - use name.
+            pass
+    Mark_Resolved.click()
+    Mark_Resolved.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
+    Mark_Resolved.send_keys('Resolved' + Keys.RETURN)
+    print_green("[BrinxBot]: Marked as Resolved.")
+MarkResolve()
 def computerz():
     if ticket_type == '*edgeupdate*':
         time.sleep(0.5)
@@ -431,16 +435,24 @@ def AutomateConnection():
         driverTwo.quit()
     Server_ReReConnect()
     driver.quit()
-    driver.switch_to.window(first_tab_handle)
 AutomateConnection()
-print_blue("[BrinxBot]: re-opening CW window...")
-c_url = pickle.load( open( "url.p", "rb"))
-driver.execute_script("window.open('about:blank', 'tab4');")
-driver.switch_to.window("tab4")
-driver.get(c_url)
-print_blue("[BrinxBot]: CW is open again.")
+time.sleep(3)
+try: # to open aanother page load up CW again..
+    driver = webdriver.Firefox()
+    driver.execute_script("window.open('about:blank', 'tab4');")
+    driver.switch_to.window("tab4")
+    print_blue("[BrinxBot]: re-opening CW window...")
+    da_url = pickle.load( open( "url.p", "rb"))
+    driver.get(da_url)
+    print_blue("[BrinxBot]: CW is open again.")
+except TypeError:
+    print_red('There was a serious error, could spawn CW instance. Ticket was completed but BrinxBot can not open CW to confirm with a time entry.')
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
 # make sure internal note section is selected.
+CWlogin()
+time.sleep(3)
+WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)')))
+MarkResolve()
 time.sleep(2.7)
 click_internal = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div:nth-child(2) > div > table > tbody > tr > td:nth-child(2)").click()
 #next up is clicking 'New Note'...
@@ -451,12 +463,24 @@ time.sleep(2)
 #now check discussion. after discussion is checked we begin entering our notes.
 check_disucssion = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(1) > div > div > div").click()
 enter_notes = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(2) > div > div.ManageNoteRichTextEditor-richEditor > div > div.DraftEditor-editorContainer > div")
-if ticket_type == '*NIC*':
+if ticket_type == '*edgeupdate*':
     enter_notes.send_keys('[BrinxBot]: Python was used to complete this ticket!')
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: Issuing NICPactSolver script to machine....done!')
+    enter_notes.send_keys('[BrinxBot]: Issuing SRV1.0 script to machine....done!')
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: No further action is needed, the NICPactSolver script has investigated and resolved NIC packet issues.')
+    enter_notes.send_keys('[BrinxBot]: Results.. :')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: The Microsoft Edge Update Service (edgeupdate) service could not be started.')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: The service did not report an error.')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: More help is available by typing NET HELPMSG 3534.')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: The Microsoft Edge Update Service (edgeupdate) service is starting')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: [SC] ChangeServiceConfig SUCCESS')
+    enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
+    enter_notes.send_keys('[BrinxBot]: No further action is needed, the service has been set to auto-restart.')
     pass
 else:
     print_red("Unknown Ticket type. BrinxBot does not know what to do here.")
@@ -464,25 +488,10 @@ else:
 mark_as_done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(3) > div > div > div").click()
 #and finally.. hit SAVE!
 done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-buttons > div.CwButton-wrap.TicketNote-newNoteDialogSaveButton").click()
-WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#x-auto-312')))
-click_yes = driver.find_element_by_css_selector(".GE0S-T1CANG > div:nth-child(1)").click()
+driver.implicitly_wait(3)
+click_yes = driver.find_element_by_css_selector(".GE0S-T1CANG > div:nth-child(1) > div:nth-child(1)").click()
 time.sleep(2)
-#driver.quit() uncomment when running in production (using to complete tickets or you will have to force close this window. )
-def Server_ReConnect():# reconnects to the server instead of keeping the first initial connection alive to save some CPU usage.
-    try:
-        the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
-        options = webdriver.FirefoxOptions()
-        options.headless = True
-        driverTwo = webdriver.Firefox(options=options)
-        driverTwo.get(the_url)
-        time.sleep(1)
-        Connection = driverTwo.find_element_by_css_selector("#message")
-        Connection.send_keys("/name (CW)BrinxBot" + Keys.RETURN)
-        Connection.send_keys("Ticket has been noted and marked as resolved in CW" + Keys.RETURN)
-    except NoSuchElementException:
-        print_red("Server Connection Failed. Continuing...")
-    driverTwo.quit()
-Server_ReConnect()
+driver.quit() #uncomment when running in production (using to complete tickets or you will have to force close this window. )
 end = timer()
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 ticket_info = pickle.load( open( "ticket.p", "rb"))
