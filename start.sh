@@ -3,7 +3,23 @@ clear
 echo ---------------------------------------------------------------------------------
 echo $1
 echo [BrinxBot]: Hello, $USER. I am BrinxBot and I will solve your ticketing issues!
-echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $1.
+if [ $1 == "1" ]
+then 
+    vartype=Reboot
+fi
+if [ $1 == "2" ]
+then 
+    vartype=edgeupdate
+fi
+if [ $1 == "3" ]
+then 
+    vartype=Disk_Cleanup
+fi
+if [ $1 == "4" ]
+then 
+    vartype=Nic_Packet_Error 
+fi
+echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype.
 if [ $1 == "H" ]
 then 
     echo  ----------- Ticket Types Information ----------------
@@ -17,22 +33,22 @@ then
 fi
 if [ $1 == "1" ]
 then 
-    echo [BrinxBot]: Running reboot ticket type solver with new method...
+    echo [BrinxBot]: Running reboot ticket type solver with current method...
     python3 cw-reboot.py
 fi
 if [ $1 == "2" ]
 then 
-    echo [BrinxBot]: Running edgeupdate ticket type solver with new method...
+    echo [BrinxBot]: Running edgeupdate ticket type solver with current method...
     python3 cw-edgeu.py
 fi
 if [ $1 == "3" ]
 then 
-    echo [BrinxBot]: Running Disk Cleanup ticket type solver with new method...
+    echo [BrinxBot]: Running Disk Cleanup ticket type solver with current method...
     python3 cw-diskcleanup.py
 fi
 if [ $1 == "4" ]
 then 
-    echo [BrinxBot]: Running NIC Packet Error ticket type solver with new method...
+    echo [BrinxBot]: Running NIC Packet Error ticket type solver with current method...
     python3 cw-nic.py
 fi
 

@@ -191,6 +191,7 @@ current_url = driver.current_url
 pickle.dump( current_url, open( "url.p", "wb"))
 pickle.dump( first_tab_handle, open( "first_tab.p", "wb"))
 print_yellow("#### -- first_tab_handle : " + str(first_tab_handle) + "-- ####")
+time.sleep(2)
 driver.quit()
 def AutomateConnection():
     first_tab = pickle.load( open( "first_tab.p", "rb"))
@@ -322,8 +323,8 @@ def AutomateConnection():
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
         elif 'Diamond Everley Roofing' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everley' as 'Diamond Everley Roofing' does not exist in Automate")
-            replaced = compenny.replace('Diamond Everley Roofing', "Diamond Everley")
+            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley Roofing' does not exist in Automate")
+            replaced = compenny.replace('Diamond Everley Roofing', "Diamond Everly")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -502,6 +503,7 @@ now = datetime.datetime.now()
 print_yellow("Script Completetion Time:")
 print_yellow(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
+print_yellow("#### -- " + ticket_info + " -- ####")
 print_yellow("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 

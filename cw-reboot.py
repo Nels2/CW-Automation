@@ -84,7 +84,7 @@ CWlogin()
 # so page can load then clicks on summary description and looks for the specifced ticket.    
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
-ticket_type = '*edgeupdate*'  # service tickets where a disk clean up is needed
+ticket_type = '*Reboot*'  # service tickets where a disk clean up is needed
 pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 time.sleep(0.5)
@@ -159,25 +159,41 @@ def MarkResolve():
 MarkResolve()
 def computerz():
     if ticket_type == '*Reboot*':
-        time.sleep(0.5)
-        ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
-        print_yellow("#### -- " + ticket_info + " -- ####")
-        pickle.dump( ticket_info, open( "ticket.p", "wb"))
-        computer = ticket_info.split("for ",1)[1]
-        if '_' in computer:
-            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
-            unique = computer.replace('_', ' ')
-            uniqued = unique.split(" ",1)[0]
-            computer = uniqued
-            pass
-        else:
-            pass
-        pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_xpath('//*[@id="x-auto-193-label"]').text
+        try:
+            time.sleep(0.5)
+            ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
+            print_yellow("#### -- " + ticket_info + " -- ####")
+            pickle.dump( ticket_info, open( "ticket.p", "wb"))
+            computer = ticket_info.split("for ",1)[1]
+            if '_' in computer:
+                print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+                unique = computer.replace('_', ' ')
+                uniqued = unique.split(" ",1)[0]
+                computer = uniqued
+                pass
+            else:
+                pass
+            pickle.dump( computer, open( "save.p", "wb"))
+        except IndexError:# sometimes the tickets are formatted weird..
+            time.sleep(0.5)
+            ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
+            print_yellow("#### -- " + ticket_info + " -- ####")
+            pickle.dump( ticket_info, open( "ticket.p", "wb"))
+            computer = ticket_info.split("\\",1)[1]
+            if '_' in computer:
+                print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+                unique = computer.replace('_', ' ')
+                uniqued = unique.split(" ",1)[0]
+                computer = uniqued
+                pass
+            else:
+                pass
+            pickle.dump( computer, open( "save.p", "wb"))
+        company_info = driver.find_element_by_css_selector('.TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)').text
         str = company_info
-        ci = str.split(": ",1)[1]
+        ci = str.split("on ",1)[1]
         str = ci
-        ci_complete = str
+        ci_complete = str.split("\\",1)[0]
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
         print_blue("[CW-Main][BrinxBot]: Looking for: " + computer + " from " + ci_complete + "....")
         pass  
@@ -187,6 +203,7 @@ current_url = driver.current_url
 pickle.dump( current_url, open( "url.p", "wb"))
 pickle.dump( first_tab_handle, open( "first_tab.p", "wb"))
 print_yellow("#### -- first_tab_handle : " + str(first_tab_handle) + "-- ####")
+time.sleep(2)
 driver.quit()
 def AutomateConnection():
     first_tab = pickle.load( open( "first_tab.p", "rb"))
@@ -318,8 +335,8 @@ def AutomateConnection():
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
         elif 'Diamond Everley Roofing' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everley' as 'Diamond Everley Roofing' does not exist in Automate")
-            replaced = compenny.replace('Diamond Everley Roofing', "Diamond Everley")
+            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley Roofing' does not exist in Automate")
+            replaced = compenny.replace('Diamond Everley Roofing', "Diamond Everly")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -523,6 +540,7 @@ now = datetime.datetime.now()
 print_yellow("Script Completetion Time:")
 print_yellow(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
+print_yellow("#### -- " + ticket_info + " -- ####")
 print_yellow("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
