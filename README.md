@@ -3,13 +3,13 @@ Attempting to fully automate ticketing...
 So far this script can **complete** 4 different ticket types: 
 
 - Reboot/Update Pending(./start.sh 1 or ./start.sh B1) \
-(FILES TO EDIT: ac-reboot.py, reboot_tickets.py(for v2.0 and below) & cw-reboot.py) 
+FILES TO EDIT: cw-reboot.py 
 - service edgeupdate has stopped(./start.sh 2 or ./start.sh B2) \
-(FILES TO EDIT: ac-edgeu.py, edgeu_tickets.py(for v2.0 and below) & cw-edgeu.py) 
+FILES TO EDIT: cw-edgeu.py 
 - Disk Cleanup(./start.sh 3 or ./start.sh B3) \
-(FILES TO EDIT: ac-diskcleanup.py, DiskCleanup_tickets.py(for v2.0 and below) & cw-disckcleanup.py) 
+FILES TO EDIT: cw-disckcleanup.py
 - NIC packet issue tickets(./start.sh 4 or ./start.sh B4) \
-(FILES TO EDIT: ac-nic.py, NIC_tickets.py(for v2.0 and below) & cw-nic.py) 
+FILES TO EDIT: cw-nic.py
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
@@ -32,7 +32,7 @@ after it is finished, change into its' directory by typing out: ```cd CW-Automat
 That is all for this step.
 
 # Editing! Part 1 of 2
-Open up a code editor of your choice, and open up both 'cw-diskcleanup.py', 'cw-edgeu.py', 'cw-nic.py', 'cw-reboot.py' AND , 'ac-diskcleanup.py', 'ac-edgeu.py', 'ac-nic.py', 'ac-reboot.py' \
+Open up a code editor of your choice, and open up both 'cw-diskcleanup.py', 'cw-edgeu.py', 'cw-nic.py', 'cw-reboot.py' 
 We will start first with the 'cw-xxx.py' files \
 - Once inside the file(s)(you need to do this for all 4!), press CTRL+F, this will bring a search bar.
 - First you need to search for 'url'
@@ -43,9 +43,10 @@ This will bring you to THREE values you need to change.
 - **'userd'** is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 - **'pasd'** is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 That is all you need to do for CW.py. make sure you hit **SAVE!** You can now close all cw-xxx.py files
-# Editing! Part 2 of 2
-Now that cw-xxx.py files are taken care of, go back and open up all **4** 'ac-xxx.py' files in your choice of code editor.\
-Once the file(s) 'ac-xxx.py' are open(start with any, but make sure you do all four!), press CTRL+F\
+# Editing! Part 2 of 2 inside 
+Now that in cw-xxx.py the connectwise login information has been taken care of, keep open up all **4** 'cw-xxx.py' files in your choice of code editor.\
+once again, in the file(s) 'cw-xxx.py' are open(start with any, but make sure you do all four!), press CTRL+F\
+the next part is changing the Automate Login / your O365 Login.
 - **You are going to CTRL+F more than once.**
 - First you need to search for 'url' 
 - **Change the url to match your hoested rmm automate login site.**
@@ -74,8 +75,7 @@ Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Instead type out: ```sudo chmod +x start.sh```
 - And to run it type out: ```./start.sh``` with either 1-4 or CW as an arguement
-- And to run it type out: ```./start.sh Bx``` with 'x' being either 1-4 as an arguement, runs the new 2.1+ method
-- So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run the pre-2.1 method
+- So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
 - Another Example is ```./start.sh CW``` would run the script with v1.5-2 method of completing tickets.
 - type ```./start.sh H``` to see more information.
 The script will begin to run. Make sure to pay attention to the terminal as well. 
