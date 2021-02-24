@@ -88,6 +88,9 @@ ticket_type = '*edgeupdate*'  # service tickets where a disk clean up is needed
 pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 time.sleep(0.5)
+status_of_tickets = driver.find_element_by_xpath('//*[@id="Description-input"]')
+status_of_tickets.send_keys("New (Automate)")
+time.sleep(1)
 search.send_keys(ticket_type)
 search.send_keys(Keys.RETURN)
 # let the field populate... then searches for tickets that start with "UPDATES" then clicks on the first one
@@ -97,12 +100,13 @@ try:
     ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
     action = ActionChains(driver)
     action.double_click(ticket)
-except ElementNotInteractableException:
+except NoSuchElementException:
     pass
     print_yellow('#### -- Ticket Function Was Not Used! -- ####')
     while True:
         print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
-        option = input("| Do you want to look for again? (yes/no): ")
+        print_yellow('#### -- If you think BrinxBot is wrong type "bbw"[BrinxBot is Wrong] to go ahead and attempt to complete the page loaded. -- #####')
+        option = input("| Do you want to look for again? (yes/no/bbw): ")
         if option == 'yes':
             ticket_type = pickle.load( open( "ticket_info.p", "rb"))
             time.sleep(0.5)
@@ -116,6 +120,9 @@ except ElementNotInteractableException:
         elif option == 'no':
             print_yellow('#### -- !! Exiting.. !! -- ####')
             sys.exit()
+            pass
+        elif option == 'bbw':
+            break
             pass
         else:
             print_red(' #### -- ERROR: You need to enter either "yes" or "no". -- ####')
@@ -371,6 +378,7 @@ def AutomateConnection():
     search_for_comp.send_keys(computer + Keys.RETURN)
     time.sleep(3)
     Agnt_Status = driver.find_elements_by_css_selector('.CwDataGrid-success')
+    time.sleep(0.8)
     s = len(Agnt_Status)
     # check condition, if list size > 0, element exists
     if(s>0):
