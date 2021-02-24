@@ -2,13 +2,13 @@
 Attempting to fully automate ticketing...
 So far this script can **complete** 4 different ticket types: 
 
-- Reboot/Update Pending(./start.sh 1 or ./start.sh B1) \
+- Reboot/Update Pending(./start.sh 1) \
 FILES TO EDIT: cw-reboot.py 
-- service edgeupdate has stopped(./start.sh 2 or ./start.sh B2) \
+- service edgeupdate has stopped(./start.sh 2) \
 FILES TO EDIT: cw-edgeu.py 
-- Disk Cleanup(./start.sh 3 or ./start.sh B3) \
+- Disk Cleanup(./start.sh 3) \
 FILES TO EDIT: cw-disckcleanup.py
-- NIC packet issue tickets(./start.sh 4 or ./start.sh B4) \
+- NIC packet issue tickets(./start.sh 4) \
 FILES TO EDIT: cw-nic.py
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
@@ -76,6 +76,5 @@ Now that everything has been configured, you are ready to begin the automation!\
 - Instead type out: ```sudo chmod +x start.sh```
 - And to run it type out: ```./start.sh``` with either 1-4 or CW as an arguement
 - So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
-- Another Example is ```./start.sh CW``` would run the script with v1.5-2 method of completing tickets.
 - type ```./start.sh H``` to see more information.
 The script will begin to run. Make sure to pay attention to the terminal as well. 
