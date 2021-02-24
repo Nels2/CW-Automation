@@ -215,7 +215,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 1.2.0 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 3.2 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)

@@ -19,7 +19,6 @@ if [ $1 == "4" ]
 then 
     vartype=Nic_Packet_Error 
 fi
-echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype.
 if [ $1 == "H" ]
 then 
     echo  ----------- Ticket Types Information ----------------
@@ -33,21 +32,25 @@ then
 fi
 if [ $1 == "1" ]
 then 
+    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo [BrinxBot]: Running reboot ticket type solver with current method...
     python3 cw-reboot.py
 fi
 if [ $1 == "2" ]
 then 
+    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo [BrinxBot]: Running edgeupdate ticket type solver with current method...
     python3 cw-edgeu.py
 fi
 if [ $1 == "3" ]
 then 
+    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo [BrinxBot]: Running Disk Cleanup ticket type solver with current method...
     python3 cw-diskcleanup.py
 fi
 if [ $1 == "4" ]
 then 
+    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo [BrinxBot]: Running NIC Packet Error ticket type solver with current method...
     python3 cw-nic.py
 fi
