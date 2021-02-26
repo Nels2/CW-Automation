@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from timeit import default_timer as timer
 from time import sleep
@@ -96,12 +97,16 @@ search.send_keys(Keys.RETURN)
 # let the field populate... then searches for tickets that start with "UPDATES" then clicks on the first one
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
 try:
-    time.sleep(3)
-    ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
+    driver.implicitly_wait(3.5)
+    ticket = driver.find_element_by_class_name("gwt-Label mm_label GE0S-T1CHBL detailLabel cw_CwLabel").click()
     action = ActionChains(driver)
     action.double_click(ticket)
 except NoSuchElementException:
-    pass
+    print_yellow('#### -- Trying again...  -- ####')
+    driver.implicitly_wait(1)
+    ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
+    action = ActionChains(driver)
+    action.double_click(ticket)
     print_yellow('#### -- Ticket Function Was Not Used! -- ####')
     while True:
         print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
@@ -289,7 +294,9 @@ def AutomateConnection():
     try:
         time.sleep(2)
         click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
-    except NoSuchElementException:
+    except ElementClickInterceptedException:
+        driver.implicitly_wait(2)
+        click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
         pass
     print_yellow("#### -- Automate Control Center Connecton Established... -- ####")
     # check variable to see if it is the same. 
