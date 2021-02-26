@@ -30,6 +30,11 @@ then
     echo Above are the following arguments you can use with start.sh.
     echo After the ... above, is the correct way to pass an argument to start.sh
 fi
+if [ $1 == "T" ]
+then 
+    echo  ----------- Loading Ticket Information From Today.. ----------------
+    python3 cw-srvcebrd.py
+fi
 if [ $1 == "1" ]
 then 
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
