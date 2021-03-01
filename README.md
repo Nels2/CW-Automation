@@ -81,4 +81,4 @@ So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) wo
 If you want just a return of the tickets on the service board, type out: ```./start.sh T``` and you can decide from there which OP to run ```./script.sh (1-4)```.
 - type ```./start.sh H``` to see more information. \
 
-After starting the script with your chosen arguement**(1,2,3,4,T,TB,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
+After starting the script with your chosen arguement **(1,2,3,4,T,TB,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
