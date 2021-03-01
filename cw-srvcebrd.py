@@ -52,11 +52,13 @@ def CWlogind():
         pro_clk = driver.find_element_by_xpath("//input[@value='Proceed']")
         pro_clk.click()
         print_yellow("#### -- Proceed was clicked -- ####")
+    except ElementNotInteractableException:
+        pass
     except NoSuchElementException: 
         pass
     print_green("#### -- Logged in! -- ####")
 CWlogind()
-WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
+WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 status_of_tickets = driver.find_element_by_xpath('//*[@id="Description-input"]')
 status_of_tickets.send_keys("New (Automate)")
 status_of_tickets.send_keys(Keys.RETURN)
@@ -75,6 +77,7 @@ driver.implicitly_wait(2)
 
 x = int(PGAmt) 
 i = int(1)
+os.remove("ticket_types.txt")
 while i < x:
     path2 = "/html/body/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[1]/div[4]/div/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/table/tbody[2]/tr[1]/td[2]" 
     if "/html/body/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[1]/div[4]/div/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/table/tbody[2]/tr[1]/td[2]" in path2:
@@ -90,7 +93,7 @@ while i < x:
         pass
     TicketNumber = driver.find_element_by_xpath(path2).text
     Ticketlist = driver.find_element_by_xpath(path).text
-    if 'Reboot' in Ticketlist:
+    if 'Reboot' in Ticketlist or 'UPDATES - Reboot Pending' in Ticketlist:
         ticketT = 'Reboot Type'
         pass
     elif 'edgeupdate' in Ticketlist:
@@ -102,8 +105,56 @@ while i < x:
     elif 'NIC' in Ticketlist:
         ticketT = 'NIC Type'
         pass
-    print_yellow('Ticket Number# & Type: ' + TicketNumber + ' & ' + ticketT)
+    elif 'UPDATES -  Out of date' in Ticketlist or 'UPDATES - Out of date' in Ticketlist:
+        ticketT = 'Out of Date PC'
+        pass
+    elif 'No Checkin' in Ticketlist:
+        ticketT = 'Out of Date PC'
+        pass
+    elif 'Webroot Process Not Running' in Ticketlist:
+        ticketT = 'WebRoot Error'
+        pass
+    elif 'Unclassified Apps' in Ticketlist:
+        ticketT = 'Unclassified App Warning'
+        pass
+    elif 'Perf - Processor Queue Length' in Ticketlist:
+        ticketT = 'Perf Type Ticket'
+        pass
+    elif 'Software Uninstalled' in Ticketlist or 'Get Product Keys Script Failed' in Ticketlist :
+        ticketT = 'No Time Entry Needed'
+        pass
+    else:
+        ticketT = 'Unknown'
+        pass
+    with open('ticket_types.txt', 'a') as f:
+        print("Ticket Type: ", ticketT, file=f)
+    print_yellow('Ticket Number# & Type: ' + TicketNumber + ' & ' + ticketT) 
     print_blue('Ticket Information: ' + Ticketlist)
     i += 1
     pass
+driver.quit()
+total_egu = 0
+total_dc = 0
+total_reb = 0
+total_nic = 0
+with open('ticket_types.txt') as f:
+    for line in f:
+        found_egu = line.find('edgeupdate Type')
+        if found_egu != -1 and found_egu != 0:
+            total_egu += 1
+        found_dc = line.find('Disk Cleanup Type')
+        if found_dc != -1 and found_dc != 0:
+            total_dc += 1
+        found_nic = line.find('NIC Type')
+        if found_nic != -1 and found_nic != 0:
+            total_nic += 1
+        found_reb = line.find('Reboot Type')
+        if found_reb != -1 and found_reb != 0:
+            total_reb += 1
 print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
+print_yellow('#### -- Total Amount of Each Ticket Type Today:-- ####')
+print_yellow("Reboot Type:                               "+str(total_reb))
+print_yellow("EdgeUpdate Type:                           "+str(total_egu))
+print_yellow("Disk Cleanup Type:                         "+str(total_dc))
+print_yellow("NIC Type:                                  "+str(total_nic))
+print_yellow('#### -------------------------------------------- ####')

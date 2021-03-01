@@ -1,0 +1,10 @@
+Ticket Type:  edgeupdate Type
+Ticket Type:  Perf Type Ticket
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  Out of Date PC
+Ticket Type:  Unclassified App Warning
+Ticket Type:  Unknown
+Ticket Type:  WebRoot Error
+Ticket Type:  Out of Date PC
+Ticket Type:  Unknown

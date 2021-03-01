@@ -56,7 +56,10 @@ def Server_Connect():
 Server_Connect()
 
 url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&locale=en_US#XQAACADDAwAAAAAAAAA9iIoG07$U9W$OXqU2f868IPYhCwZbCCkqIYRFHeyR$YSSk0sjl7aoF9AsnZZhVeOB946uvkjbEleT3$QSnKOPbfpwf5Rpm4pnPk1eG4JyNyw4s7vLKmXij22FiyTB2oZqWkMCXeweztjksT8JcyXpS28QKVqeMlfeQIvA6iv_pI0FYhAHuS0e3Vbt$Zuae_TWOIh8pyoekVhIeLWFUx_iHiIqFKZ0IFkX0MfeFPUaeW$zvKgRLesGKter7cZIwQmc4Y8195JVWByziRMs2$xmbn18d0ZwG_Ib9tkU6VB9_Ub4niPdSZ$nHIDC$UVoVEOC1Fb8ofrtjiSViR9pq753hcTAPM$PSGDKQQ4djIuGXbE1ZZ0YRUI$qlQONhHfCLrqlUVDP$dCYMDBOkko2Spdq3Z2q$tdG7BACM$b$uAF0IEoXGYAAqoKelgCSjAJ$$Bz93AIVMAy8miuOgfwl$8KxX3SNWL_84lOAA==??ServiceBoard"
-driver = webdriver.Firefox()
+#driver = webdriver.Firefox()
+options = webdriver.FirefoxOptions()
+options.headless = True
+driver = webdriver.Firefox(options=options)
 driver.get(url)
 
 # change the below fields to match your login info for YOUR connectwise site as well as the URL above it is specific to my login page.
@@ -101,37 +104,42 @@ try:
     ticket = driver.find_element_by_class_name("gwt-Label mm_label GE0S-T1CHBL detailLabel cw_CwLabel").click()
     action = ActionChains(driver)
     action.double_click(ticket)
+    pass
+except ElementNotInteractableException:
+    print_yellow("#### -- Appears to be last ticket of this type("+ticket_type+"). -- ####")
+    pass
 except NoSuchElementException:
     print_yellow('#### -- Trying again...  -- ####')
     driver.implicitly_wait(1)
-    ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
-    action = ActionChains(driver)
-    action.double_click(ticket)
-    print_yellow('#### -- Ticket Function Was Not Used! -- ####')
-    while True:
-        print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
-        print_yellow('#### -- If you think BrinxBot is wrong type "bbw"[BrinxBot is Wrong] to go ahead and attempt to complete the page loaded. -- #####')
-        option = input("| Do you want to look for again? (yes/no/bbw): ")
-        if option == 'yes':
-            ticket_type = pickle.load( open( "ticket_info.p", "rb"))
-            time.sleep(0.5)
-            search.send_keys(ticket_type)
-            search.send_keys(Keys.RETURN)
-            ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
-            action = ActionChains(driver)
-            action.double_click(ticket)
-            pass
-            break
-        elif option == 'no':
-            print_yellow('#### -- !! Exiting.. !! -- ####')
-            sys.exit()
-            pass
-        elif option == 'bbw':
-            break
-            pass
-        else:
-            print_red(' #### -- ERROR: You need to enter either "yes" or "no". -- ####')
-            continue#Next is viewing what the ticket is about to make sure it is correct before continuing...
+    try:
+        ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
+        action = ActionChains(driver)
+        action.double_click(ticket)
+    except NoSuchElementException:
+        while True:
+            print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
+            option = input("| Do you want to look for again? (yes/no): ")
+            if option == 'yes' or option == 'y':
+                ticket_type = pickle.load( open( "ticket_info.p", "rb"))
+                time.sleep(0.5)
+                search.send_keys(ticket_type)
+                search.send_keys(Keys.RETURN)
+                ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
+                action = ActionChains(driver)
+                action.double_click(ticket)
+                pass
+                break
+            elif option == 'no' or option == 'n':
+                print_yellow('#### -- !! Exiting.. !! -- ####')
+                sys.exit()
+                pass
+            else:
+                print_red(' #### -- ERROR: You need to enter either "yes" or "no". -- ####')
+                continue
+    except ElementNotInteractableException:
+        print_yellow('#### -- Ticket Function 2 Was Not Used! -- ####')
+        pass
+        #Next is viewing what the ticket is about to make sure it is correct before continuing...
 #-Now to click on new note and begin the process of TRUE automation without CW's semi useless scripting...
 time.sleep(0.2)
 # now to scroll the view down.. hopefully!
@@ -221,7 +229,10 @@ def AutomateConnection():
     first_tab = pickle.load( open( "first_tab.p", "rb"))
     now = datetime.datetime.now()
     url_second = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, where-ever it is hosted..
-    driver = webdriver.Firefox()
+    #driver = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
     driver.execute_script("window.open('about:blank','tab2');")
     driver.switch_to.window("tab2")
     pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
@@ -312,8 +323,10 @@ def AutomateConnection():
         click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
     except NoSuchElementException:
         driver.implicitly_wait(2)
-        click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
-        pass
+        try:
+            click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
+        except NoSuchElementException:
+            pass
     print_yellow("#### -- Automate Control Center Connecton Established... -- ####")
     # check variable to see if it is the same. 
     computer = pickle.load( open( "save.p", "rb"))
@@ -424,6 +437,7 @@ def AutomateConnection():
                 break
             elif decide == 'n':
                 print_yellow('#### -- !! Force Quitting !! -- ####')
+                driver.quit()
                 sys.exit()
                 pass
             else:
