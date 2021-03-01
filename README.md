@@ -79,5 +79,6 @@ Now that everything has been configured, you are ready to begin the automation!\
 So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
 - Alternatively, type out ```./start.sh TB``` for an alternate method that auto completes tickets for you **unless** the machine is offline, you will have to input y/n if you want the script to complete the ticket for it anyway(*Not recommended to complete an offline agent ticket*). 
 If you want just a return of the tickets on the service board, type out: ```./start.sh T``` and you can decide from there which OP to run ```./script.sh (1-4)```.
-- type ```./start.sh H``` to see more information.
-The script will begin to run. **Make sure to pay attention to the terminal as well.** 
+- type ```./start.sh H``` to see more information. \
+
+After starting the script with your chosen arguement**(1,2,3,4,T,TB,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
