@@ -10,7 +10,7 @@ FILES TO EDIT: cw-edgeu.py
 FILES TO EDIT: cw-disckcleanup.py
 - NIC packet issue tickets(./start.sh 4) \
 FILES TO EDIT: cw-nic.py \
-*You also need to edit this file:* cw-srvcebrd.py \
+**You also need to edit this file:** cw-srvcebrd.py \
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
@@ -77,7 +77,7 @@ Now that everything has been configured, you are ready to begin the automation!\
 - Next type out: ```sudo chmod +x start.sh```
 - And to run it type out: ```./start.sh``` with either 1-4, T, or TB as an arguement
 So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
-- Alternatively, type out ```./start.sh TB``` for an alternate method that auto completes tickets for you *unless* the machine is offline, you will have to input y/n if you want the script to complete the ticket for it anyway(*Not recommended to complete anyway*). 
+- Alternatively, type out ```./start.sh TB``` for an alternate method that auto completes tickets for you **unless** the machine is offline, you will have to input y/n if you want the script to complete the ticket for it anyway(*Not recommended to complete an offline agent ticket*). 
 If you want just a return of the tickets on the service board, type out: ```./start.sh T``` and you can decide from there which OP to run ```./script.sh (1-4)```.
 - type ```./start.sh H``` to see more information.
-The script will begin to run. Make sure to pay attention to the terminal as well. 
+The script will begin to run. **Make sure to pay attention to the terminal as well.** 
