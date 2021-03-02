@@ -24,8 +24,9 @@ import pickle
 # This script is intened to grab todays(date ran) serviceboard to get an overview of tickets without having to login.
 #
 #
-print_blue = lambda x: cprint(x, 'cyan')
+print_blue = lambda x: cprint(x, 'white', attrs=['bold'])
 print_yellow = lambda x: cprint(x, 'yellow')
+print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&locale=en_US#XQAACADDAwAAAAAAAAA9iIoG07$U9W$OXqU2f868IPYhCwZbCCkqIYRFHeyR$YSSk0sjl7aoF9AsnZZhVeOB946uvkjbEleT3$QSnKOPbfpwf5Rpm4pnPk1eG4JyNyw4s7vLKmXij22FiyTB2oZqWkMCXeweztjksT8JcyXpS28QKVqeMlfeQIvA6iv_pI0FYhAHuS0e3Vbt$Zuae_TWOIh8pyoekVhIeLWFUx_iHiIqFKZ0IFkX0MfeFPUaeW$zvKgRLesGKter7cZIwQmc4Y8195JVWByziRMs2$xmbn18d0ZwG_Ib9tkU6VB9_Ub4niPdSZ$nHIDC$UVoVEOC1Fb8ofrtjiSViR9pq753hcTAPM$PSGDKQQ4djIuGXbE1ZZ0YRUI$qlQONhHfCLrqlUVDP$dCYMDBOkko2Spdq3Z2q$tdG7BACM$b$uAF0IEoXGYAAqoKelgCSjAJ$$Bz93AIVMAy8miuOgfwl$8KxX3SNWL_84lOAA==??ServiceBoard"
@@ -128,8 +129,8 @@ while i < x:
         pass
     with open('ticket_types.txt', 'a') as f:
         print("Ticket Type: ", ticketT, file=f)
-    print_yellow('Ticket Number# & Type: ' + TicketNumber + ' & ' + ticketT) 
-    print_blue('Ticket Information: ' + Ticketlist)
+    print_alt_yellow('Ticket Number[#] & Type: ' + TicketNumber + ' & ' + ticketT + ": ") 
+    print_blue('>> Ticket Information: ' + Ticketlist)
     i += 1
     pass
 driver.quit()
@@ -137,6 +138,12 @@ total_egu = 0
 total_dc = 0
 total_reb = 0
 total_nic = 0
+total_OD = 0
+total_PT = 0
+total_UA = 0
+total_NTEN = 0
+total_WE = 0
+total_UT = 0
 with open('ticket_types.txt') as f:
     for line in f:
         found_egu = line.find('edgeupdate Type')
@@ -151,10 +158,35 @@ with open('ticket_types.txt') as f:
         found_reb = line.find('Reboot Type')
         if found_reb != -1 and found_reb != 0:
             total_reb += 1
+        found_OD = line.find('Out of Date PC')
+        if found_OD != -1 and found_OD != 0:
+            total_OD += 1
+        found_PT = line.find('Perf Type Ticket')
+        if found_PT != -1 and found_PT != 0:
+            total_PT += 1
+        found_UA = line.find('Unclassified App Warning')
+        if found_UA != -1 and found_UA != 0:
+            total_UA += 1
+        found_NTEN = line.find('No Time Entry Needed')
+        if found_NTEN != -1 and found_NTEN != 0:
+            total_NTEN += 1
+        found_WE = line.find('WebRoot Error')
+        if found_WE != -1 and found_WE != 0:
+            total_WE += 1
+        found_UT = line.find('Unknown')
+        if found_UT != -1 and found_UT != 0:
+            total_UT += 1
 print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
-print_yellow('#### -- Total Amount of Each Ticket Type Today:-- ####')
-print_yellow("Reboot Type:                               "+str(total_reb))
-print_yellow("EdgeUpdate Type:                           "+str(total_egu))
-print_yellow("Disk Cleanup Type:                         "+str(total_dc))
-print_yellow("NIC Type:                                  "+str(total_nic))
-print_yellow('#### -------------------------------------------- ####')
+print_yellow('#### -- Total Amount of Each Ticket Type Today: -- ####')
+print_blue("|    Out of Date PC:                             "+str(total_OD)+"    | ")
+print_blue("|    Unknown:                                    "+str(total_UT)+"    | ")
+print_blue("|    WebRoot Error Type:                         "+str(total_WE)+"    | ")
+print_blue("|    Perf Warning Type:                          "+str(total_PT)+"    |")
+print_blue("|    Unclassified App Warning:                   "+str(total_UA)+"    |")
+print_blue("|    No Time Entry Needed:                       "+str(total_NTEN)+"    |")
+print_yellow('#### --   Ticket Types That BrinxBot Can Work:  -- ####')
+print_blue("|    Reboot Type:                                "+str(total_reb)+"    | ")
+print_blue("|    EdgeUpdate Type:                            "+str(total_egu)+"    | ")
+print_blue("|    Disk Cleanup Type:                          "+str(total_dc)+"    | ")
+print_blue("|    NIC Type:                                   "+str(total_nic)+"    |")
+print_yellow('#### --------------------------------------------- ####')

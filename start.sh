@@ -1,7 +1,6 @@
 #!/bin/bash
 clear
 echo ---------------------------------------------------------------------------------
-echo $1
 echo "[BrinxBot]: Hello, $USER. I am BrinxBot and I will solve your ticketing issues!"
 echo "[BrinxBot]: $USER! you can view tickets and autocomplete with 'TB' instead of 'T'!"
 if [ $1 == "1" ]
@@ -45,12 +44,12 @@ then
 fi
 if [ $1 == "T" ]
 then 
-    echo  ----------- Loading Ticket Information From Today.. ----------------
+    echo  ----------------- Loading Ticket Information From Today.. ----------------------
     python3 cw-srvcebrd.py
 fi
 if [ $1 == "TB" ]
 then 
-    echo  ----------- Loading Ticket Information From Today.. ----------------
+    echo  ----------------- Loading Ticket Information From Today.. ----------------------
     python3 cw-srvcebrd.py
     echo  -----------         Checking Ticket Amounts         ----------------
     file=ticket_types.txt
