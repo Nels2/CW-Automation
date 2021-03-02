@@ -25,8 +25,12 @@ geckodriver is a program that provides the HTTP API described by the WebDriver p
 
 # Step 2 - The Set Up
 Next is to open up a terminal on your *nix install. 
-- First you need to install the file requirements which are 1. selenium and 2. pyfiglet.
-you can install both using ```pip install selenium``` and ```pip install pyfiglet``` \
+- First you need to install the file requirements which are
+> 1. selenium
+> 2. pyfiglet
+> 3. termcolor
+> 4. pickle
+you can install both using ```pip install selenium```, ```pip install pyfiglet```, ```pip install termcolor```  and ```pip install pickle``` \
 Great! next is cloning my repository from GitHub and changing into its directory.
 - In a terminal, type out: ```git clone https://github.com/Nels2/CW-Automation.git```
 after it is finished, change into its' directory by typing out: ```cd CW-Automation```
