@@ -55,8 +55,8 @@ the next part is changing the Automate Login / your O365 Login.
 - **You are going to CTRL+F more than once.**
 - First you need to search for 'url' 
 - **Change the url to match your hoested rmm automate login site.**
-- Next you need to change another thing, on Line 78, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
-- You are now looking for the value **'usrname'**
+- Next you need to change another thing in the cw-xxx.py files, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
+- You are now looking for the value **'usrname'** inside **all** of the cw-xxx.py files.
 Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
 - 'passwd' is your password for your login at Automate Control Center.
