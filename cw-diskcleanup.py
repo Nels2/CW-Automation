@@ -413,20 +413,8 @@ def AutomateConnection():
         print_green('#### -- Agent Status: ONLINE! -- #####')
         pass
     else:
-        while True:
-            print_red('#### -- Agent Status: OFFLINE! -- #####')
-            decide = input("| Do you want to continue anyway? (y/n): ")
-            if decide == 'y':
-                pass
-                break
-            elif decide == 'n':
-                print_yellow('#### -- !! Force Quitting !! -- ####')
-                driver.quit()
-                sys.exit()
-                pass
-            else:
-                print_red(' #### -- ERROR: You need to enter either y/n. -- ####')
-                continue
+        print_red('#### -- Agent Status: OFFLINE! -- #####')
+        print_yellow('#### -- Continuing anyway! -- #####')
     select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
     # save this tab so i can return to it in case a new window is launched.
     second_tab_handle = driver.current_window_handle
