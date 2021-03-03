@@ -25,8 +25,12 @@ geckodriver is a program that provides the HTTP API described by the WebDriver p
 
 # Step 2 - The Set Up
 Next is to open up a terminal on your *nix install. 
-- First you need to install the file requirements which are 1. selenium and 2. pyfiglet.
-you can install both using ```pip install selenium``` and ```pip install pyfiglet``` \
+- First you need to install the file requirements which are
+1. selenium 
+2. pyfiglet 
+3. termcolor 
+4. pickle \
+You can install both using ```pip install selenium```, ```pip install pyfiglet```, ```pip install termcolor```  and ```pip install pickle``` \
 Great! next is cloning my repository from GitHub and changing into its directory.
 - In a terminal, type out: ```git clone https://github.com/Nels2/CW-Automation.git```
 after it is finished, change into its' directory by typing out: ```cd CW-Automation```
@@ -43,16 +47,16 @@ This will bring you to THREE values you need to change.
 - **'comp'** is where you will input your company name **INSIDE**  the quotation marks. for example for us it is 'centurytest'
 - **'userd'** is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 - **'pasd'** is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
-That is all you need to do for CW.py. make sure you hit **SAVE!** You can now close all cw-xxx.py files
+That is all you need to do for CW.py. make sure you hit **SAVE!** 
 # Editing! Part 2 of 2 inside 
-Now that in cw-xxx.py the connectwise login information has been taken care of, keep open up all **4** 'cw-xxx.py' files in your choice of code editor.\
-once again, in the file(s) 'cw-xxx.py' are open(start with any, but make sure you do all four!), press CTRL+F\
+Now that in cw-xxx.py the connectwise login information has been taken care of, keep open up all **4** 'cw-xxx.py' files, (minus cw-srvcebrd.py) in your choice of code editor.\
+once again, in the file(s) 'cw-xxx.py' are open(*start with any, but make sure you do all four!*), press CTRL+F\
 the next part is changing the Automate Login / your O365 Login.
 - **You are going to CTRL+F more than once.**
 - First you need to search for 'url' 
 - **Change the url to match your hoested rmm automate login site.**
-- Next you need to change another thing, on Line 78, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
-- You are now looking for the value **'usrname'**
+- Next you need to change another thing in the cw-xxx.py files, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
+- You are now looking for the value **'usrname'** inside **all** of the cw-xxx.py files.
 Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
 - 'passwd' is your password for your login at Automate Control Center.
@@ -65,14 +69,14 @@ That is all for this step!, you should be good to go.
 
 # Optional Step - Watch Live Steps at Server!
 This is probably easier if you have to two displays, but:\
-Open a browser up to a new tab and go to BruhBoxChat | BrinxBot (nels277.repl.co)\
+Open a browser up to a new tab and go to BruhBoxChat | BrinxBot (nels277.repl.co)\[https://bruhboxchat.nels277.repl.co/BrinxBot]
 this website chats with the Bot or in other words the script. You can see the status of the script here as it runs.\
 
 # Running the script!
 Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Next to run the script, type out: ```python3 AutomateConnection.py```\
-#Optional
+# Optional
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Next type out: ```sudo chmod +x start.sh```
 - And to run it type out: ```./start.sh``` with either 1-4, T, or TB as an arguement
