@@ -229,8 +229,14 @@ def AutomateConnection():
     time.sleep(0.5)
     enter_user.send_keys(usrname) # for some reason usrname + Keys.RETURN does not owkr on this script but works fine with CW.py... will just click 'Next' instead of sending return,
     
-    time.sleep(1.5) # wait because automate loads for no reason when youre done typing
-    click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click() 
+    time.sleep(3) # wait because automate loads for no reason when youre done typing
+    try:
+        click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click() 
+        pass
+    except ElementClickInterceptedException:
+        time.sleep(2)
+        click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click()
+        pass
     time.sleep(1.5)
     pw = driver.find_element_by_id('loginPassword')
     time.sleep(0.5) 
@@ -274,7 +280,12 @@ def AutomateConnection():
     search_email = driver.find_element_by_css_selector('._1Qs0_GHrFMawJzYAmLNL2x')
     search_email.send_keys('Seamless data systems, inc. Monitoring' + Keys.RETURN)
     time.sleep(4)
-    click_it = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[1]/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[3]').click()
+    try:
+        click_it = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[1]/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[3]').click()
+        pass
+    except NoSuchElementException:
+        click_it_again = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[1]/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[3]').click()
+        pass
     time.sleep(2)
     try:
         save_it = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/div/div/div/div[3]").text
@@ -371,6 +382,13 @@ def AutomateConnection():
             pass  
     company()
     compenny = pickle.load( open( "company_info.p", "rb"))
+    if ' Fanestil' in compenny:
+        print_yellow("#### -- renaming " + compenny + " to just 'Fanestil' as ' Fanestil' (Notice the space before the 'F'?) does not exist in Automate")
+        redo = compenny.replace(' Fanestil', 'Fanestil')
+        compenny = redo
+        pass
+    else:
+        pass
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + computer + " -- #####")
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + compenny + " -- #####")
     try:#sometimes an error comes up when logging into automate.
@@ -381,11 +399,17 @@ def AutomateConnection():
     except NoSuchElementException: 
         pass
         print_green("#### -- DashBoard Loaded Successfully with No Errors! -- ####")
-    print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + "!")
+    print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + " from " + compenny +"!")
+    
     # now time to search for computer and double click on it
-    print_yellow("#### -- Searching in Automate for computer... -- ####")  
-    WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
-    search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
+    print_yellow("#### -- Searching in Automate for" + computer + " from " + compenny + "... -- ####")  
+    driver.implicitly_wait(5)
+    try:
+        search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
+        pass
+    except NoSuchElementException:
+        search_for_comp_alt = driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')
+        pass
     time.sleep(1)
     try:
         search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
@@ -415,15 +439,13 @@ def AutomateConnection():
     time.sleep(0.5)
     script_search = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > input")
     print_green(pre + "[BrinxBot]: ..searching for script.")
-    # service tickets where Disk Clean up is needed
-    script_to_send = 'S_R_V'
+    script_to_send = 'S_R_v1.0'
     script_search.send_keys(script_to_send)
-    if ticket_type == '*Disk Cleanup*': #Disk clean up shows up lower in tthe script menu than the others as there are similary named scripts.
-        script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div:nth-child(2) > div.CwTreeViewNode-subTree > div:nth-child(2) > div > label").click()
-        pass
-    else:
+    try:
         script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
         pass
+    except NoSuchElementException:
+        script_rund = driver.find_element_by_xpath('/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label').click()
     print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny + " script launch menu now, launching the script...")
     if ticket_type == '*edgeupdate*': # this just runs the script right away for edgeupdate or NIC tickets.
         pass

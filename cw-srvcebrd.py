@@ -27,7 +27,7 @@ import pickle
 print_blue = lambda x: cprint(x, 'white', attrs=['bold'])
 print_yellow = lambda x: cprint(x, 'yellow')
 print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
-print_red = lambda x: cprint(x, 'red')
+print_red = lambda x: cprint(x, 'red', attrs=['blink'])
 print_green = lambda x: cprint(x, 'green')
 url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&locale=en_US#XQAACADDAwAAAAAAAAA9iIoG07$U9W$OXqU2f868IPYhCwZbCCkqIYRFHeyR$YSSk0sjl7aoF9AsnZZhVeOB946uvkjbEleT3$QSnKOPbfpwf5Rpm4pnPk1eG4JyNyw4s7vLKmXij22FiyTB2oZqWkMCXeweztjksT8JcyXpS28QKVqeMlfeQIvA6iv_pI0FYhAHuS0e3Vbt$Zuae_TWOIh8pyoekVhIeLWFUx_iHiIqFKZ0IFkX0MfeFPUaeW$zvKgRLesGKter7cZIwQmc4Y8195JVWByziRMs2$xmbn18d0ZwG_Ib9tkU6VB9_Ub4niPdSZ$nHIDC$UVoVEOC1Fb8ofrtjiSViR9pq753hcTAPM$PSGDKQQ4djIuGXbE1ZZ0YRUI$qlQONhHfCLrqlUVDP$dCYMDBOkko2Spdq3Z2q$tdG7BACM$b$uAF0IEoXGYAAqoKelgCSjAJ$$Bz93AIVMAy8miuOgfwl$8KxX3SNWL_84lOAA==??ServiceBoard"
 options = webdriver.FirefoxOptions()
@@ -59,7 +59,7 @@ def CWlogind():
         pass
     print_green("#### -- Logged in! -- ####")
 CWlogind()
-WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
+WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 status_of_tickets = driver.find_element_by_xpath('//*[@id="Description-input"]')
 status_of_tickets.send_keys("New (Automate)")
 status_of_tickets.send_keys(Keys.RETURN)
@@ -100,13 +100,13 @@ while i < x:
     elif 'edgeupdate' in Ticketlist:
         ticketT = 'edgeupdate Type'
         pass
-    elif 'Disk Cleanup' in Ticketlist:
+    elif 'Disk Cleanup' in Ticketlist or 'Drive Space Critical' in Ticketlist:
         ticketT = 'Disk Cleanup Type'
         pass
     elif 'NIC' in Ticketlist:
         ticketT = 'NIC Type'
         pass
-    elif 'UPDATES -  Out of date' in Ticketlist or 'UPDATES - Out of date' in Ticketlist:
+    elif 'UPDATES -  Out of date' in Ticketlist or 'UPDATES - Out of date' in Ticketlist or 'An Out Of Date Automate Agent' in Ticketlist:
         ticketT = 'Out of Date PC'
         pass
     elif 'No Checkin' in Ticketlist:
@@ -121,7 +121,7 @@ while i < x:
     elif 'Perf - Processor Queue Length' in Ticketlist:
         ticketT = 'Perf Type Ticket'
         pass
-    elif 'Software Uninstalled' in Ticketlist or 'Get Product Keys Script Failed' in Ticketlist :
+    elif 'Software Uninstalled' in Ticketlist or 'Get Product Keys Script Failed' in Ticketlist or 'Installed Windows Updates for' in Ticketlist :
         ticketT = 'No Time Entry Needed'
         pass
     else:

@@ -196,19 +196,27 @@ def computerz():
             pickle.dump( computer, open( "save.p", "wb"))
         except IndexError:# sometimes the tickets are formatted weird..
             time.sleep(0.5)
-            ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
-            print_yellow("#### -- " + ticket_info + " -- ####")
+            ticket_info = "Reboot Pending~Reboot Pending  504 on Emporia Community Foundation\LONI-PC<-Message Headers-><-Attachment->"
+            print("#### -- " + ticket_info + " -- ####")
             pickle.dump( ticket_info, open( "ticket.p", "wb"))
             computer = ticket_info.split("\\",1)[1]
-            if '_' in computer:
-                print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+            if '<-Message Headers-><-Attachment->' in computer:
+                print('#### -- ' + computer + ' contains an "<-Message Headers-><-Attachment->"! Removing the "<-Message Headers-><-Attachment->" & replacing with a space... -- #####')
+                uniquedd = computer.replace('<-Message Headers-><-Attachment->', '')
+                uniques = uniquedd.split(" ",1)[0]
+                computer = uniques
+                pass
+            elif '_' in computer:
+                print('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
                 unique = computer.replace('_', ' ')
                 uniqued = unique.split(" ",1)[0]
                 computer = uniqued
                 pass
             else:
                 pass
-            pickle.dump( computer, open( "save.p", "wb"))
+        computerd = computer.split(" at",1)[0]
+        computer = computerd  
+        pickle.dump( computer, open( "save.p", "wb"))
         company_info = driver.find_element_by_css_selector('.TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)').text
         str = company_info
         ci = str.split("on ",1)[1]
@@ -253,8 +261,14 @@ def AutomateConnection():
     time.sleep(0.5)
     enter_user.send_keys(usrname) # for some reason usrname + Keys.RETURN does not owkr on this script but works fine with CW.py... will just click 'Next' instead of sending return,
     
-    time.sleep(1.5) # wait because automate loads for no reason when youre done typing
-    click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click() 
+    time.sleep(3) # wait because automate loads for no reason when youre done typing
+    try:
+        click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click() 
+        pass
+    except ElementClickInterceptedException:
+        time.sleep(2)
+        click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click()
+        pass
     time.sleep(1.5)
     pw = driver.find_element_by_id('loginPassword')
     time.sleep(0.5) 
@@ -315,11 +329,11 @@ def AutomateConnection():
     print_blue(pre + "[BrinxBot]: ...switching back to Automate Login Screen and inserting code to login")
     time.sleep(3)
     driver.switch_to.window(second_tab_handle) # automate login
-    time.sleep(2)
+    time.sleep(3)
     click_on_token = driver.find_element_by_id('loginToken')
     click_on_token.send_keys(da_code + Keys.RETURN)
     try:
-        time.sleep(2)
+        time.sleep(3)
         click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
     except NoSuchElementException:
         driver.implicitly_wait(2)
@@ -396,6 +410,13 @@ def AutomateConnection():
             pass  
     company()
     compenny = pickle.load( open( "company_info.p", "rb"))
+    if ' Fanestil' in compenny:
+        print_yellow("#### -- renaming " + compenny + " to just 'Fanestil' as ' Fanestil' (Notice the space before the 'F'?) does not exist in Automate")
+        redo = compenny.replace(' Fanestil', 'Fanestil')
+        compenny = redo
+        pass
+    else:
+        pass
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + computer + " -- #####")
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + compenny + " -- #####")
     try:#sometimes an error comes up when logging into automate.
@@ -431,6 +452,7 @@ def AutomateConnection():
     else:
         print_red('#### -- Agent Status: OFFLINE! -- #####')
         print_yellow('#### -- Continuing anyway! -- #####')
+    driver.implicitly_wait(3)
     select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
     # save this tab so i can return to it in case a new window is launched.
     second_tab_handle = driver.current_window_handle

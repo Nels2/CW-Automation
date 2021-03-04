@@ -238,8 +238,14 @@ def AutomateConnection():
     time.sleep(0.5)
     enter_user.send_keys(usrname) # for some reason usrname + Keys.RETURN does not owkr on this script but works fine with CW.py... will just click 'Next' instead of sending return,
     
-    time.sleep(1.5) # wait because automate loads for no reason when youre done typing
-    click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click() 
+    time.sleep(3) # wait because automate loads for no reason when youre done typing
+    try:
+        click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click() 
+        pass
+    except ElementClickInterceptedException:
+        time.sleep(2)
+        click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click()
+        pass
     time.sleep(1.5)
     pw = driver.find_element_by_id('loginPassword')
     time.sleep(0.5) 
@@ -393,8 +399,13 @@ def AutomateConnection():
     print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + "!")
     # now time to search for computer and double click on it
     print_yellow("#### -- Searching in Automate for computer... -- ####")  
-    WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
-    search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
+    driver.implicitly_wait(5)
+    try:
+        search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
+        pass
+    except NoSuchElementException:
+        search_for_comp_alt = driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')
+        pass
     time.sleep(1)
     try:
         search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
