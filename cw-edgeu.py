@@ -29,8 +29,10 @@ import pickle
 # ---------------Built 2021.02.22 ------------------------------------------
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
+print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
+print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 def startTym():
     start = timer()
     print_yellow(start)
@@ -241,7 +243,8 @@ def AutomateConnection():
     pw = driver.find_element_by_id('loginPassword')
     time.sleep(0.5) 
     pw.send_keys(passwd + Keys.RETURN)
-    print_green("#### -- Automate Control Center Login Sumbitted.. Awaiting Token.. -- ####")#-----------------------------------------------------------------------------------------------------
+    pw.send_keys(Keys.RETURN)
+    print_green("#### -- Automate Control Center Login Submitted.. Awaiting Token.. -- ####")#-----------------------------------------------------------------------------------------------------
     time.sleep(1.5)
     print_blue(pre + "[BrinxBot]: A Token is needed to login! Opening new tab... and switching to it to login into O365!")
     second_tab_handle = driver.current_window_handle
@@ -301,8 +304,9 @@ def AutomateConnection():
     print_blue(pre + "[BrinxBot]: ...switching back to Automate Login Screen and inserting code to login")
     time.sleep(3)
     driver.switch_to.window(second_tab_handle) # automate login
-    time.sleep(2)
+    time.sleep(3)
     click_on_token = driver.find_element_by_id('loginToken')
+    time.sleep(1.3)
     click_on_token.send_keys(da_code + Keys.RETURN)
     try:
         time.sleep(2)
@@ -445,13 +449,26 @@ def AutomateConnection():
         script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
         pass
     except NoSuchElementException:
-        script_rund = driver.find_element_by_xpath('/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label').click()
+        try:
+            script_rund = driver.find_element_by_xpath('/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label').click()
+        except NoSuchElementException:
+            try:
+                script_rune = driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label').click()
+            except NoSuchElementException:
+                alt_script_run = driver.find_elements_by_css_selector("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label").click()
     print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny + " script launch menu now, launching the script...")
     if ticket_type == '*edgeupdate*': # this just runs the script right away for edgeupdate or NIC tickets.
         pass
         # click SCHEDULE
     print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
-    click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
+    driver.implicitly_wait(5)
+    try:
+        click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
+        pass
+    except ElementClickInterceptedException:
+        driver.implicitly_wait(5)
+        click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
+        pass
     print_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
     # establish external connection to let server know job completed right
     def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
@@ -477,7 +494,9 @@ def AutomateConnection():
 AutomateConnection()
 time.sleep(3)
 try: # to open aanother page load up CW again..
-    driver = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
     driver.execute_script("window.open('about:blank', 'tab4');")
     driver.switch_to.window("tab4")
     print_blue("[BrinxBot]: re-opening CW window...")
@@ -538,11 +557,11 @@ start = pickle.load( open( "startTime.p", "rb"))
 compenny = pickle.load( open( "company_info.p", "rb"))
 computer = pickle.load( open( "save.p", "rb"))
 now = datetime.datetime.now()
-print_yellow("Script Completetion Time:")
-print_yellow(end - start)
+print_alt_yellow("Script Completetion Time:")
+print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
-print_yellow("#### -- " + ticket_info + " -- ####")
-print_yellow("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_alt_yellow("#### -- " + ticket_info + " -- ####")
+print_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..

@@ -29,8 +29,10 @@ import pickle
 # ---------------Built 2021.02.22 ------------------------------------------
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
+print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
+print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 def startTym():
     start = timer()
     print_yellow(start)
@@ -311,6 +313,9 @@ def AutomateConnection():
     try:
         time.sleep(2)
         click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
+    except ElementClickInterceptedException:
+        driver.implicitly_wait(5)
+        click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
     except NoSuchElementException:
         driver.implicitly_wait(2)
         try:
@@ -500,7 +505,9 @@ def AutomateConnection():
 AutomateConnection()
 time.sleep(3)
 try: # to open aanother page load up CW again..
-    driver = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
     driver.execute_script("window.open('about:blank', 'tab4');")
     driver.switch_to.window("tab4")
     print_blue("[BrinxBot]: re-opening CW window...")
@@ -508,7 +515,7 @@ try: # to open aanother page load up CW again..
     driver.get(da_url)
     print_blue("[BrinxBot]: CW is open again.")
 except TypeError:
-    print_red('There was a serious error, could spawn CW instance. Ticket was completed but BrinxBot can not open CW to confirm with a time entry.')
+    print_red('There was a serious error, could not spawn CW instance. Ticket was completed but BrinxBot can not open CW to confirm with a time entry.')
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
 # make sure internal note section is selected.
 CWlogin()
@@ -549,11 +556,11 @@ start = pickle.load( open( "startTime.p", "rb"))
 compenny = pickle.load( open( "company_info.p", "rb"))
 computer = pickle.load( open( "save.p", "rb"))
 now = datetime.datetime.now()
-print_yellow("Script Completetion Time:")
-print_yellow(end - start)
+print_alt_yellow("Script Completetion Time:")
+print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
-print_yellow("#### -- " + ticket_info + " -- ####")
-print_yellow("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_alt_yellow("#### -- " + ticket_info + " -- ####")
+print_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..

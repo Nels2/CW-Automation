@@ -72,8 +72,6 @@ stri = Amt
 PGAmt = stri.split(" of",1)[0]
 stri = TotalAMTT
 Amts = stri.split("of ",1)[1]
-print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board:      " + Amts + " -- ####")
-print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board Page: " + PGAmt + " -- ####")
 driver.implicitly_wait(2)
 
 x = int(PGAmt) 
@@ -103,7 +101,7 @@ while i < x:
     elif 'Disk Cleanup' in Ticketlist or 'Drive Space Critical' in Ticketlist:
         ticketT = 'Disk Cleanup Type'
         pass
-    elif 'NIC' in Ticketlist:
+    elif 'NIC Packets' in Ticketlist:
         ticketT = 'NIC Type'
         pass
     elif 'UPDATES -  Out of date' in Ticketlist or 'UPDATES - Out of date' in Ticketlist or 'An Out Of Date Automate Agent' in Ticketlist:
@@ -177,16 +175,18 @@ with open('ticket_types.txt') as f:
         if found_UT != -1 and found_UT != 0:
             total_UT += 1
 print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
-print_yellow('#### -- Total Amount of Each Ticket Type Today: -- ####')
+print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board: " + Amts + " -- ####")
+print_yellow("#### -- Total Amount of Tickets Today Under This Page Only:   " + PGAmt + " -- ####")
+print_alt_yellow('#### -- Total Amount of Each Ticket Type Today On This Page -- ####')
 print_blue("|    Out of Date PC:                           "+str(total_OD)+"     | ")
 print_blue("|    Unknown:                                  "+str(total_UT)+"     | ")
 print_blue("|    WebRoot Error Type:                       "+str(total_WE)+"     | ")
 print_blue("|    Perf Warning Type:                        "+str(total_PT)+"     |")
 print_blue("|    Unclassified App Warning:                 "+str(total_UA)+"     |")
 print_blue("|    No Time Entry Needed:                     "+str(total_NTEN)+"     |")
-print_yellow('#### --   Ticket Types That BrinxBot Can Work:  -- ####')
+print_alt_yellow('#### --   Ticket Types That BrinxBot Can Work:  -- ####')
 print_blue("|    Reboot Type:                              "+str(total_reb)+"     | ")
 print_blue("|    EdgeUpdate Type:                          "+str(total_egu)+"     | ")
 print_blue("|    Disk Cleanup Type:                        "+str(total_dc)+"     | ")
 print_blue("|    NIC Type:                                 "+str(total_nic)+"     |")
-print_yellow('#### --------------------------------------------- ####')
+print_yellow('#### ---------------------------------------------------------- ####')

@@ -29,8 +29,10 @@ import pickle
 # ---------------Built 2021.02.22 ------------------------------------------
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
+print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
+print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 def startTym():
     start = timer()
     print_yellow(start)
@@ -196,7 +198,7 @@ def computerz():
             pickle.dump( computer, open( "save.p", "wb"))
         except IndexError:# sometimes the tickets are formatted weird..
             time.sleep(0.5)
-            ticket_info = "Reboot Pending~Reboot Pending  504 on Emporia Community Foundation\LONI-PC<-Message Headers-><-Attachment->"
+            ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
             print("#### -- " + ticket_info + " -- ####")
             pickle.dump( ticket_info, open( "ticket.p", "wb"))
             computer = ticket_info.split("\\",1)[1]
@@ -527,7 +529,9 @@ def AutomateConnection():
 AutomateConnection()
 time.sleep(3)
 try: # to open aanother page load up CW again..
-    driver = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
     driver.execute_script("window.open('about:blank', 'tab4');")
     driver.switch_to.window("tab4")
     print_blue("[BrinxBot]: re-opening CW window...")
@@ -576,11 +580,11 @@ start = pickle.load( open( "startTime.p", "rb"))
 compenny = pickle.load( open( "company_info.p", "rb"))
 computer = pickle.load( open( "save.p", "rb"))
 now = datetime.datetime.now()
-print_yellow("Script Completetion Time:")
-print_yellow(end - start)
+print_alt_yellow("Script Completetion Time:")
+print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
-print_yellow("#### -- " + ticket_info + " -- ####")
-print_yellow("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_alt_yellow("#### -- " + ticket_info + " -- ####")
+print_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..

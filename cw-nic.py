@@ -29,8 +29,10 @@ import pickle
 # ---------------Built 2021.02.22 ------------------------------------------
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
+print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
+print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 def startTym():
     start = timer()
     print_yellow(start)
@@ -88,7 +90,7 @@ CWlogin()
 # so page can load then clicks on summary description and looks for the specifced ticket.    
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
-ticket_type = '*NIC*'  # service tickets where a disk clean up is needed
+ticket_type = '*NIC Packets*'  # service tickets where a disk clean up is needed
 pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 time.sleep(0.5)
@@ -96,6 +98,7 @@ status_of_tickets = driver.find_element_by_xpath('//*[@id="Description-input"]')
 status_of_tickets.send_keys("New (Automate)")
 time.sleep(1)
 search.send_keys(ticket_type)
+ticket_type = '*NIC*'
 search.send_keys(Keys.RETURN)
 # let the field populate... then searches for tickets that start with "UPDATES" then clicks on the first one
 WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
@@ -179,8 +182,10 @@ def MarkResolve():
 MarkResolve()
 def computerz():
     if ticket_type == '*NIC*':
+        alt_t_info = driver.find_element_by_xpath("/html/body/div[2]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/span[1]/div").text
         ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
+        print_yellow("#### " + alt_t_info + "####")
         print_yellow("#### " + ticket_info + "####")
         str = ticket_info
         z = str.split("\\",1)[1]
@@ -481,7 +486,9 @@ def AutomateConnection():
 AutomateConnection()
 time.sleep(3)
 try: # to open aanother page load up CW again..
-    driver = webdriver.Firefox()
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
     driver.execute_script("window.open('about:blank', 'tab4');")
     driver.switch_to.window("tab4")
     print_blue("[BrinxBot]: re-opening CW window...")
@@ -530,11 +537,11 @@ start = pickle.load( open( "startTime.p", "rb"))
 compenny = pickle.load( open( "company_info.p", "rb"))
 computer = pickle.load( open( "save.p", "rb"))
 now = datetime.datetime.now()
-print_yellow("Script Completetion Time:")
-print_yellow(end - start)
+print_alt_yellow("Script Completetion Time:")
+print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
-print_yellow("#### -- " + ticket_info + " -- ####")
-print_yellow("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_alt_yellow("#### -- " + ticket_info + " -- ####")
+print_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..
