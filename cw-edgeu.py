@@ -342,7 +342,7 @@ def AutomateConnection():
             pass
         elif 'Dr. Marlin Flanagin, DDS' in compenny:
             print_yellow("#### -- Renaming " + compenny + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
-            replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr. Marlin Flanagin")
+            replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr Marlin Flanagin")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -455,7 +455,7 @@ def AutomateConnection():
             try:
                 script_rune = driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label').click()
             except NoSuchElementException:
-                alt_script_run = driver.find_elements_by_css_selector("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label").click()
+                alt_script_run = driver.find_elements_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div/div/label").click()
     print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny + " script launch menu now, launching the script...")
     if ticket_type == '*edgeupdate*': # this just runs the script right away for edgeupdate or NIC tickets.
         pass

@@ -347,7 +347,7 @@ def AutomateConnection():
             pass
         elif 'Dr. Marlin Flanagin, DDS' in compenny:
             print_yellow("#### -- Renaming " + compenny + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
-            replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr. Marlin Flanagin")
+            replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr Marlin Flanagin")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass

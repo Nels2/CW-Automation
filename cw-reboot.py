@@ -368,7 +368,7 @@ def AutomateConnection():
             pass
         elif 'Dr. Marlin Flanagin, DDS' in compenny:
             print_yellow("#### -- Renaming " + compenny + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
-            replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr. Marlin Flanagin")
+            replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr Marlin Flanagin")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -584,7 +584,7 @@ print_alt_yellow("Script Completetion Time:")
 print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
 print_alt_yellow("#### -- " + ticket_info + " -- ####")
-print_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_alt_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
 while True:#my try at issuing a restart..

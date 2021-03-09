@@ -1,114 +1,14 @@
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  edgeupdate Type
 Ticket Type:  Out of Date PC
-Ticket Type:  Unknown
-Ticket Type:  Perf Type Ticket
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Perf Type Ticket
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
+Ticket Type:  Out of Date PC
+Ticket Type:  Out of Date PC
+Ticket Type:  Out of Date PC
+Ticket Type:  Out of Date PC
+Ticket Type:  Out of Date PC
+Ticket Type:  Out of Date PC
+Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Unknown
@@ -119,12 +19,18 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
@@ -149,7 +55,123 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Perf Type Ticket
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Out of Date PC
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  No Time Entry Needed
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
@@ -162,6 +184,8 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
@@ -170,30 +194,6 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
-Ticket Type:  No Time Entry Needed
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Perf Type Ticket
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
