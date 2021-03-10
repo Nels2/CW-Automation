@@ -3,13 +3,13 @@ Attempting to fully automate ticketing...
 So far this script can **complete** 4 different ticket types: 
 
 - Reboot/Update Pending(./start.sh 1) \
-FILES TO EDIT: cw-reboot.py 
+FILES TO EDIT: cw/cw-reboot.py 
 - service edgeupdate has stopped(./start.sh 2) \
-FILES TO EDIT: cw-edgeu.py 
+FILES TO EDIT: cw/cw-edgeu.py 
 - Disk Cleanup(./start.sh 3) \
-FILES TO EDIT: cw-disckcleanup.py
+FILES TO EDIT: cw/cw-disckcleanup.py
 - NIC packet issue tickets(./start.sh 4) \
-FILES TO EDIT: cw-nic.py \
+FILES TO EDIT: cw/cw-nic.py \
 **You also need to edit this file:** cw-srvcebrd.py \
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
