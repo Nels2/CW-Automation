@@ -10,7 +10,7 @@ FILES TO EDIT: cw/cw-edgeu.py
 FILES TO EDIT: cw/cw-disckcleanup.py
 - NIC packet issue tickets(./start.sh 4) \
 FILES TO EDIT: cw/cw-nic.py \
-**You also need to edit this file:** cw-srvcebrd.py \
+**You also need to edit this file:** cw/cw-srvcebrd.py \
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
