@@ -19,7 +19,7 @@ import sys
 import os
 import datetime
 import pickle
-# USE ONLY FOR DISK CLEANUP TICKETS!!!
+# USE ONLY FOR reboot TICKETS!!!
 #
 #
 #  --------------ConnectWise Automator, By Nelson Orellana -----------------
@@ -90,7 +90,7 @@ CWlogin()
 # so page can load then clicks on summary description and looks for the specifced ticket.    
 WebDriverWait(driver, 1000).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
 search = driver.find_element_by_xpath("//input[@id='Summary-input']")
-ticket_type = '*Disk Cleanup*' # service tickets where a disk clean up is needed
+ticket_type = '*Reboot*'  # service tickets where a disk clean up is needed
 pickle.dump( ticket_type, open( "ticket_info.p", "wb"))
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 time.sleep(0.5)
@@ -133,7 +133,6 @@ except NoSuchElementException:
                 break
             elif option == 'no' or option == 'n':
                 print_yellow('#### -- !! Exiting.. !! -- ####')
-                driver.quit()
                 sys.exit()
                 pass
             else:
@@ -141,8 +140,17 @@ except NoSuchElementException:
                 continue
     except ElementNotInteractableException:
         print_yellow('#### -- Ticket Function 2 Was Not Used! -- ####')
-        pass#Next is viewing what the ticket is about to make sure it is correct before continuing...
+        pass
+        #Next is viewing what the ticket is about to make sure it is correct before continuing...
 #-Now to click on new note and begin the process of TRUE automation without CW's semi useless scripting...
+time.sleep(0.2)
+# now to scroll the view down.. hopefully!
+try:
+    grab = driver.find_element_by_name('html')
+    grab.send_keys(Keys.PAGE_DOWN)
+except NoSuchElementException:
+    grab = driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+# also need to save what ticket is about so BrinxBot isn't lost..
 def MarkResolve():
     time.sleep(0.2)
     # now to scroll the view down.. hopefully!
@@ -172,33 +180,48 @@ def MarkResolve():
     print_green("[BrinxBot]: Marked as Resolved.")
 MarkResolve()
 def computerz():
-    if ticket_type == '*Disk Cleanup*':
-        time.sleep(0.5)
-        ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
-        print_yellow("#### -- " + ticket_info + " -- ####")
-        pickle.dump( ticket_info, open( "ticket.p", "wb"))
+    if ticket_type == '*Reboot*':
         try:
-            str = ticket_info
-            z = str.split("for ",2)[1]
-            str = z
-            computer = str.split(" at ",1)[0]
-        except IndexError:
-            str = ticket_info
-            z = str.split("detected ",2)[1]
-            str = z
-            computer = str.split(" has",1)[0]
-        if '_' in computer:
-            print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
-            unique = computer.replace('_', ' ')
-            uniqued = unique.split(" ",1)[0]
-            computer = uniqued
-            pass
-        else:
-            pass
+            time.sleep(0.5)
+            ticket_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
+            print_yellow("#### -- " + ticket_info + " -- ####")
+            pickle.dump( ticket_info, open( "ticket.p", "wb"))
+            computer = ticket_info.split("for ",1)[1]
+            if '_' in computer:
+                print_yellow('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+                unique = computer.replace('_', ' ')
+                uniqued = unique.split(" ",1)[0]
+                computer = uniqued
+                pass
+            else:
+                pass
+            pickle.dump( computer, open( "save.p", "wb"))
+        except IndexError:# sometimes the tickets are formatted weird..
+            time.sleep(0.5)
+            ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
+            print("#### -- " + ticket_info + " -- ####")
+            pickle.dump( ticket_info, open( "ticket.p", "wb"))
+            computer = ticket_info.split("\\",1)[1]
+            if '<-Message Headers-><-Attachment->' in computer:
+                print('#### -- ' + computer + ' contains an "<-Message Headers-><-Attachment->"! Removing the "<-Message Headers-><-Attachment->" & replacing with a space... -- #####')
+                uniquedd = computer.replace('<-Message Headers-><-Attachment->', '')
+                uniques = uniquedd.split(" ",1)[0]
+                computer = uniques
+                pass
+            elif '_' in computer:
+                print('#### -- ' + computer + ' contains an "_"! Removing the "_" & replacing with a space... -- #####')
+                unique = computer.replace('_', ' ')
+                uniqued = unique.split(" ",1)[0]
+                computer = uniqued
+                pass
+            else:
+                pass
+        computerd = computer.split(" at",1)[0]
+        computer = computerd  
         pickle.dump( computer, open( "save.p", "wb"))
-        company_info = driver.find_element_by_css_selector(".GE0S-T1CHBL").text
+        company_info = driver.find_element_by_css_selector('.TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)').text
         str = company_info
-        ci = str.split("at ",1)[1]
+        ci = str.split("on ",1)[1]
         str = ci
         ci_complete = str.split("\\",1)[0]
         pickle.dump( ci_complete, open( "company_info.p", "wb"))
@@ -230,7 +253,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 4.0 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 4.1 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -266,6 +289,7 @@ def AutomateConnection():
     # enter your email and password for your O365 login.
     email = ''
     epwd = ''
+
 
     userN = driver.find_element_by_name('loginfmt')
     userN.send_keys(email + Keys.RETURN)
@@ -307,14 +331,11 @@ def AutomateConnection():
     print_blue(pre + "[BrinxBot]: ...switching back to Automate Login Screen and inserting code to login")
     time.sleep(3)
     driver.switch_to.window(second_tab_handle) # automate login
-    time.sleep(2)
+    time.sleep(3)
     click_on_token = driver.find_element_by_id('loginToken')
     click_on_token.send_keys(da_code + Keys.RETURN)
     try:
-        time.sleep(2)
-        click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
-    except ElementClickInterceptedException:
-        driver.implicitly_wait(5)
+        time.sleep(3)
         click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
     except NoSuchElementException:
         driver.implicitly_wait(2)
@@ -391,6 +412,13 @@ def AutomateConnection():
             pass  
     company()
     compenny = pickle.load( open( "company_info.p", "rb"))
+    if ' Fanestil' in compenny:
+        print_yellow("#### -- renaming " + compenny + " to just 'Fanestil' as ' Fanestil' (Notice the space before the 'F'?) does not exist in Automate")
+        redo = compenny.replace(' Fanestil', 'Fanestil')
+        compenny = redo
+        pass
+    else:
+        pass
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + computer + " -- #####")
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + compenny + " -- #####")
     try:#sometimes an error comes up when logging into automate.
@@ -404,17 +432,11 @@ def AutomateConnection():
     print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + "!")
     # now time to search for computer and double click on it
     print_yellow("#### -- Searching in Automate for computer... -- ####")  
-    driver.implicitly_wait(5)
-    try:
-        search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
-        pass
-    except NoSuchElementException:
-        search_for_comp_alt = driver.find_element_by_xpath('//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')
-        pass
+    WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input')))
+    search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
     time.sleep(1)
     try:
-        search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(3) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
-        #/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[3]/div/div[2]/input
+        search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
         search_peny.send_keys(compenny + Keys.RETURN)
         pass
     except NoSuchElementException:
@@ -432,6 +454,7 @@ def AutomateConnection():
     else:
         print_red('#### -- Agent Status: OFFLINE! -- #####')
         print_yellow('#### -- Continuing anyway! -- #####')
+    driver.implicitly_wait(3)
     select_computer = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div:nth-child(3) > div.CwDataGrid-rowsContainer > div > div").click()
     # save this tab so i can return to it in case a new window is launched.
     second_tab_handle = driver.current_window_handle
@@ -440,8 +463,8 @@ def AutomateConnection():
     time.sleep(0.5)
     script_search = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > input")
     print_green(pre + "[BrinxBot]: ..searching for script.")
-    # service tickets where Disk Clean up is needed
-    script_to_send = 'Disk Cleanup'
+    # service tickets where reboot is needed
+    script_to_send = 'Reboot Script'
     script_search.send_keys(script_to_send)
     if ticket_type == '*Disk Cleanup*': #Disk clean up shows up lower in tthe script menu than the others as there are similary named scripts.
         script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div:nth-child(2) > div.CwTreeViewNode-subTree > div:nth-child(2) > div > label").click()
@@ -450,7 +473,7 @@ def AutomateConnection():
         script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
         pass
     print_blue(pre + "[BrinxBot]: Inside " + computer + " from " + compenny + " script launch menu now, launching the script...")
-    if ticket_type == '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
+    if ticket_type == '*Reboot*': # UPDATES(reboot) & Disk Clean up tickets
         # -- wait for dialog box to appear.. -- #
         print_blue(pre + "[BrinxBot]: waiting for dialog box..")
         WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
@@ -476,11 +499,12 @@ def AutomateConnection():
         tomrrw.send_keys("12a" + Keys.TAB)
         time.sleep(1)
         print_alt_green(pre + "[BrinxBot]: Time has been changed")
+        
         pass
         # click SCHEDULE
     print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
     click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
-    print_green(pre + "[BrinxBot]: I have completed the task assigned... Entering time entry into CW..")
+    print_green(pre + "[BrinxBot]: I have completed the task assigned... Entering Time Entry...")
     # establish external connection to let server know job completed right
     driver.quit()
 AutomateConnection()
@@ -496,7 +520,7 @@ try: # to open aanother page load up CW again..
     driver.get(da_url)
     print_blue("[BrinxBot]: CW is open again.")
 except TypeError:
-    print_red('There was a serious error, could not spawn CW instance. Ticket was completed but BrinxBot can not open CW to confirm with a time entry.')
+    print_red('There was a serious error, could spawn CW instance. Ticket was completed but BrinxBot can not open CW to confirm with a time entry.')
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
 # make sure internal note section is selected.
 CWlogin()
@@ -513,12 +537,12 @@ time.sleep(2)
 #now check discussion. after discussion is checked we begin entering our notes.
 check_disucssion = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(1) > div:nth-child(1) > div > div > div").click()
 enter_notes = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(2) > div > div > div.CwDialog-content > div > div.TicketNote-newNoteDialogTopPadding > div > div:nth-child(2) > div > div.ManageNoteRichTextEditor-richEditor > div > div.DraftEditor-editorContainer > div")
-if ticket_type == '*Disk Cleanup*':
-    enter_notes.send_keys('[BrinxBot]: Python was used to complete this ticket!')
+if ticket_type == '*Reboot*': # a bunch of if/then statements until I figure out a way to reduce the size of all this(optimization)
+    enter_notes.send_keys('[BrinxBot]: This ticket is being completed using Python & Selenium!')
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: Issuing Disk Cleanup script to machine to run tonight at 12:00:00 AM....done!')
+    enter_notes.send_keys('[BrinxBot]: Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
-    enter_notes.send_keys('[BrinxBot]: No further action is needed, the Disk Clean up will run, if another error occurs during the script, a ticket will be created.')
+    enter_notes.send_keys('[BrinxBot]: The issue appears to be resolved, a reboot will occur tonight.')
     print_alt_green('[BrinxBot]: Time Entry Has Been Entered.')
     pass
 else:
@@ -542,11 +566,10 @@ print_alt_yellow("Script Completetion Time:")
 print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
 print_alt_yellow("#### -- " + ticket_info + " -- ####")
-print_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_alt_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 print_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
 def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
     try:
-            
         the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
         options = webdriver.FirefoxOptions()
         options.headless = True
@@ -569,10 +592,10 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
 Server_ReReConnect()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
-DC_total = pickle.load( open( "DC.p", "rb"))
-DC = int(DC_total)
+RT_total = pickle.load( open( "RT.p", "rb"))
+RT = int(RT_total)
 count = 0
-while (DC > 0) and (count <= DC):
+while (RT > 0) and (count <= RT):
     print_alt_yellow("#### -- Restarting BrinxBot... -- ####")
     os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     count += 1
