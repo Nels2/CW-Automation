@@ -253,7 +253,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 3.3 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 4.0 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -449,7 +449,7 @@ def AutomateConnection():
     s = len(Agnt_Status)
     # check condition, if list size > 0, element exists
     if(s>0):
-        print_green('#### -- Agent Status: ONLINE! -- #####')
+        print_alt_green('#### -- Agent Status: ONLINE! -- #####')
         pass
     else:
         print_red('#### -- Agent Status: OFFLINE! -- #####')
@@ -491,40 +491,21 @@ def AutomateConnection():
         time.sleep(1)
         date.send_keys(str(NextDay_Date_Formatted) + Keys.RETURN)
         date.send_keys(Keys.TAB) 
-        print_green(pre + "[BrinxBot]: Date has been changed.")
+        print_alt_green(pre + "[BrinxBot]: Date has been changed.")
         # change time script is ran to 12:00:00 AM
         print_blue(pre + "[BrinxBot]: Changing the time to 12am")
         tomrrw = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(2) > input")
         tomrrw.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
         tomrrw.send_keys("12a" + Keys.TAB)
         time.sleep(1)
-        print_green(pre + "[BrinxBot]: Time has been changed")
+        print_alt_green(pre + "[BrinxBot]: Time has been changed")
+        
         pass
         # click SCHEDULE
     print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
     click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
-    print_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
+    print_green(pre + "[BrinxBot]: I have completed the task assigned... Entering Time Entry...")
     # establish external connection to let server know job completed right
-    def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
-        try:
-            
-            the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
-            options = webdriver.FirefoxOptions()
-            options.headless = True
-            driverTwo = webdriver.Firefox(options=options)
-            driverTwo.get(the_url)
-
-            time.sleep(1)
-            Connection = driverTwo.find_element_by_css_selector("#message")
-            Connection.send_keys("/name (CWA)BrinxBot" + Keys.RETURN) 
-            ticket_info = pickle.load( open( "ticket.p", "rb"))
-            Connection.send_keys('Here is the ticket I completed today: [' + ticket_info + ']' + Keys.RETURN)
-            Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
-            pass        
-        except RuntimeError:
-            print_red(pre + "Server Connection Failed. Continuing with shutdown.")
-        driverTwo.quit()
-    Server_ReReConnect()
     driver.quit()
 AutomateConnection()
 time.sleep(3)
@@ -562,6 +543,7 @@ if ticket_type == '*Reboot*': # a bunch of if/then statements until I figure out
     enter_notes.send_keys('[BrinxBot]: Issuing Reboot Script and scheduling it for 12:00:00 AM tonight...done!') 
     enter_notes.send_keys(Keys.SHIFT + Keys.RETURN)
     enter_notes.send_keys('[BrinxBot]: The issue appears to be resolved, a reboot will occur tonight.')
+    print_alt_green('[BrinxBot]: Time Entry Has Been Entered.')
     pass
 else:
     print_red("Unknown Ticket type. BrinxBot does not know what to do here.")
@@ -585,17 +567,37 @@ print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
 print_alt_yellow("#### -- " + ticket_info + " -- ####")
 print_alt_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
+print_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
+def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
+    try:
+        the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        driverTwo = webdriver.Firefox(options=options)
+        driverTwo.get(the_url)
+
+        time.sleep(1)
+        Connection = driverTwo.find_element_by_css_selector("#message")
+        Connection.send_keys("/name (CWA)BrinxBot" + Keys.RETURN) 
+        ticket_info = pickle.load( open( "ticket.p", "rb"))
+        Connection.send_keys('Here is the ticket I completed today: [' + ticket_info + ']' + Keys.RETURN)
+        Connection.send_keys('Script Completetion Time:')
+        Connection.send_keys(str(end- start))
+        Connection.send_keys(Keys.RETURN)
+        Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
+        pass        
+    except RuntimeError:
+        print_red(pre + "Server Connection Failed. Continuing with shutdown.")
+    driverTwo.quit()
+Server_ReReConnect()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
-while True:#my try at issuing a restart..
-    prompt = input("Do you want to reconnect? (y/n): ")
-    if prompt == 'y':
-        print("#### -- Restarting BrinxBot... -- ####")
-        os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
-        pass
-        break
-    elif prompt == 'n':
-        sys.exit()
-        pass
-    else:
-        continue
+RT_total = pickle.load( open( "RT.p", "rb"))
+RT = int(RT_total)
+count = 0
+while (RT > 0) and (count <= RT):
+    print_alt_yellow("#### -- Restarting BrinxBot... -- ####")
+    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
+    count += 1
+    pass
+print_yellow('Starting next script...')

@@ -18992,3 +18992,788 @@ Exiting due to channel error.
 [GFX1-]: Receive IPC close with reason=AbnormalShutdown
 Exiting due to channel error.
 Exiting due to channel error.
+1615402250574	geckodriver	INFO	Listening on 127.0.0.1:60047
+1615402251550	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilepIjzRn"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:231309): GLib-GObject-CRITICAL **: 12:50:53.349: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:231335): GLib-GObject-CRITICAL **: 12:50:53.507: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615402254478	Marionette	INFO	Listening on port 34665
+
+(/usr/lib/firefox/firefox:231399): GLib-GObject-CRITICAL **: 12:50:54.491: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615402254632	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615402271874	Marionette	INFO	Stopped listening on port 34665
+1615403067664	geckodriver	INFO	Listening on 127.0.0.1:57585
+1615403067668	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilels9n03"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:231671): GLib-GObject-CRITICAL **: 13:04:28.241: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:231692): GLib-GObject-CRITICAL **: 13:04:28.332: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403068815	Marionette	INFO	Listening on port 42359
+1615403068903	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:231766): GLib-GObject-CRITICAL **: 13:04:29.264: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403071895	Marionette	INFO	Stopped listening on port 42359
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 691: TypeError: this.tablesData[table] is undefined
+1615403072363	geckodriver	INFO	Listening on 127.0.0.1:34411
+1615403072371	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileMZ0gCM"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:231854): GLib-GObject-CRITICAL **: 13:04:32.974: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:231871): GLib-GObject-CRITICAL **: 13:04:33.059: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403073598	Marionette	INFO	Listening on port 33717
+1615403073713	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:231948): GLib-GObject-CRITICAL **: 13:04:33.994: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1615403090009	geckodriver	INFO	Listening on 127.0.0.1:40613
+1615403090013	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileXvlC6t"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:232042): GLib-GObject-CRITICAL **: 13:04:50.591: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:232059): GLib-GObject-CRITICAL **: 13:04:50.676: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403091244	Marionette	INFO	Listening on port 43107
+1615403091363	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:232136): GLib-GObject-CRITICAL **: 13:04:51.608: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403098596	Marionette	INFO	Stopped listening on port 43107
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615403099059	geckodriver	INFO	Listening on 127.0.0.1:44527
+1615403099068	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileyKI5Jw"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:232222): GLib-GObject-CRITICAL **: 13:04:59.665: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:232239): GLib-GObject-CRITICAL **: 13:04:59.752: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403100303	Marionette	INFO	Listening on port 33873
+1615403100400	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:232317): GLib-GObject-CRITICAL **: 13:05:00.694: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615403127551	Marionette	INFO	Stopped listening on port 33873
+1615403128042	geckodriver	INFO	Listening on 127.0.0.1:40333
+1615403128051	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilefgGBbI"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:232415): GLib-GObject-CRITICAL **: 13:05:28.658: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:232432): GLib-GObject-CRITICAL **: 13:05:28.730: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403129290	Marionette	INFO	Listening on port 40245
+1615403129388	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:232511): GLib-GObject-CRITICAL **: 13:05:29.650: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403153237	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403153964	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403160251	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403161039	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403161962	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403162086	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403217376	geckodriver	INFO	Listening on 127.0.0.1:56467
+1615403217381	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilelsMZAx"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:232621): GLib-GObject-CRITICAL **: 13:06:57.964: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:232638): GLib-GObject-CRITICAL **: 13:06:58.051: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403218594	Marionette	INFO	Listening on port 35343
+1615403218715	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:232713): GLib-GObject-CRITICAL **: 13:06:58.966: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403221079	Marionette	INFO	Stopped listening on port 35343
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615403221541	geckodriver	INFO	Listening on 127.0.0.1:44185
+1615403221551	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileEYodGl"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:232800): GLib-GObject-CRITICAL **: 13:07:02.155: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:232817): GLib-GObject-CRITICAL **: 13:07:02.238: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403222840	Marionette	INFO	Listening on port 44979
+1615403222873	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:232894): GLib-GObject-CRITICAL **: 13:07:03.174: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615403250055	Marionette	INFO	Stopped listening on port 44979
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615403250574	geckodriver	INFO	Listening on 127.0.0.1:34053
+1615403250582	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile7V4rxi"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:232996): GLib-GObject-CRITICAL **: 13:07:31.262: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:233013): GLib-GObject-CRITICAL **: 13:07:31.347: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403251967	Marionette	INFO	Listening on port 37023
+1615403252003	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:233090): GLib-GObject-CRITICAL **: 13:07:32.270: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403273328	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403273903	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403279377	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403280195	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403281475	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403281661	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1615403562510	geckodriver	INFO	Listening on 127.0.0.1:53041
+1615403562515	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileNbBXuq"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:233277): GLib-GObject-CRITICAL **: 13:12:43.258: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:233294): GLib-GObject-CRITICAL **: 13:12:43.357: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403564012	Marionette	INFO	Listening on port 43599
+1615403564035	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:233377): GLib-GObject-CRITICAL **: 13:12:44.277: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403566516	Marionette	INFO	Stopped listening on port 43599
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615403566981	geckodriver	INFO	Listening on 127.0.0.1:38669
+1615403566990	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileekvVDa"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:233464): GLib-GObject-CRITICAL **: 13:12:47.602: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:233481): GLib-GObject-CRITICAL **: 13:12:47.688: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403568246	Marionette	INFO	Listening on port 35669
+1615403568312	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:233557): GLib-GObject-CRITICAL **: 13:12:48.621: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615403595747	Marionette	INFO	Stopped listening on port 35669
+1615403596245	geckodriver	INFO	Listening on 127.0.0.1:59865
+1615403596251	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileTuaMc9"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403598263	Marionette	INFO	Listening on port 34257
+1615403598372	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615403619834	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403620456	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403626336	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403626918	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403628067	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403628453	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1615403735986	Marionette	INFO	Stopped listening on port 34257
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+1615403742534	Marionette	INFO	Stopped listening on port 37023
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+1615403744472	Marionette	INFO	Stopped listening on port 40245
+1615403751343	geckodriver	INFO	Listening on 127.0.0.1:51081
+1615403751347	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileYaY8qI"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:233934): GLib-GObject-CRITICAL **: 13:15:51.920: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:233951): GLib-GObject-CRITICAL **: 13:15:52.008: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403752500	Marionette	INFO	Listening on port 43949
+1615403752579	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:234030): GLib-GObject-CRITICAL **: 13:15:52.922: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403754883	Marionette	INFO	Stopped listening on port 43949
+1615403755354	geckodriver	INFO	Listening on 127.0.0.1:39741
+1615403755363	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileWkkG4O"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:234115): GLib-GObject-CRITICAL **: 13:15:55.972: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:234132): GLib-GObject-CRITICAL **: 13:15:56.064: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403756597	Marionette	INFO	Listening on port 37293
+1615403756709	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:234207): GLib-GObject-CRITICAL **: 13:15:56.998: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615403783789	Marionette	INFO	Stopped listening on port 37293
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615403784290	geckodriver	INFO	Listening on 127.0.0.1:43355
+1615403784298	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilemn3Z4K"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403786078	Marionette	INFO	Listening on port 45369
+1615403786130	Marionette	WARN	TLS certificate errors will be ignored for this session
+1615403808691	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403809635	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403815166	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403816158	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403817047	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403817163	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615403846528	Marionette	INFO	Stopped listening on port 45369
+1615403850078	geckodriver	INFO	Listening on 127.0.0.1:44493
+1615403850081	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileYsL7wk"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:234538): GLib-GObject-CRITICAL **: 13:17:30.693: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:234557): GLib-GObject-CRITICAL **: 13:17:30.767: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403851271	Marionette	INFO	Listening on port 42203
+1615403851309	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:234634): GLib-GObject-CRITICAL **: 13:17:31.691: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615403880136	Marionette	INFO	Stopped listening on port 42203
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615403880625	geckodriver	INFO	Listening on 127.0.0.1:40251
+1615403880633	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileHAKbD7"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:234732): GLib-GObject-CRITICAL **: 13:18:01.238: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:234749): GLib-GObject-CRITICAL **: 13:18:01.314: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403881830	Marionette	INFO	Listening on port 42073
+1615403881851	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:234831): GLib-GObject-CRITICAL **: 13:18:02.235: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403950145	geckodriver	INFO	Listening on 127.0.0.1:37335
+1615403950150	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileQmaGQh"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:234950): GLib-GObject-CRITICAL **: 13:19:10.728: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:234967): GLib-GObject-CRITICAL **: 13:19:10.819: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403951302	Marionette	INFO	Listening on port 45579
+1615403951380	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:235042): GLib-GObject-CRITICAL **: 13:19:11.737: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1615403970412	geckodriver	INFO	Listening on 127.0.0.1:39397
+1615403970416	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile1u6hf2"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:235130): GLib-GObject-CRITICAL **: 13:19:31.061: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:235147): GLib-GObject-CRITICAL **: 13:19:31.229: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403972121	Marionette	INFO	Listening on port 44755
+1615403972148	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:235220): GLib-GObject-CRITICAL **: 13:19:32.176: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615403974526	Marionette	INFO	Stopped listening on port 44755
+1615403974986	geckodriver	INFO	Listening on 127.0.0.1:42305
+1615403974994	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilebZaXwS"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:235307): GLib-GObject-CRITICAL **: 13:19:35.596: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:235324): GLib-GObject-CRITICAL **: 13:19:35.681: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615403976251	Marionette	INFO	Listening on port 38371
+1615403976349	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:235399): GLib-GObject-CRITICAL **: 13:19:36.626: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615404003801	Marionette	INFO	Stopped listening on port 38371
+1615404004291	geckodriver	INFO	Listening on 127.0.0.1:58021
+1615404004299	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileNZyFjZ"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:235498): GLib-GObject-CRITICAL **: 13:20:04.907: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:235515): GLib-GObject-CRITICAL **: 13:20:04.993: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615404005543	Marionette	INFO	Listening on port 36175
+1615404005644	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:235592): GLib-GObject-CRITICAL **: 13:20:05.908: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615404027016	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615404027682	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615404033296	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615404034209	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615404035281	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615404035395	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615404064621	Marionette	INFO	Stopped listening on port 36175
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615404070142	geckodriver	INFO	Listening on 127.0.0.1:42791
+1615404070151	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilexayAWp"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:235711): GLib-GObject-CRITICAL **: 13:21:10.731: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:235728): GLib-GObject-CRITICAL **: 13:21:10.817: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615404071360	Marionette	INFO	Listening on port 37083
+1615404071496	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:235806): GLib-GObject-CRITICAL **: 13:21:11.735: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615404100343	Marionette	INFO	Stopped listening on port 37083
+1615404100854	geckodriver	INFO	Listening on 127.0.0.1:52403
+1615404100863	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileazgYId"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:235904): GLib-GObject-CRITICAL **: 13:21:41.473: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:235921): GLib-GObject-CRITICAL **: 13:21:41.566: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615404102098	Marionette	INFO	Listening on port 34625
+1615404102189	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:235996): GLib-GObject-CRITICAL **: 13:21:42.513: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615404104598	Marionette	INFO	Stopped listening on port 34625
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+1615404963465	geckodriver	INFO	Listening on 127.0.0.1:47881
+1615404963469	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileG8U58B"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:236606): GLib-GObject-CRITICAL **: 13:36:04.298: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:236626): GLib-GObject-CRITICAL **: 13:36:04.381: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615404964889	Marionette	INFO	Listening on port 42307
+1615404965018	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:236703): GLib-GObject-CRITICAL **: 13:36:05.324: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615404983439	Marionette	INFO	Stopped listening on port 42307
+1615405408016	geckodriver	INFO	Listening on 127.0.0.1:55693
+1615405408021	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile5VlNrM"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:236933): GLib-GObject-CRITICAL **: 13:43:28.592: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:236950): GLib-GObject-CRITICAL **: 13:43:28.681: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405409595	Marionette	INFO	Listening on port 39417
+1615405409658	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:237021): GLib-GObject-CRITICAL **: 13:43:29.692: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615405428218	Marionette	INFO	Stopped listening on port 39417
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615405435361	geckodriver	INFO	Listening on 127.0.0.1:52799
+1615405435366	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileNhdM4t"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:237142): GLib-GObject-CRITICAL **: 13:43:55.935: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:237159): GLib-GObject-CRITICAL **: 13:43:56.024: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405436596	Marionette	INFO	Listening on port 40285
+1615405436688	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:237233): GLib-GObject-CRITICAL **: 13:43:56.965: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405439136	Marionette	INFO	Stopped listening on port 40285
+1615405439598	geckodriver	INFO	Listening on 127.0.0.1:39435
+1615405439607	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile72CBsS"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:237318): GLib-GObject-CRITICAL **: 13:44:00.195: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:237335): GLib-GObject-CRITICAL **: 13:44:00.279: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405440829	Marionette	INFO	Listening on port 46057
+1615405440961	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:237412): GLib-GObject-CRITICAL **: 13:44:01.222: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615405468073	Marionette	INFO	Stopped listening on port 46057
+1615405468457	geckodriver	INFO	Listening on 127.0.0.1:44741
+1615405468459	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileT570pG"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:237515): GLib-GObject-CRITICAL **: 13:44:29.031: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:237534): GLib-GObject-CRITICAL **: 13:44:29.119: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405469629	Marionette	INFO	Listening on port 41879
+1615405469682	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:237610): GLib-GObject-CRITICAL **: 13:44:30.034: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405490803	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405491513	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405497411	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405498376	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405499356	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405499452	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405534539	Marionette	INFO	Stopped listening on port 41879
+1615405538097	geckodriver	INFO	Listening on 127.0.0.1:42723
+1615405538101	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilePo7X6c"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:237756): GLib-GObject-CRITICAL **: 13:45:38.701: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:237773): GLib-GObject-CRITICAL **: 13:45:38.782: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405539334	Marionette	INFO	Listening on port 36331
+1615405539444	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:237850): GLib-GObject-CRITICAL **: 13:45:39.700: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615405568640	Marionette	INFO	Stopped listening on port 36331
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615405569139	geckodriver	INFO	Listening on 127.0.0.1:55801
+1615405569148	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileldqZty"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:237947): GLib-GObject-CRITICAL **: 13:46:09.756: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:237964): GLib-GObject-CRITICAL **: 13:46:09.841: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405570402	Marionette	INFO	Listening on port 40609
+1615405570469	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:238041): GLib-GObject-CRITICAL **: 13:46:10.788: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405572876	Marionette	INFO	Stopped listening on port 40609
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615405590303	geckodriver	INFO	Listening on 127.0.0.1:38251
+1615405590308	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileYZmTo6"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:238144): GLib-GObject-CRITICAL **: 13:46:31.105: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:238161): GLib-GObject-CRITICAL **: 13:46:31.198: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405591968	Marionette	INFO	Listening on port 36395
+1615405592052	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:238235): GLib-GObject-CRITICAL **: 13:46:32.111: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405594535	Marionette	INFO	Stopped listening on port 36395
+1615405594892	geckodriver	INFO	Listening on 127.0.0.1:41495
+1615405594894	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileEqDcpB"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:238323): GLib-GObject-CRITICAL **: 13:46:35.474: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:238340): GLib-GObject-CRITICAL **: 13:46:35.554: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405596100	Marionette	INFO	Listening on port 35193
+1615405596229	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:238418): GLib-GObject-CRITICAL **: 13:46:36.493: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+JavaScript error: https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?locale=en_US&usehttps=1&fullscreen=false&session=new line 9 > injectedScript, line 1: Error: java.lang.IllegalArgumentException: empty argument
+1615405623279	Marionette	INFO	Stopped listening on port 35193
+1615405623658	geckodriver	INFO	Listening on 127.0.0.1:46587
+1615405623661	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileWgJ1Yn"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:238517): GLib-GObject-CRITICAL **: 13:47:04.233: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:238534): GLib-GObject-CRITICAL **: 13:47:04.319: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405624870	Marionette	INFO	Listening on port 35017
+1615405625001	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:238613): GLib-GObject-CRITICAL **: 13:47:05.248: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405649172	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405649775	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405655329	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405656202	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405657146	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405657231	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1615405687880	Marionette	INFO	Stopped listening on port 35017
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5C0009,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+1615405691413	geckodriver	INFO	Listening on 127.0.0.1:35051
+1615405691419	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileY6GJji"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:238729): GLib-GObject-CRITICAL **: 13:48:12.002: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:238746): GLib-GObject-CRITICAL **: 13:48:12.088: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405692613	Marionette	INFO	Listening on port 34223
+1615405692647	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:238828): GLib-GObject-CRITICAL **: 13:48:13.023: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+1615405721097	Marionette	INFO	Stopped listening on port 34223
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1615405721593	geckodriver	INFO	Listening on 127.0.0.1:46325
+1615405721602	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileJQ8jcu"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:238924): GLib-GObject-CRITICAL **: 13:48:42.215: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:238941): GLib-GObject-CRITICAL **: 13:48:42.305: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405722816	Marionette	INFO	Listening on port 33549
+1615405722942	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:239021): GLib-GObject-CRITICAL **: 13:48:43.224: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405725433	Marionette	INFO	Stopped listening on port 33549
+1615405726025	geckodriver	INFO	Listening on 127.0.0.1:41957
+1615405726029	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileRHKopX"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:239106): GLib-GObject-CRITICAL **: 13:48:46.618: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:239123): GLib-GObject-CRITICAL **: 13:48:46.711: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405727265	Marionette	INFO	Listening on port 44705
+1615405727354	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:239200): GLib-GObject-CRITICAL **: 13:48:47.645: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+1615405729695	Marionette	INFO	Stopped listening on port 44705
+1615405730174	geckodriver	INFO	Listening on 127.0.0.1:38893
+1615405730183	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileEEInsZ"
+*** You are running in headless mode.
+
+(/usr/lib/firefox/firefox:239284): GLib-GObject-CRITICAL **: 13:48:50.790: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+
+(/usr/lib/firefox/firefox:239301): GLib-GObject-CRITICAL **: 13:48:50.873: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1615405731448	Marionette	INFO	Listening on port 40673
+1615405731511	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:239376): GLib-GObject-CRITICAL **: 13:48:51.817: g_object_set: assertion 'G_IS_OBJECT (object)' failed
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 190: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
