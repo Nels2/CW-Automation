@@ -198,10 +198,10 @@ def computerz():
             pickle.dump( computer, open( "save.p", "wb"))
         except IndexError:# sometimes the tickets are formatted weird..
             time.sleep(0.5)
-            ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
-            print("#### -- " + ticket_info + " -- ####")
-            pickle.dump( ticket_info, open( "ticket.p", "wb"))
-            computer = ticket_info.split("\\",1)[1]
+            alt_ticket_info = driver.find_element_by_css_selector(".TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)").text
+            print("#### -- " + alt_ticket_info + " -- ####")
+            pickle.dump( alt_ticket_info, open( "alt_ticket.p", "wb"))
+            computer = alt_ticket_info.split("\\",1)[1]
             if '<-Message Headers-><-Attachment->' in computer:
                 print('#### -- ' + computer + ' contains an "<-Message Headers-><-Attachment->"! Removing the "<-Message Headers-><-Attachment->" & replacing with a space... -- #####')
                 uniquedd = computer.replace('<-Message Headers-><-Attachment->', '')
@@ -436,7 +436,7 @@ def AutomateConnection():
     search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
     time.sleep(1)
     try:
-        search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
+        search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(3) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
         search_peny.send_keys(compenny + Keys.RETURN)
         pass
     except NoSuchElementException:
@@ -476,7 +476,7 @@ def AutomateConnection():
     if ticket_type == '*Reboot*': # UPDATES(reboot) & Disk Clean up tickets
         # -- wait for dialog box to appear.. -- #
         print_blue(pre + "[BrinxBot]: waiting for dialog box..")
-        WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
+        WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.CwRadioButtonGroup-column:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > svg:nth-child(2) > circle:nth-child(3)')))
         # -- check the do later box -- #
         print_blue(pre + "[BrinxBot]: checking the 'do later' option so the script runs at a different time.")
         do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
@@ -561,10 +561,12 @@ ticket_info = pickle.load( open( "ticket.p", "rb"))
 start = pickle.load( open( "startTime.p", "rb"))
 compenny = pickle.load( open( "company_info.p", "rb"))
 computer = pickle.load( open( "save.p", "rb"))
+alt_ticket_info = pickle.load( open( "alt_ticket.p", "rb"))
 now = datetime.datetime.now()
 print_alt_yellow("Script Completetion Time:")
 print_alt_green(end - start)
 pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
+print_alt_yellow("#### -- " + alt_ticket_info + " -- ####")
 print_alt_yellow("#### -- " + ticket_info + " -- ####")
 print_alt_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
 print_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
@@ -580,7 +582,7 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name (CWA)BrinxBot" + Keys.RETURN) 
         ticket_info = pickle.load( open( "ticket.p", "rb"))
-        Connection.send_keys('Here is the ticket I completed today: [' + ticket_info + ']' + Keys.RETURN)
+        Connection.send_keys('Here is the ticket I completed today: [' + ticket_info + ']' + '&' + ' [' + alt_ticket_info +'] ' + Keys.RETURN)
         Connection.send_keys('Script Completetion Time:')
         Connection.send_keys(str(end- start))
         Connection.send_keys(Keys.RETURN)
@@ -592,12 +594,24 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
 Server_ReReConnect()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
-RT_total = pickle.load( open( "RT.p", "rb"))
+RT_total = pickle.load( open( "tickets/RT.p", "rb"))
 RT = int(RT_total)
-count = 0
-while (RT > 0) and (count <= RT):
+count = 0 
+count += 1
+try:
+    ct = pickle.load( open( "count/rt_count.p", "rb"))
+    cti = int(ct)
+    count = cti
+    print(':::')
+except FileNotFoundError:
+    pass
+except IndexError:
+    pass
+while (RT > 0) and (count <= RT) : 
     print_alt_yellow("#### -- Restarting BrinxBot... -- ####")
-    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     count += 1
+    print(count)
+    pickle.dump( str(count), open( "count/rt_count.p", "wb"))
+    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     pass
 print_yellow('Starting next script...')

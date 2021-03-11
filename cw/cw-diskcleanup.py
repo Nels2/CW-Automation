@@ -453,7 +453,7 @@ def AutomateConnection():
     if ticket_type == '*Disk Cleanup*': # UPDATES(reboot) & Disk Clean up tickets
         # -- wait for dialog box to appear.. -- #
         print_blue(pre + "[BrinxBot]: waiting for dialog box..")
-        WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div')))
+        WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.CwRadioButtonGroup-column:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > svg:nth-child(2) > circle:nth-child(3)')))
         # -- check the do later box -- #
         print_blue(pre + "[BrinxBot]: checking the 'do later' option so the script runs at a different time.")
         do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
@@ -569,12 +569,24 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
 Server_ReReConnect()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
-DC_total = pickle.load( open( "DC.p", "rb"))
+DC_total = pickle.load( open( "tickets/DC.p", "rb"))
 DC = int(DC_total)
-count = 0
-while (DC > 0) and (count <= DC):
+count = 0 
+count += 1
+try:
+    ct = pickle.load( open( "count/dc_count.p", "rb"))
+    cti = int(ct)
+    count = cti
+    print(':::')
+except FileNotFoundError:
+    pass
+except IndexError:
+    pass
+while (DC > 0) and (count <= DC) : 
     print_alt_yellow("#### -- Restarting BrinxBot... -- ####")
-    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     count += 1
+    print(count)
+    pickle.dump( str(count), open( "count/dc_count.p", "wb"))
+    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     pass
 print_yellow('Starting next script...')

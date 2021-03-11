@@ -1,35 +1,27 @@
-Ticket Type:  edgeupdate Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
 Ticket Type:  NIC Type
+Ticket Type:  Unknown
+Ticket Type:  NIC Type
+Ticket Type:  NIC Type
+Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  edgeupdate Type
 Ticket Type:  edgeupdate Type
 Ticket Type:  edgeupdate Type
+Ticket Type:  edgeupdate Type
+Ticket Type:  edgeupdate Type
 Ticket Type:  Unknown
-Ticket Type:  edgeupdate Type
+Ticket Type:  Unclassified App Warning
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Disk Cleanup Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
 Ticket Type:  NIC Type
-Ticket Type:  NIC Type
-Ticket Type:  NIC Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  Reboot Type
-Ticket Type:  edgeupdate Type
-Ticket Type:  Reboot Type
 Ticket Type:  Unknown
 Ticket Type:  Unclassified App Warning
 Ticket Type:  Unclassified App Warning
 Ticket Type:  Out of Date PC
 Ticket Type:  edgeupdate Type
-Ticket Type:  edgeupdate Type
 Ticket Type:  Unknown
 Ticket Type:  NIC Type
 Ticket Type:  edgeupdate Type
@@ -192,6 +184,14 @@ Ticket Type:  Unknown
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
 Ticket Type:  Disk Cleanup Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown

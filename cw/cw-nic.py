@@ -417,7 +417,7 @@ def AutomateConnection():
         pass
     time.sleep(1)
     try:
-        search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(4) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
+        search_peny = driver.find_element_by_css_selector('.CwDataGrid-headerCanvas > span:nth-child(3) > div:nth-child(1) > div:nth-child(2) > input:nth-child(2)')
         search_peny.send_keys(compenny + Keys.RETURN)
         pass
     except NoSuchElementException:
@@ -549,12 +549,24 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
 Server_ReReConnect()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
 print_red(pre + Connectionloss)# oh no! 
-NT_total = pickle.load( open( "NT.p", "rb"))
+NT_total = pickle.load( open( "tickets/NT.p", "rb"))
 NT = int(NT_total)
-count = 0
-while (NT > 0) and (count <= NT):
+count = 0 
+count += 1
+try:
+    ct = pickle.load( open( "count/nt_count.p", "rb"))
+    cti = int(ct)
+    count = cti
+    print(':::')
+except FileNotFoundError:
+    pass
+except IndexError:
+    pass
+while (NT > 0) and (count <= NT) : 
     print_alt_yellow("#### -- Restarting BrinxBot... -- ####")
-    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     count += 1
+    print(count)
+    pickle.dump( str(count), open( "count/nt_count.p", "wb"))
+    os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     pass
 print_yellow('Starting next script...')
