@@ -25,8 +25,9 @@ import pickle
 #  --------------ConnectWise Automator, By Nelson Orellana -----------------
 #
 # Introducing a selenium + python script that logs into my ConnectWise, varies what it(where it is the ticket type) looks for depending on user input.
-# Then completes via Automate.
+# Then completes via Automate, then logs what work was done into a time entry for the ticket BrinxBot worked..
 # ---------------Built 2021.02.22 ------------------------------------------
+# ---------------Updated 2021.03.12 ----------------------------------------
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
@@ -118,26 +119,10 @@ except NoSuchElementException:
         action = ActionChains(driver)
         action.double_click(ticket)
     except NoSuchElementException:
-        while True:
-            print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
-            option = input("| Do you want to look for again? (yes/no): ")
-            if option == 'yes' or option == 'y':
-                ticket_type = pickle.load( open( "ticket_info.p", "rb"))
-                time.sleep(0.5)
-                search.send_keys(ticket_type)
-                search.send_keys(Keys.RETURN)
-                ticket = driver.find_element_by_css_selector("tr.GE0S-T1CGWF:nth-child(1) > td:nth-child(6) > div:nth-child(1) > a:nth-child(1)").click()
-                action = ActionChains(driver)
-                action.double_click(ticket)
-                pass
-                break
-            elif option == 'no' or option == 'n':
-                print_yellow('#### -- !! Exiting.. !! -- ####')
-                sys.exit()
-                pass
-            else:
-                print_red(' #### -- ERROR: You need to enter either "yes" or "no". -- ####')
-                continue
+        print_red('#### -- There were no ticket founds for ticket type: ' + ticket_type + ' -- #####')
+        print_yellow('#### -- !! Exiting.. !! -- ####')
+        sys.exit()
+        pass
     except ElementNotInteractableException:
         print_yellow('#### -- Ticket Function 2 Was Not Used! -- ####')
         pass
@@ -253,7 +238,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 4.1 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 4.3 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -275,7 +260,7 @@ def AutomateConnection():
     pw = driver.find_element_by_id('loginPassword')
     time.sleep(0.5) 
     pw.send_keys(passwd + Keys.RETURN)
-    print_green("#### -- Automate Control Center Login Sumbitted.. Awaiting Token.. -- ####")#-----------------------------------------------------------------------------------------------------
+    print_green("#### -- Automate Control Center Login Submitted.. Awaiting Token.. -- ####")#-----------------------------------------------------------------------------------------------------
     time.sleep(1.5)
     print_blue(pre + "[BrinxBot]: A Token is needed to login! Opening new tab... and switching to it to login into O365!")
     second_tab_handle = driver.current_window_handle
@@ -284,7 +269,8 @@ def AutomateConnection():
     driver.execute_script("window.open('about:blank', 'tab3');")
     driver.switch_to.window("tab3")
     print_blue(pre + "[BrinxBot]: Switched to third tab. Focus is here currently.")
-    driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')
+    msft = "https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld"
+    driver.get(msft)
     time.sleep(2)
     # enter your email and password for your O365 login.
     email = ''
@@ -417,6 +403,11 @@ def AutomateConnection():
         redo = compenny.replace(' Fanestil', 'Fanestil')
         compenny = redo
         pass
+    if ' At-Home Health Care' in compenny:
+        print_yellow("#### -- renaming " + compenny + " to just 'At-Home Health Care' as ' At-Home Health Care' (Notice the space before the 'F'?) does not exist in Automate")
+        redo = compenny.replace(' At-Home Health Care', 'At-Home Health Care')
+        compenny = redo
+        pass
     else:
         pass
     print_yellow("#### -- Pickle has loaded in the following saved variable from CW: " + computer + " -- #####")
@@ -479,8 +470,13 @@ def AutomateConnection():
         WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div.CwRadioButtonGroup-column:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > svg:nth-child(2) > circle:nth-child(3)')))
         # -- check the do later box -- #
         print_blue(pre + "[BrinxBot]: checking the 'do later' option so the script runs at a different time.")
-        do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
-        # change the date for script to be ran at, usually at the moment or the next day at 12:00:00 AM
+        try:
+            do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
+            # change the date for script to be ran at, usually at the moment or the next day at 12:00:00 AM
+            pass
+        except ElementClickInterceptedException:
+            driver.implicitly_wait(10)
+            alt_do_later = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-radioButtonContainer > div.CwRadioButtonGroup-container > div:nth-child(2) > div > div > div > svg > circle.CwRadioButton-largeInnerCircle").click()
         print_blue(pre + "[BrinxBot]: Changing the date to tomorrow.")
         date = driver.find_element_by_css_selector("#browse_computers_grid_toolbar_button_scripts_now_later_dialogscrollable_body_id > div.ScriptSchedulerDialog-timeDateFields > div:nth-child(1) > div.CwDatePicker-datePickerRoot > div > input")
         date.send_keys(Keys.CONTROL + 'a' + Keys.DELETE)
@@ -504,7 +500,7 @@ def AutomateConnection():
         # click SCHEDULE
     print_blue(pre + "[BrinxBot]: Wrapping this up & selecting OK...")
     click_ok = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div.Dialogs-dialogContainer > div.CwScrollableDialog-scrollableDialogContainer > div > div > div.CwDialog-buttons > div > div.ScriptSchedulerDialog-cancelNextContainer > div:nth-child(2) > div").click()
-    print_green(pre + "[BrinxBot]: I have completed the task assigned... Entering Time Entry...")
+    print_alt_green(pre + "[BrinxBot]: I have completed the task assigned... Entering time entry into CW..")
     # establish external connection to let server know job completed right
     driver.quit()
 AutomateConnection()
@@ -518,7 +514,7 @@ try: # to open aanother page load up CW again..
     print_blue("[BrinxBot]: re-opening CW window...")
     da_url = pickle.load( open( "url.p", "rb"))
     driver.get(da_url)
-    print_blue("[BrinxBot]: CW is open again.")
+    print_alt_green("[BrinxBot]: CW is open again.")
 except TypeError:
     print_red('There was a serious error, could spawn CW instance. Ticket was completed but BrinxBot can not open CW to confirm with a time entry.')
 # ---- The above saves to a variable called 'computer' for use in AutomateConnection.py when this file(CW) is imported in.
@@ -569,7 +565,7 @@ pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
 print_alt_yellow("#### -- " + alt_ticket_info + " -- ####")
 print_alt_yellow("#### -- " + ticket_info + " -- ####")
 print_alt_green("#### -- BrinxBot completed ticket for " + computer + " from " + compenny + " -- ####")
-print_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
+print_alt_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
 def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
     try:
         the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
@@ -602,16 +598,26 @@ try:
     ct = pickle.load( open( "count/rt_count.p", "rb"))
     cti = int(ct)
     count = cti
-    print(':::')
+    print_yellow('count when script started:')
+    print_alt_green(count)
 except FileNotFoundError:
     pass
 except IndexError:
     pass
-while (RT > 0) and (count <= RT) : 
+while (count <= RT): 
     print_alt_yellow("#### -- Restarting BrinxBot... -- ####")
+    if (count == RT):
+        print_red('#### -- No tickets left for ' + ticket_type + ' type... -- #####')
+        print_yellow('#### -- Starting next script... -- #####')
+        sys.exit()
+        pass
+    else:
+        pass
     count += 1
-    print(count)
+    print_yellow('count after completion:')
+    print_alt_green(count)
     pickle.dump( str(count), open( "count/rt_count.p", "wb"))
     os.execl(sys.executable, 'python', __file__, *sys.argv[1:])
     pass
-print_yellow('Starting next script...')
+print_red('#### -- No tickets left for ' + ticket_type + ' type... -- #####')
+print_yellow('#### -- Starting next script... -- #####')
