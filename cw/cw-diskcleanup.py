@@ -214,7 +214,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 4.3 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.1 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -324,21 +324,9 @@ def AutomateConnection():
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
-        elif 'Bluestem Insurance Group' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Bluestem Insurance' as 'Bluestem Insurance Group' does not exist in Automate")
-            replaced = compenny.replace('Bluestem Insurance Group', "Bluestem Insurance")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
         elif 'Dr. Marlin Flanagin, DDS' in compenny:
             print_yellow("#### -- Renaming " + compenny + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
             replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr Marlin Flanagin")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
-        elif 'Lyon County Title LLC' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Lyon Co Title' as 'Lyon County Title LLC' does not exist in Automate")
-            replaced = compenny.replace('Lyon County Title LLC', "Lyon Co Title")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -349,14 +337,8 @@ def AutomateConnection():
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
         elif 'Lore & Hagemann, Inc' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Lore & Hagemann' as 'Lore & Hagemann, Inc' does not exist in Automate")
-            replaced = compenny.replace('Lore & Hagemann, Inc', "Lore & Hagemann")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
-        elif 'Emporia Chamber of Commerce' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Emporia Chamber of Commer' as 'Emporia Chamber of Commerce' does not exist in Automate")
-            replaced = compenny.replace('Emporia Chamber of Commerce', "Emporia Chamber of Commer")
+            print_yellow("#### -- Renaming " + compenny + " to just 'Lore' as '&'cannot literally be entered in web version of Automate, this a is a bug on their end.")
+            replaced = compenny.replace('Lore & Hagemann, Inc', "Lore")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -366,9 +348,9 @@ def AutomateConnection():
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
-        elif 'Burnap Bros. Inc.' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Burnap Brothers' as 'Burnap Bros. Inc.' does not exist in Automate")
-            replaced = compenny.replace('Burnap Bros. Inc.', "Burnap Brothers")
+        elif 'Lyon Co Title' in compenny:
+            print_yellow("#### -- Renaming " + compenny + " to just 'Lyon County Title LLC' as 'Lyon Co Title' does not exist in Automate")
+            replaced = compenny.replace('Lyon Co Title', "Lyon County Title LLC")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -429,8 +411,11 @@ def AutomateConnection():
     script_to_send = 'Disk Cleanup'
     script_search.send_keys(script_to_send)
     if ticket_type == '*Disk Cleanup*': #Disk clean up shows up lower in tthe script menu than the others as there are similary named scripts.
-        script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div:nth-child(2) > div.CwTreeViewNode-subTree > div:nth-child(2) > div > label").click()
-        pass
+        try:
+            script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div:nth-child(2) > div.CwTreeViewNode-subTree > div:nth-child(2) > div > label").click()
+            pass
+        except NoSuchElementException:
+            script_runAlt = driver.find_element_by_xpath('/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/div[2]/div[2]/div[2]/div/label').click()
     else:
         script_run = driver.find_element_by_css_selector("#root > div > div > div > div.browse-container > div.company-container > div.company-content > div.CwToolbar-cwToolbar.CwGridToolbar-container > div.CwGridToolbar-leftContainer > div.ComputersGridWithToolbar-scriptsButton > div > div:nth-child(2) > div > div.CwTreeDropdown-treeContainer > div > div > div.CwTreeViewNode-subTree > div > div > label").click()
         pass
@@ -548,8 +533,9 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
         Connection.send_keys(Keys.RETURN)
         Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
         pass        
-    except RuntimeError:
-        print_red(pre + "Server Connection Failed. Continuing with shutdown.")
+    except WebDriverException:
+        print_red("#### -- FAIL -- ####")
+        print_red("Server Connection Failed. No login was made to the Server. Continuing...")
     driverTwo.quit()
 Server_ReReConnect()
 Connectionloss = colored('Connection to BrinxBot has been lost.', 'red', attrs=['reverse', 'blink'])
