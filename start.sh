@@ -49,6 +49,7 @@ then
 fi
 if [ $1 == "H" ]
 then 
+    clear
     echo  ----------- Ticket Types Information ----------------
     echo  OP1 is Reboot pending Ticket type...     ./start.sh 1      
     echo  OP2 is edgeupdate stopped Ticket type... ./start.sh 2 

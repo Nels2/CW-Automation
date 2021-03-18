@@ -168,7 +168,7 @@ MarkResolve()
 def computerz():
     if ticket_type == '*NIC*':
         alt_t_info = driver.find_element_by_xpath("/html/body/div[2]/div[2]/div/div[2]/div/div[2]/div/div[2]/div/span[1]/div").text
-        ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p").text
+        ticket_info = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(6) > div > label > p").text
         pickle.dump( ticket_info, open( "ticket.p", "wb"))
         pickle.dump( alt_t_info, open( "alt_ticket.p", "wb"))
         print_yellow("#### " + alt_t_info + "####")
@@ -186,7 +186,7 @@ def computerz():
         else:
             pass
         pickle.dump( computer, open( "save.p", "wb")) 
-        company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(5) > div > label > p').text # this is where the company name is stored
+        company_info = driver.find_element_by_css_selector('#cw-manage-service_service_ticket_initial_desc > div > div:nth-child(1) > div > div > div > div > div:nth-child(2) > div > div > div > div > div.CwPodCol-podCol.CwPodCol-podColWithoutSectionHeader.TicketNote-note.TicketNote-initialNote > div:nth-child(6) > div > label > p').text # this is where the company name is stored
         str = company_info
         ci = str.split("on ",1)[1]
         str = ci
@@ -222,7 +222,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.1 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.2 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -450,7 +450,7 @@ except TypeError:
 # make sure internal note section is selected.
 CWlogin()
 time.sleep(3)
-WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.TicketNote-initialNote > div:nth-child(5) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)')))
+WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div.CwButton-wrap.TicketNote-newNoteButton > div > div')))
 MarkResolve()
 time.sleep(2.7)
 click_internal = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_discussion > div > div:nth-child(1) > div > div > div > div > div > div:nth-child(2) > div > table > tbody > tr > td:nth-child(2)").click()

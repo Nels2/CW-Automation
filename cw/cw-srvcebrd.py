@@ -7,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotInteractableException
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from timeit import default_timer as timer
 from time import sleep
@@ -67,7 +68,11 @@ status_of_tickets.send_keys(Keys.RETURN)
 time.sleep(1)
 def ServiceBoard_Pull():
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
-    TotalAMTT = driver.find_element_by_css_selector(".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)").text
+    try:
+        TotalAMTT = driver.find_element_by_css_selector(".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)").text
+        pass
+    except StaleElementReferenceException:
+        TotalAMTT = driver.find_element_by_css_selector(".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)").text
     stri = TotalAMTT
     Amt = stri.split("- ",1)[1]
     stri = Amt
@@ -75,7 +80,7 @@ def ServiceBoard_Pull():
     stri = TotalAMTT
     Amts = stri.split("of ",1)[1]
     driver.implicitly_wait(2)
-
+    
     x = int(PGAmt) 
     i = int(1)
     os.remove("ticket_types.txt")
@@ -92,6 +97,8 @@ def ServiceBoard_Pull():
             uni = path1.replace('/tr[1]/td[6]', replacement)
             path = uni
             pass
+        pickle.dump( str(PGAmt), open( "tickets/PGAmt.p", "wb"))
+        pickle.dump( Amts, open( "tickets/Amts.p", "wb"))
         TicketNumber = driver.find_element_by_xpath(path2).text
         Ticketlist = driver.find_element_by_xpath(path).text
         if 'Reboot' in Ticketlist or 'UPDATES - Reboot Pending' in Ticketlist:
@@ -100,7 +107,7 @@ def ServiceBoard_Pull():
         elif 'edgeupdate' in Ticketlist:
             ticketT = 'edgeupdate Type'
             pass
-        elif 'Disk Cleanup' in Ticketlist or 'Drive Space Critical' in Ticketlist:
+        elif 'Disk Cleanup' in Ticketlist:
             ticketT = 'Disk Cleanup Type'
             pass
         elif 'NIC Packets' in Ticketlist:
@@ -131,7 +138,10 @@ def ServiceBoard_Pull():
             print("Ticket Type: ", ticketT, file=f)
         print_alt_yellow('Ticket Number[#] & Type: ' + TicketNumber + ' & ' + ticketT + ": ") 
         print_blue('>> Ticket Information: ' + Ticketlist)
-        i += 1
+        if i == x:
+            break
+        else:
+            i += 1
         pass
     total_egu = 0
     total_dc = 0
@@ -215,7 +225,6 @@ if total_egu <= 1 and total_dc <= 1 and total_reb <= 1 and total_nic <= 1:
     driver.implicitly_wait(8)
     print_yellow('#### -----------Page 2 Pull:  -------- ####')
     ServiceBoard_Pull()
-    pass
     total_r = pickle.load( open( "tickets/RT.p", "rb"))
     total_reb = int(total_r)
     total_e = pickle.load( open( "tickets/EU.p", "rb"))
@@ -224,13 +233,97 @@ if total_egu <= 1 and total_dc <= 1 and total_reb <= 1 and total_nic <= 1:
     total_dc = int(total_d)
     total_n = pickle.load( open( "tickets/NT.p", "rb"))
     total_nic = int(total_n)
-    if total_egu <= 1 and total_dc <= 1 and total_reb <= 1 and total_nic <= 1:
+    pass
+    if total_egu <= 1 and total_dc <= 1 and total_reb <= 1 and total_nic <= 1:#usually the final page, had to make some adjustments as it final page loads differently.
         print_yellow('#### -----------Pulling Page 3-------- ####')
         driver.find_element_by_css_selector('div.GE0S-T1CIRG:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > svg:nth-child(1)').click()
         driver.implicitly_wait(8)
         print_yellow('#### -----------Page 3 Pull:  -------- ####')
-        ServiceBoard_Pull()
-        pass
+        try:
+            ServiceBoard_Pull()
+        except NoSuchElementException:
+            total_egu = 0
+            total_dc = 0
+            total_reb = 0
+            total_nic = 0
+            total_OD = 0
+            total_PT = 0
+            total_UA = 0
+            total_NTEN = 0
+            total_WE = 0
+            total_UT = 0
+            count = 0
+            with open('ticket_types.txt') as f:
+                for line in f:
+                    found_egu = line.find('edgeupdate Type')
+                    if found_egu != -1 and found_egu != 0:
+                        total_egu += 1
+                    found_dc = line.find('Disk Cleanup Type')
+                    if found_dc != -1 and found_dc != 0:
+                        total_dc += 1
+                    found_nic = line.find('NIC Type')
+                    if found_nic != -1 and found_nic != 0:
+                        total_nic += 1
+                    found_reb = line.find('Reboot Type')
+                    if found_reb != -1 and found_reb != 0:
+                        total_reb += 1
+                    found_OD = line.find('Out of Date PC')
+                    if found_OD != -1 and found_OD != 0:
+                        total_OD += 1
+                    found_PT = line.find('Perf Type Ticket')
+                    if found_PT != -1 and found_PT != 0:
+                        total_PT += 1
+                    found_UA = line.find('Unclassified App Warning')
+                    if found_UA != -1 and found_UA != 0:
+                        total_UA += 1
+                    found_NTEN = line.find('No Time Entry Needed')
+                    if found_NTEN != -1 and found_NTEN != 0:
+                        total_NTEN += 1
+                    found_WE = line.find('WebRoot Error')
+                    if found_WE != -1 and found_WE != 0:
+                        total_WE += 1
+                    found_UT = line.find('Unknown')
+                    if found_UT != -1 and found_UT != 0:
+                       total_UT += 1
+            Amts = pickle.load( open( "tickets/Amts.p", "rb"))
+            PGAmt = pickle.load( open( "tickets/PGAmt.p", "rb"))
+            print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
+            print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board: " + Amts + " -- ####")
+            print_yellow("#### -- Total Amount of Tickets Today Under This Page Only:   " + PGAmt + " -- ####")
+            print_alt_yellow('#### -- Total Amount of Each Ticket Type Today On This Page -- ####')
+            print_blue("|    Out of Date PC:                           "+str(total_OD)+"      ")
+            print_blue("|    Unknown:                                  "+str(total_UT)+"      ")
+            print_blue("|    WebRoot Error Type:                       "+str(total_WE)+"      ")
+            print_blue("|    Perf Warning Type:                        "+str(total_PT)+"     ")
+            print_blue("|    Unclassified App Warning:                 "+str(total_UA)+"     ")
+            print_blue("|    No Time Entry Needed:                     "+str(total_NTEN)+"     ")
+            print_alt_yellow('#### --   Ticket Types That BrinxBot Can Work:  -- ####')
+            print_blue("|    Reboot Type:                              "+str(total_reb)+"      ")
+            pickle.dump( str(total_reb), open( "tickets/RT.p", "wb"))
+            pickle.dump( str(count), open( "count/rt_count.p", "wb"))
+            print_blue("|    EdgeUpdate Type:                          "+str(total_egu)+"      ")
+            pickle.dump( str(total_egu), open( "tickets/EU.p", "wb"))
+            pickle.dump( str(count), open( "count/eu_count.p", "wb"))
+            print_blue("|    Disk Cleanup Type:                        "+str(total_dc)+"      ")
+            pickle.dump( str(total_dc), open( "tickets/DC.p", "wb"))
+            pickle.dump( str(count), open( "count/dc_count.p", "wb"))
+            print_blue("|    NIC Type:                                 "+str(total_nic)+"     ")
+            pickle.dump( str(total_nic), open( "tickets/NT.p", "wb"))
+            pickle.dump( str(count), open( "count/nt_count.p", "wb"))
+            print_yellow('#### ---------------------------------------------------------- ####')
+            print_red('#### -- END OF TICKETS -- ####')
+            print_red('#### -- Reached end of tickets under alerts board, no more tickets that BrinxBot can work. Exiting..-- ####')
+            #driver.quit()
+            #pass
+            total_r = pickle.load( open( "tickets/RT.p", "rb"))
+            total_reb = int(total_r)
+            total_e = pickle.load( open( "tickets/EU.p", "rb"))
+            total_egu = int(total_e)
+            total_d = pickle.load( open( "tickets/DC.p", "rb"))
+            total_dc = int(total_d)
+            total_n = pickle.load( open( "tickets/NT.p", "rb"))
+            total_nic = int(total_n)
+            pass
     else:
         pass
 else:
