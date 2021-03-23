@@ -69,7 +69,7 @@ That is all for this step!, you should be good to go.
 
 # Optional Step - Watch Live Steps at Server!
 This is probably easier if you have to two displays, but:\
-Open a browser up to a new tab and go to BruhBoxChat | BrinxBot (nels277.repl.co)\[https://bruhboxchat.nels277.repl.co/BrinxBot]
+Open a browser up to a new tab and go to BruhBoxChat | BrinxBot (nels277.repl.co)\[https://bruhboxchat.nels277.repl.co/BrinxBot
 this website chats with the Bot or in other words the script. You can see the status of the script here as it runs.\
 
 # Running the script!
