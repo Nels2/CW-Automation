@@ -352,21 +352,9 @@ def AutomateConnection():
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
-        elif 'Diamond Everley Roofing' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley Roofing' does not exist in Automate")
-            replaced = compenny.replace('Diamond Everley Roofing', "Diamond Everly")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
         elif 'Lore & Hagemann, Inc' in compenny:
             print_yellow("#### -- Renaming " + compenny + " to just 'Lore' as '&'cannot literally be entered in web version of Automate, this a is a bug on their end.")
             replaced = compenny.replace('Lore & Hagemann, Inc', "Lore")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
-        elif 'Diamond Everley' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley' does not exist in Automate")
-            replaced = compenny.replace('Diamond Everley', "Diamond Everly")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass

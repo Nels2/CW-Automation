@@ -64,7 +64,6 @@ options = webdriver.FirefoxOptions()
 options.headless = True
 driver = webdriver.Firefox(options=options)
 driver.get(url)
-
 # change the below fields to match your login info for YOUR connectwise site as well as the URL above it is specific to my login page.
 def CWlogin():
     comp = ''
@@ -330,21 +329,9 @@ def AutomateConnection():
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
-        elif 'Diamond Everley Roofing' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley Roofing' does not exist in Automate")
-            replaced = compenny.replace('Diamond Everley Roofing', "Diamond Everly")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
         elif 'Lore & Hagemann, Inc' in compenny:
             print_yellow("#### -- Renaming " + compenny + " to just 'Lore' as '&'cannot literally be entered in web version of Automate, this a is a bug on their end.")
             replaced = compenny.replace('Lore & Hagemann, Inc', "Lore")
-            compenny = replaced
-            pickle.dump( compenny, open( "company_info.p", "wb"))
-            pass
-        elif 'Diamond Everley' in compenny:
-            print_yellow("#### -- Renaming " + compenny + " to just 'Diamond Everly' as 'Diamond Everley' does not exist in Automate")
-            replaced = compenny.replace('Diamond Everley', "Diamond Everly")
             compenny = replaced
             pickle.dump( compenny, open( "company_info.p", "wb"))
             pass
@@ -516,7 +503,6 @@ print_green("#### -- BrinxBot completed ticket for " + computer + " from " + com
 print_alt_green(pre + "[BrinxBot]: I have completed the task assigned... letting server know...")
 def Server_ReReConnect():# like in CW.py it is better to close the connection after the initial connection to save CPU/MEM usage.
     try:
-            
         the_url = "https://bruhboxchat.nels277.repl.co/BrinxBot"
         options = webdriver.FirefoxOptions()
         options.headless = True
