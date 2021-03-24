@@ -53,9 +53,9 @@ Now that in cw-xxx.py the connectwise login information has been taken care of, 
 once again, in the file(s) 'cw-xxx.py' are open(*start with any, but make sure you do all four!*), press CTRL+F\
 the next part is changing the Automate Login / your O365 Login.
 - **You are going to CTRL+F more than once.**
-- First you need to search for 'url' 
+- First you need to search for 'msft = ' 
 - **Change the url to match your hoested rmm automate login site.**
-- Next you need to change another thing in the cw-xxx.py files, change the following ```driver.get('https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld')``` to ```driver.get('insert_your_o365_login_site_here')``` 
+- Next you need to change another thing in the cw-xxx.py files, change the following ``msft = "https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld"``` to ```msft = "insert_your_o365_login_site_here"``` 
 - You are now looking for the value **'usrname'** inside **all** of the cw-xxx.py files.
 Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
@@ -75,13 +75,11 @@ this website chats with the Bot or in other words the script. You can see the st
 # Running the script!
 Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
-- Next to run the script, type out: ```python3 AutomateConnection.py```\
-# Optional
-- Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Next type out: ```sudo chmod +x start.sh```
+- Next to run the script, type out: ```./start.sh TB```.
 - And to run it type out: ```./start.sh``` with either 1-4, T, or TB as an arguement
 So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
-- Alternatively, type out ```./start.sh TB``` for an alternate method that auto completes tickets for you **unless** the machine is offline, you will have to input y/n if you want the script to complete the ticket for it anyway(*Not recommended to complete an offline agent ticket*). 
+- Alternatively, type out ```./start.sh TB``` for an alternate method that auto completes tickets for you.
 If you want just a return of the tickets on the service board, type out: ```./start.sh T``` and you can decide from there which OP to run ```./script.sh (1-4)```.
 - type ```./start.sh H``` to see more information. \
 
