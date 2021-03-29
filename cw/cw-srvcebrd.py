@@ -113,10 +113,7 @@ def ServiceBoard_Pull():
         elif 'NIC Packets' in Ticketlist:
             ticketT = 'NIC Type'
             pass
-        elif 'UPDATES -  Out of date' in Ticketlist or 'UPDATES - Out of date' in Ticketlist or 'An Out Of Date Automate Agent' in Ticketlist:
-            ticketT = 'Out of Date PC'
-            pass
-        elif 'No Checkin' in Ticketlist:
+        elif 'UPDATES -  Out of date' in Ticketlist or 'No Checkin'  or 'UPDATES - Out of date' in Ticketlist or 'An Out Of Date Automate Agent' in Ticketlist:
             ticketT = 'Out of Date PC'
             pass
         elif 'Webroot Process Not Running' in Ticketlist:

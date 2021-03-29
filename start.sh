@@ -16,7 +16,7 @@ if [ $1 == "T" ]
 then 
     echo "[BrinxBot]: $USER! you can view tickets and autocomplete with 'TB' instead of 'T'!"
 else
-    echo "[BrinxBot]: $USER! I will autocomplete tickets!"
+    echo "[BrinxBot]: $USER! I will complete the task!"
 fi 
 
 if [ $1 == "1" ]
@@ -59,9 +59,15 @@ then
     echo  -----------  Additional Information  ----------------
     echo  T is to pull the Service Board to the Terminal...
     echo  TB is to pull srbrd and autocomplete tickets...
+    echo  A is to pull All agent statuses....
     echo  -----------------------------------------------------
     echo Above are the following arguments you can use with start.sh.
     echo After the above, is the correct way to pass an argument to start.sh
+fi
+if [ $1 == "A" ]
+then
+    echo  ----------------- Pulling Agent Status of 150 Agents... -----------------------
+    python3 cw/cw-automateAgents.py
 fi
 if [ $1 == "T" ]
 then 
@@ -69,9 +75,7 @@ then
     python3 cw/cw-srvcebrd.py
 fi
 if [ $1 == "TB" ]
-then 
-    echo  ----------------- Loading Ticket Information From Today.. -----------------------
-    python3 cw/cw-srvcebrd.py
+then I will autocomplete tickets!
     echo  -----------------         Checking Ticket Amounts         ---------------------
     file=ticket_types.txt
     DC=tickets/DC.p

@@ -31,7 +31,7 @@ import pickle
 print_blue = lambda x: cprint(x, 'cyan')
 print_yellow = lambda x: cprint(x, 'yellow')
 print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
-print_red = lambda x: cprint(x, 'red')
+print_red = lambda x: cprint(x, 'red', attrs=['bold'])
 print_green = lambda x: cprint(x, 'green')
 print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 def startTym():
@@ -213,7 +213,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.2 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.3 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -357,7 +357,7 @@ def AutomateConnection():
         print_green("#### -- DashBoard Loaded Successfully with No Errors! -- ####")
     print_green(pre + "[AC][BrinxBot]: I'm in! Looking for computer: " + computer + "!")
     # now time to search for computer and double click on it
-    print_yellow("#### -- Searching in Automate for computer... -- ####")  
+    print_yellow("#### -- Searching in Automate for " + computer + " from " + compenny + "... -- ####")  
     driver.implicitly_wait(5)
     try:
         search_for_comp = driver.find_element_by_xpath("/html/body/div/div/div/div/div[4]/div[2]/div[2]/div[3]/div[2]/div/span[1]/div/div[2]/input")
@@ -487,7 +487,7 @@ done = driver.find_element_by_css_selector("#cw-manage-service_service_ticket_di
 driver.implicitly_wait(3)
 click_yes = driver.find_element_by_css_selector(".GE0S-T1CANG > div:nth-child(1) > div:nth-child(1)").click()
 time.sleep(2)
-driver.quit() #uncomment when running in production (using to complete tickets or you will have to force close this window. )
+driver.quit() 
 end = timer()
 ticket_type = pickle.load( open( "ticket_info.p", "rb"))
 ticket_info = pickle.load( open( "ticket.p", "rb"))
@@ -508,7 +508,6 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
         options.headless = True
         driverTwo = webdriver.Firefox(options=options)
         driverTwo.get(the_url)
-
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name (CWA)BrinxBot" + Keys.RETURN) 
@@ -517,7 +516,7 @@ def Server_ReReConnect():# like in CW.py it is better to close the connection af
         Connection.send_keys('Script Completetion Time:')
         Connection.send_keys(str(end- start))
         Connection.send_keys(Keys.RETURN)
-        Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "!" + Keys.RETURN)
+        Connection.send_keys("Computer ticket has been completed successfully in ConnectWise Automate Control Center for: " + computer + "/" + compenny + "!" + Keys.RETURN)
         pass        
     except WebDriverException:
         print_red("#### -- FAIL -- ####")

@@ -10,7 +10,7 @@ FILES TO EDIT: cw/cw-edgeu.py
 FILES TO EDIT: cw/cw-disckcleanup.py
 - NIC packet issue tickets(./start.sh 4) \
 FILES TO EDIT: cw/cw-nic.py \
-**You also need to edit this file:** cw/cw-srvcebrd.py \
+**You also need to edit this file:** cw/cw-srvcebrd.py & cw/cw-automateAgents.py \
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
@@ -76,11 +76,11 @@ this website chats with the Bot or in other words the script. You can see the st
 Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
 - Next type out: ```sudo chmod +x start.sh```
-- Next to run the script, type out: ```./start.sh TB```.
-- And to run it type out: ```./start.sh``` with either 1-4, T, or TB as an arguement
+- Next to run the script, type out: ```./start.sh TB```. -**Note. This is the fully automated version.**
+- And to run it type out: ```./start.sh``` with either 1-4, A, T, or TB as an arguement
 So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
-- Alternatively, type out ```./start.sh TB``` for an alternate method that auto completes tickets for you.
+- Alternatively, type out ```./start.sh A``` for a quick rundown of status of Automate Agents.
 If you want just a return of the tickets on the service board, type out: ```./start.sh T``` and you can decide from there which OP to run ```./script.sh (1-4)```.
 - type ```./start.sh H``` to see more information. \
 
-After starting the script with your chosen arguement **(1,2,3,4,T,TB,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
+After starting the script with your chosen arguement **(1,2,3,4,A,T,TB,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
