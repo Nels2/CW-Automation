@@ -1,6 +1,6 @@
 # CW-Automation
 Attempting to fully automate ticketing...
-So far this script can **complete** 4 different ticket types: 
+this script is to be used to **complete** following **four** different ticket types: 
 
 - Reboot/Update Pending(./start.sh 1) \
 FILES TO EDIT: cw/cw-reboot.py 
