@@ -34,7 +34,6 @@ url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&
 options = webdriver.FirefoxOptions()
 options.headless = True
 driver = webdriver.Firefox(options=options)
-#driver = webdriver.Firefox()
 driver.get(url)
 
 def CWlogind():

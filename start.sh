@@ -75,8 +75,9 @@ then
     python3 cw/cw-srvcebrd.py
 fi
 if [ $1 == "TB" ]
-then I will autocomplete tickets!
+then 
     echo  -----------------         Checking Ticket Amounts         ---------------------
+    python3 cw/cw-srvcebrd.py
     file=ticket_types.txt
     DC=tickets/DC.p
     EU=tickets/EU.p

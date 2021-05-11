@@ -205,7 +205,7 @@ def AutomateConnection():
     passwd = ''
 
     print_yellow("#### --------- Begin Automate Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.3 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.4 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
     print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
     NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
@@ -222,9 +222,9 @@ def AutomateConnection():
         time.sleep(2)
         click_next = driver.find_element_by_css_selector("#root > div > div > div.login-login > div > div:nth-child(3) > div.CwButton-wrap > div").click()
         pass
-    time.sleep(1.5)
+    driver.implicitly_wait(1.5)
     pw = driver.find_element_by_id('loginPassword')
-    time.sleep(0.5) 
+    driver.implicitly_wait(1)
     pw.send_keys(passwd + Keys.RETURN)
     pw.send_keys(Keys.RETURN)
     print_green("#### -- Automate Control Center Login Submitted.. Awaiting Token.. -- ####")#-----------------------------------------------------------------------------------------------------
@@ -267,15 +267,11 @@ def AutomateConnection():
     search_email = driver.find_element_by_css_selector('._1Qs0_GHrFMawJzYAmLNL2x')
     search_email.send_keys('Seamless data systems, inc. Monitoring' + Keys.RETURN)
     time.sleep(4)
-    try:
-        click_it = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[1]/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[3]').click()
-        pass
-    except NoSuchElementException:
-        click_it_again = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[1]/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[3]').click()
-        pass
+    click_it = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[1]/div[2]/div/div/div/div/div/div[2]/div/div').click()
+                                            
     time.sleep(2)
     try:
-        save_it = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/div/div/div/div[3]").text
+        save_it = driver.find_element_by_xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div/div/div/div/div[2]/div/div[1]/div/div/div/div[3]/div/div/div").text
         pass
     except NoSuchElementException:
         save_it = driver.find_element_by_css_selector('.rps_79e8 > div:nth-child(1)')
@@ -283,7 +279,9 @@ def AutomateConnection():
     print_blue("[BrinxBot]: Below is the email contents I grabbed:")
     print_yellow("#### -- EMAIL CONTENTS: [" + save_it + "] -- ####")
     da_code = re.sub(r"\D", "", save_it)
-    print_blue(pre + "[BrinxBot]: I have split the original message to just the code!: " + da_code)
+    splitFr = (list(str(da_code)))
+    da_actual_code = (splitFr[0] + splitFr[1] + splitFr[2] + splitFr[3] + splitFr[4] + splitFr[5])
+    print_blue(pre + "[BrinxBot]: I have split the original message to just the code!: " + da_actual_code)
     # now to switch back to tab 1.. [Automate Login Screen]
     print_blue(pre + "[BrinxBot]: ...switching back to Automate Login Screen and inserting code to login")
     time.sleep(3)
@@ -291,7 +289,7 @@ def AutomateConnection():
     time.sleep(3)
     click_on_token = driver.find_element_by_id('loginToken')
     time.sleep(1.3)
-    click_on_token.send_keys(da_code + Keys.RETURN)
+    click_on_token.send_keys(da_actual_code + Keys.RETURN)
     try:
         time.sleep(2)
         click_login = driver.find_element_by_css_selector('.CwButton-innerStandardActive').click()
