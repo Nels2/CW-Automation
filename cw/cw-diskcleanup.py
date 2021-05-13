@@ -58,8 +58,7 @@ def Server_Connect():
     driverTwo.quit()
 Server_Connect()
 
-url = "https://cw2.dcstopeka.com/v4_6_release/connectwise.aspx?fullscreen=false&locale=en_US#XQAACADDAwAAAAAAAAA9iIoG07$U9W$OXqU2f868IPYhCwZbCCkqIYRFHeyR$YSSk0sjl7aoF9AsnZZhVeOB946uvkjbEleT3$QSnKOPbfpwf5Rpm4pnPk1eG4JyNyw4s7vLKmXij22FiyTB2oZqWkMCXeweztjksT8JcyXpS28QKVqeMlfeQIvA6iv_pI0FYhAHuS0e3Vbt$Zuae_TWOIh8pyoekVhIeLWFUx_iHiIqFKZ0IFkX0MfeFPUaeW$zvKgRLesGKter7cZIwQmc4Y8195JVWByziRMs2$xmbn18d0ZwG_Ib9tkU6VB9_Ub4niPdSZ$nHIDC$UVoVEOC1Fb8ofrtjiSViR9pq753hcTAPM$PSGDKQQ4djIuGXbE1ZZ0YRUI$qlQONhHfCLrqlUVDP$dCYMDBOkko2Spdq3Z2q$tdG7BACM$b$uAF0IEoXGYAAqoKelgCSjAJ$$Bz93AIVMAy8miuOgfwl$8KxX3SNWL_84lOAA==??ServiceBoard"
-#driver = webdriver.Firefox()
+url = ""#cw login link
 options = webdriver.FirefoxOptions()
 options.headless = True
 driver = webdriver.Firefox(options=options)
@@ -198,8 +197,7 @@ driver.quit()
 def AutomateConnection():
     first_tab = pickle.load( open( "first_tab.p", "rb"))
     now = datetime.datetime.now()
-    url_second = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, where-ever it is hosted..
-    #driver = webdriver.Firefox()
+    url_second = "" # make sure this is for YOUR automate, where-ever it is hosted..
     options = webdriver.FirefoxOptions()
     options.headless = True
     driver = webdriver.Firefox(options=options)
@@ -244,7 +242,7 @@ def AutomateConnection():
     driver.execute_script("window.open('about:blank', 'tab3');")
     driver.switch_to.window("tab3")
     print_blue(pre + "[BrinxBot]: Switched to third tab. Focus is here currently.")
-    msft = "https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld"
+    msft = ""#o365 login link here
     driver.get(msft)
     time.sleep(2)
     # enter your email and password for your O365 login.

@@ -1,27 +1,16 @@
 Ticket Type:  Reboot Type
+Ticket Type:  NIC Type
 Ticket Type:  Reboot Type
+Ticket Type:  NIC Type
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
-Ticket Type:  Reboot Type
 Ticket Type:  Out of Date PC
-Ticket Type:  Out of Date PC
-Ticket Type:  Out of Date PC
-Ticket Type:  Reboot Type
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Reboot Type
-Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC
 Ticket Type:  Out of Date PC

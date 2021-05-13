@@ -33,7 +33,7 @@ print_green = lambda x: cprint(x, 'green')
 print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 def AutomateConnect():
     now = datetime.datetime.now()
-    url_second = "https://seamlessdata.hostedrmm.com/automate/login" # make sure this is for YOUR automate, where-ever it is hosted..
+    url_second = "" # make sure this is for YOUR automate, where-ever it is hosted..
     options = webdriver.FirefoxOptions()
     options.headless = True
     driver = webdriver.Firefox(options=options)
@@ -78,7 +78,7 @@ def AutomateConnect():
     driver.execute_script("window.open('about:blank', 'tab3');")
     driver.switch_to.window("tab3")
     print_blue(pre + "[BrinxBot]: Office 365 window is active.")
-    msft = "https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld"
+    msft = ""#o365 login here
     driver.get(msft)
     time.sleep(2)
     # enter your email and password for your O365 login.
