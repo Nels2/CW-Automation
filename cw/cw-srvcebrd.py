@@ -31,15 +31,16 @@ print_yellow = lambda x: cprint(x, 'yellow')
 print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red', attrs=['blink'])
 print_green = lambda x: cprint(x, 'green')
-url = ""
+url = "https://connect.meriplex.com/v4_6_release/ConnectWise.aspx?locale=en_US&session=new#XQAACACcAQAAAAAAAAA9iIoG07$U9XZqpLgsNhRsI0O_rEHSzQCIbZUnpNMnJHh0NVQu8_9CNKe1j4TEYyVEdozpnPQYwn2gHajNKgAhBQ4qyXulgFoHPkqbF7cPfraUe46uW_k4OgSN159DL3G5fxtlMUXJDZKDNh2SwRdfedRXG0hAOkUKYzWib8MBD79p7v1Say1m82f4d9d_jr3kJNeiSsjWbqQF4KrfCnUdS6G$P7bjyHwTH$DzOFUxpwlaeAVL$dH8gw==??ServiceBoard"#your CW login site
+options = webdriver.FirefoxOptions()
 options.headless = False
 driver = webdriver.Firefox(options=options)
 driver.get(url)
 
 def CWlogind():
-    comp = ''
-    userd = ''
-    pasd = ''
+    comp = 'meriplex'
+    userd = 'nelson.orellana'
+    pasd = 'Meriplex2022!'
 
     u = driver.find_element(by=By.NAME, value='CompanyName')
     u.send_keys(comp)
@@ -206,7 +207,7 @@ def ServiceBoard_Pull():
                 total_bfa += 1
             found_bm = line.find('Backup Missed Type')
             if found_bm != -1 and found_bm != 0:
-                total_bm += 1S
+                total_bm += 1
             found_dc = line.find('Disk Cleanup Type')
             if found_dc != -1 and found_dc != 0:
                 total_dc += 1
@@ -298,7 +299,7 @@ if total_gpkt <= 1 or total_dc <= 1:
     total_tcp = int(total_tet)
     #print('run2pull: ' + str(total_reb) + ' | ' + str(total_gpkt) + ' | ' + str(total_egu) + ' | ' + str(total_dc) + ' | ' + str(total_dc) + ' | ' + str(total_nic))
     pass
-    if total_egu <= 1 or total_gpkt <= 1 or total_dc <= 1 or total_reb <= 1 or total_nic <= 1:#usually the final page, had to make some adjustments as it final page loads differently.
+    if total_gpkt <= 1 or total_dc <= 1:#usually the final page, had to make some adjustments as it final page loads differently.
         print_yellow('#### -----------Pulling Page 3-------- ####')
         driver.find_element_by_css_selector('div.GE0S-T1CIRG:nth-child(4)').click()
         driver.implicitly_wait(8)
@@ -334,7 +335,7 @@ if total_gpkt <= 1 or total_dc <= 1:
                         total_bfa += 1
                     found_bm = line.find('Backup Missed Type')
                     if found_bm != -1 and found_bm != 0:
-                        total_bm += 1S
+                        total_bm += 1
                     found_dc = line.find('Disk Cleanup Type')
                     if found_dc != -1 and found_dc != 0:
                         total_dc += 1
