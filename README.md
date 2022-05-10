@@ -14,7 +14,7 @@ FILES TO EDIT: cw/cw-nic.py \
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
-# NOTICE: This project may no longer work as it is no longer being actively maintained. Office365 & ConnectWise may put out an update that no longer allows my script to work. On top of that, Automate is being phased out for Continuum by ConnectWise. That makes this script obselete. Use at your own discretion.
+# NOTICE: This project is now being worked on again. it will be slow, but there will be a re-write and more to come soon!
 CW-Automation is project I took on to teach myself how to web-scrape, and to make noise tickets a thing of the past. These/this script(s) is product of hours of research and testing.
 # Step 1 - Starting Out
 To start you **need** a *nix VM or *nix Machine. Works on mac as well(Tested on Big Sur) You need Python 3.5+ & Distro does not matter. I used Arch btw.
