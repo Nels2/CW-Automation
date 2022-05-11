@@ -11,12 +11,10 @@ from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from timeit import default_timer as timer
 from time import sleep
-import termcolor
 from termcolor import colored, cprint
 import time
 from time import sleep
 import re
-import sys
 import os
 import pathlib
 import datetime
@@ -31,16 +29,16 @@ print_yellow = lambda x: cprint(x, 'yellow')
 print_alt_yellow = lambda x: cprint(x, 'yellow', attrs=['underline'])
 print_red = lambda x: cprint(x, 'red', attrs=['blink'])
 print_green = lambda x: cprint(x, 'green')
-url = "https://connect.meriplex.com/v4_6_release/ConnectWise.aspx?locale=en_US&session=new#XQAACACcAQAAAAAAAAA9iIoG07$U9XZqpLgsNhRsI0O_rEHSzQCIbZUnpNMnJHh0NVQu8_9CNKe1j4TEYyVEdozpnPQYwn2gHajNKgAhBQ4qyXulgFoHPkqbF7cPfraUe46uW_k4OgSN159DL3G5fxtlMUXJDZKDNh2SwRdfedRXG0hAOkUKYzWib8MBD79p7v1Say1m82f4d9d_jr3kJNeiSsjWbqQF4KrfCnUdS6G$P7bjyHwTH$DzOFUxpwlaeAVL$dH8gw==??ServiceBoard"#your CW login site
+url = ""#your CW login site
 options = webdriver.FirefoxOptions()
 options.headless = False
 driver = webdriver.Firefox(options=options)
 driver.get(url)
 
 def CWlogind():
-    comp = 'meriplex'
-    userd = 'nelson.orellana'
-    pasd = 'Meriplex2022!'
+    comp = ''
+    userd = ''
+    pasd = ''
 
     u = driver.find_element(by=By.NAME, value='CompanyName')
     u.send_keys(comp)
