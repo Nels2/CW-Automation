@@ -24,28 +24,28 @@ then
     vartype=Reboot
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo "[BrinxBot]: Running reboot ticket type solver with current method..."
-    python3 cw/cw-reboot.py
+    python3 cw/cw_reboot.py
 fi
 if [ $1 == "2" ]
 then 
     vartype=edgeupdate
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo "[BrinxBot]: Running edgeupdate ticket type solver with current method..."
-    python3 cw/cw-edgeu.py
+    python3 cw/cw_edgeu.py
 fi
 if [ $1 == "3" ]
 then 
     vartype=Disk_Cleanup
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo "[BrinxBot]: Running Disk Cleanup ticket type solver with current method..."
-    python3 cw/cw-diskcleanup.py
+    python3 cw/cw_diskcleanup.py
 fi
 if [ $1 == "4" ]
 then 
     vartype=Nic_Packet_Error 
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo "[BrinxBot]: Running NIC Packet Error ticket type solver with current method..."
-    python3 cw/cw-nic.py
+    python3 cw/cw_nic.py
 fi
 if [ $1 == "H" ]
 then 
@@ -67,17 +67,17 @@ fi
 if [ $1 == "A" ]
 then
     echo  ----------------- Pulling Agent Status of 150 Agents... -----------------------
-    python3 cw/cw-automateAgents.py
+    python3 cw/cw_automateAgents.py
 fi
 if [ $1 == "T" ]
 then 
     echo  ----------------- Loading Ticket Information From Today.. -----------------------
-    python3 cw/cw-srvcebrd.py
+    python3 cw/cw_srvcebrd.py
 fi
 if [ $1 == "TB" ]
 then 
     echo  -----------------         Checking Ticket Amounts         ---------------------
-    python3 cw/cw-srvcebrd.py
+    python3 cw/cw_srvcebrd.py
     file=ticket_types.txt
     DC=tickets/DC.p
     EU=tickets/EU.p
@@ -86,28 +86,28 @@ then
     if grep -q Reboot "$file"; then
         echo [BrinxBot]: Running reboot ticket type solver with current method...
         echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $RT) reboot tickets today.
-        python3 cw/cw-reboot.py
+        python3 cw/cw_reboot.py
     else 
         echo "[BrinxBot]: No reboot type tickets according to ticket_types.txt, continuing to next ticket type..."
     fi 
     if grep -q edgeupdate "$file"; then
         echo [BrinxBot]: Running edgeupdate ticket type solver with current method...
         echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $EU) edgeupdate tickets today.
-        python3 cw/cw-edgeu.py
+        python3 cw/cw_edgeu.py
     else 
         echo "[BrinxBot]: No edgeupdate type tickets according to ticket_types.txt, continuing to next ticket type..."
     fi 
     if grep -q Cleanup "$file"; then
         echo [BrinxBot]: Running Disk Cleanup ticket type solver with current method...
         echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $DC) Disk Cleanup tickets today.
-        python3 cw/cw-diskcleanup.py
+        python3 cw/cw_diskcleanup.py
     else 
         echo "[BrinxBot]: No Disk Cleanup type tickets according to ticket_types.txt, continuing to next ticket type..."
     fi 
     if grep -q NIC "$file"; then
         echo [BrinxBot]: Running NIC Packet Error ticket type solver with current method...
         echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $NT) NIC tickets today.
-        python3 cw/cw-nic.py
+        python3 cw/cw_nic.py
     else 
         echo "[BrinxBot]: No NIC type tickets according to ticket_types.txt,..."
     fi 
