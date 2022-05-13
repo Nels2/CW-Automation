@@ -25,11 +25,11 @@ print_green = lambda x: cprint(x, 'green')
 print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 url = ""#your CW login site
 options = webdriver.FirefoxOptions()
-options.headless = False
+options.headless = False # switch to true if you dont want this to be viisble while its running.
 driver = webdriver.Firefox(options=options)
 driver.get(url)
 
-def cwLogind():
+def cwLogind():# logs into Connectwise.
     comp = ''
     userd = ''
     pasd = ''
@@ -63,7 +63,7 @@ def cwLogind():
         pass
     print_green("#### -- Logged in! -- ####")
 
-def serviceBoard_Pull():
+def serviceBoard_Pull():#pulls the cw service board into the terminal to get an idea of tickets, mostly just so the script knows how many/what tickets need to be looked at.
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
     try:
         #TotalAMTT = driver.find_element_by_css_selector(".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)").text
@@ -247,7 +247,13 @@ def serviceBoard_Pull():
     pickle.dump( str(count), open( "count/TCP_count.p", "wb"))
     print_yellow('#### ---------------------------------------------------------- ####')
 
-def serverConnect():
+def lookForNewTixOnly():#searches for 'new' tickets in the CW service board.
+    
+    status_of_tickets = driver.find_element(by=By.XPATH, value="//*[@id='Description-input']") # look for tickets that are new
+    status_of_tickets.send_keys("New")
+    time.sleep(1)
+
+def serverConnect():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
     try:
         print_yellow("#### -- Establishing External Connection to Server .. -- ####")
         the_url = "https://bruhboxchat.icxnelly.repl.co/BrinxBot"
@@ -265,21 +271,20 @@ def serverConnect():
         print_red("Server Connection Failed. No login was made to the Server. Continuing...")
     driverTwo.quit()
 
-def itGlueLogind():
-    first_tab = pickle.load( open( "first_tab.p", "rb"))
-    now = datetime.datetime.now()
+def itGlueLogind():#logs iunto IT Glue
     url_second = "" # make sure this is for YOUR itglue, where-ever it is hosted..
     options = webdriver.FirefoxOptions()
     options.headless = False
     driver = webdriver.Firefox(options=options)
     driver.execute_script("window.open('about:blank','tab2');")
     driver.switch_to.window("tab2")
+    driver.get(url_second)
+    now = datetime.datetime.now()
     pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
     print_blue(pre + "[BrinxBot]: Switched to second Window. Focus is here currently.")
     print_yellow("#### --------- Begin IT Glue Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 5.4 -- ####', 'red', attrs=['reverse', 'blink'])
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 6.0 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
-    print_blue(pre + "[BrinxBot]: starting out.. login in to Automate is first task... commencing...")
 
     useremail = '' #usr login
     paswrd = ''
@@ -301,49 +306,83 @@ def itGlueLogind():
     while LoginVerify:
         try:
             WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')))
-            print_green("#### -- Logged in! -- ####")
+            print_green("#### -- Logged in sucessfully! -- ####")
             pass
             break
         except ValueError:
             print_red("#### -- Unable to login. -- #####")
+            print("The script cannot continue without having access to IT Glue.")
             pass 
 
-def startTym():
+def startTym():#starts a timer so we can keep track of how long this script takes.
     start = timer()
     print_yellow(start)
     pickle.dump( start, open( "startTime.p", "wb"))
+# ticket stuff. 
+def grabClientInfo():#grabs client info
+    print("#### -- Downloading Client Information ... -- ####")
+    companyN = driver.find_element(by=By.ID, value='x-auto-183-input')
+    contactN = driver.find_element(by=By.ID, value='gwt-uid-156')
+    emailN = driver.find_element(by=By.ID, value='gwt-uid-157')
+    addressOne= driver.find_element(by=By.ID, value='gwt-uid-160')
+    cityLo = driver.find_element(by=By.ID, value='gwt-uid-162')
+    stateLo = driver.find_element(by=By.ID, value='x-auto-184-input')
+    zipLo =  driver.find_element(by=By.ID, value='gwt-uid-163')
 
-def companyCheck():
-    compenny = pickle.load( open( "company_info.p", "rb"))
-    if 'Fanestil Meats' in compenny:
-        print_yellow("#### -- renaming " + compenny + " to just 'Fanestil' as 'Fanestil Meats' does not exist in Automate")
-        replaced = compenny.replace('Fanestil Meats', 'Fanestil')
-        compenny = replaced
-        pickle.dump( compenny, open( "company_info.p", "wb"))
+    print_alt_yellow("#### -- Client Information:   -- ####")
+    print_blue("Company:  "+companyN.get_attribute('value'))
+    print_blue("Contact:  "+contactN.get_attribute('value'))
+    print_blue("Email:    "+emailN.get_attribute('value'))
+    print_blue("Address:  "+addressOne.get_attribute('value') + ' '+ (cityLo.get_attribute('value')+', ' +stateLo.get_attribute('value') +' '+ (zipLo.get_attribute('value'))))
+    print_alt_yellow("#### -------------------------- ####")
+
+def grabTicketInfo():#grabs ticket info
+    print("#### -- Downloading Ticket Information ...     -- ####")
+    
+    ticketNum = driver.find_element(by=By.CSS_SELECTOR, value='#x-auto-186-label').text
+    ageOfTicket = driver.find_element(by=By.CSS_SELECTOR, value='.GE0S-T1CK0M > b:nth-child(1)').text
+    boardT = driver.find_element(by=By.ID, value='x-auto-187-input')
+    statusT = driver.find_element(by=By.ID, value='x-auto-189-input')
+    typeofT = driver.find_element(by=By.ID, value='x-auto-190-input')
+    ticketDescriptionA = driver.find_element(by=By.CSS_SELECTOR, value='.TicketNote-initialNote > div:nth-child(6) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)').text
+
+    print_alt_yellow("#### -- Ticket Information: -- ####")
+    print_blue("Number[#] & Age:    "+ ticketNum + " | " + ageOfTicket)
+    print_blue("Ticket Board:       "+boardT.get_attribute('value'))
+    print_blue("Ticket Status:      "+statusT.get_attribute('value'))
+    print_blue("Ticket Type:        "+typeofT.get_attribute('value'))
+    print_blue("Ticket Description: "+ticketDescriptionA)
+
+    try:
+        ticketDescriptionB = driver.find_element(by=By.CSS_SELECTOR, value='.TicketNote-initialNote > div:nth-child(6) > div:nth-child(1) > label:nth-child(1) > p:nth-child(2)').text
+        print_blue(ticketDescriptionB)
+    except NoSuchElementException:
         pass
-    elif 'SR Coffman Construction' in compenny:
-        print_yellow("#### -- Renaming " + compenny + " to just 'Coffman Construction' as 'SR Coffman Construction' does not exist in Automate")
-        replaced = compenny.replace('SR Coffman Construction Inc.', "Coffman Construction")
-        compenny = replaced
-        pickle.dump( compenny, open( "company_info.p", "wb"))
-        pass
-    elif 'Dr. Marlin Flanagin, DDS' in compenny:
-        print_yellow("#### -- Renaming " + compenny + " to just 'Dr. Marlin Flanagin' as 'Dr. Marlin Flanagin, DDS' does not exist in Automate")
-        replaced = compenny.replace('Dr. Marlin Flanagin, DDS', "Dr Marlin Flanagin")
-        compenny = replaced
-        pickle.dump( compenny, open( "company_info.p", "wb"))
-        pass
-    elif 'Lore & Hagemann, Inc' in compenny:
-        print_yellow("#### -- Renaming " + compenny + " to just 'Lore' as '&'cannot literally be entered in web version of Automate, this a is a bug on their end.")
-        replaced = compenny.replace('Lore & Hagemann, Inc', "Lore")
-        compenny = replaced
-        pickle.dump( compenny, open( "company_info.p", "wb"))
-        pass
-    elif 'Lyon Co Title' in compenny:
-        print_yellow("#### -- Renaming " + compenny + " to just 'Lyon County Title LLC' as 'Lyon Co Title' does not exist in Automate")            
-        replaced = compenny.replace('Lyon Co Title', "Lyon County Title LLC")
-        compenny = replaced
-        pickle.dump( compenny, open( "company_info.p", "wb"))
-        pass
+    print_alt_yellow("#### -------------------------------------------- ####")
+
+def identify_POP():#verifies whether the ticket page has a pop up loaded, if it does, the script closes it.
+    time.sleep(0.2)
+    popUp = driver.find_elements(by=By.CSS_SELECTOR, value='#x-auto-282') #identify pop up
+    size = len(popUp) #get list size
+    if(size>0):#check condition
+        print_blue("There is a pop up.. closing...")
+        closePopUp = driver.find_element(by=By.XPATH, value ="/html/body/div[6]/div[2]/div[1]/div/div/div[2]/div/div/div").click()
     else:
-        pass
+        print_blue("no pop up this time ..")
+
+def identify_VIP():# verifies is the client is a VIP client or not.
+    #identify if ticket is VIP or not.
+    vipCheck = driver.find_elements(by=By.CSS_SELECTOR, value='.GE0S-T1CI4C > div:nth-child(1)')
+    sized = len(vipCheck) #get list size again
+    #check condition
+    if(sized>0):
+        print_yellow("#### -- Client is VIP! -- ####")
+        clientVIPStatus = True
+    else:
+        print_blue("#### -- Client is not VIP. -- ####")
+        clientVIPStatus = False
+
+
+
+
+

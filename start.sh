@@ -21,37 +21,37 @@ fi
 
 if [ $1 == "1" ]
 then 
-    vartype=Reboot
+    vartype=Back up Missed
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running reboot ticket type solver with current method..."
-    python3 cw/cw_reboot.py
+    echo "[BrinxBot]: Running ticket type solver with current method..."
+    python3 cw/cw_oncore.py
 fi
 if [ $1 == "2" ]
 then 
     vartype=edgeupdate
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running edgeupdate ticket type solver with current method..."
+    echo "[BrinxBot]: Running ticket type solver with current method..."
     python3 cw/cw_edgeu.py
 fi
 if [ $1 == "3" ]
 then 
     vartype=Disk_Cleanup
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running Disk Cleanup ticket type solver with current method..."
+    echo "[BrinxBot]: Running ticket type solver with current method..."
     python3 cw/cw_diskcleanup.py
 fi
 if [ $1 == "4" ]
 then 
     vartype=Nic_Packet_Error 
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running NIC Packet Error ticket type solver with current method..."
+    echo "[BrinxBot]: Running ticket type solver with current method..."
     python3 cw/cw_nic.py
 fi
 if [ $1 == "H" ]
 then 
     clear
     echo  ----------- Ticket Types Information ----------------
-    echo  OP1 is Reboot pending Ticket type...     ./start.sh 1      
+    echo  OP1 is Backup Missed Ticket type...     ./start.sh 1      
     echo  OP2 is edgeupdate stopped Ticket type... ./start.sh 2 
     echo  OP3 is Disk Cleanup Ticket type...       ./start.sh 3 
     echo  OP4 is Nic Packet Error Ticket type...   ./start.sh 4 
