@@ -1,16 +1,8 @@
 # CW-Automation
-Attempting to fully automate ticketing...
-this script is to be used to **complete** following **four** different ticket types: 
+Attempting to fully automate ticketing or at least help in some way...
+this script is to be used to **complete** following ticket types: 
 
-- Reboot/Update Pending(./start.sh 1) \
-FILES TO EDIT: cw/cw-reboot.py 
-- service edgeupdate has stopped(./start.sh 2) \
-FILES TO EDIT: cw/cw-edgeu.py 
-- Disk Cleanup(./start.sh 3) \
-FILES TO EDIT: cw/cw-disckcleanup.py
-- NIC packet issue tickets(./start.sh 4) \
-FILES TO EDIT: cw/cw-nic.py \
-**You also need to edit this file:** cw/cw-srvcebrd.py & cw/cw-automateAgents.py \
+**You need to edit this file(s):** cw/cw_howto.py \
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in ConnectWise Automate that handles the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
