@@ -22,16 +22,16 @@ Next is to open up a terminal on your *nix install.
 2. pyfiglet 
 3. termcolor 
 4. pickle \
-You can install both using ```pip install selenium```, ```pip install pyfiglet```, ```pip install termcolor```  and ```pip install pickle``` \
+You can install both using ```pip install selenium```, ```pip install pyfiglet```, ```pip install termcolor``` \
 Great! next is cloning my repository from GitHub and changing into its directory.
 - In a terminal, type out: ```git clone https://github.com/Nels2/CW-Automation.git```
 after it is finished, change into its' directory by typing out: ```cd CW-Automation```
 That is all for this step.
 
 # Editing! Part 1 of 2
-Open up a code editor of your choice, and open up both 'cw-diskcleanup.py', 'cw-edgeu.py', 'cw-nic.py', 'cw-reboot.py' 
+Open up a code editor of your choice, and open up `cw_howto.py` 
 We will start first with the 'cw-xxx.py' files \
-- Once inside the file(s)(you need to do this for all 4!), press CTRL+F, this will bring a search bar.
+- Once inside the file(s), press CTRL+F, this will bring a search bar.
 - First you need to search for 'url'
 - **Change the url to match your connectwise login site.**
 - In the search bar, again, you want type: userd \
@@ -41,38 +41,34 @@ This will bring you to THREE values you need to change.
 - **'pasd'** is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 That is all you need to do for CW.py. make sure you hit **SAVE!** 
 # Editing! Part 2 of 2 inside 
-Now that in cw-xxx.py the connectwise login information has been taken care of, keep open up all **4** 'cw-xxx.py' files, (minus cw-srvcebrd.py) in your choice of code editor.\
-once again, in the file(s) 'cw-xxx.py' are open(*start with any, but make sure you do all four!*), press CTRL+F\
-the next part is changing the Automate Login / your O365 Login.
+Now that in cw_howto.py the connectwise login information has been taken care of.\
+the next part is changing the IT Glue Login.
 - **You are going to CTRL+F more than once.**
-- First you need to search for 'msft = ' 
+- First you need to search for 'url_second=' 
 - **Change the url to match your hoested rmm automate login site.**
-- Next you need to change another thing in the cw-xxx.py files, change the following ``msft = "https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1611956433&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3de00d1cdc-7140-348d-ccae-406a5464dec6&id=292841&aadredir=1&CBCXT=out&lw=1&fl=dob%2cflname%2cwld"``` to ```msft = "insert_your_o365_login_site_here"``` 
-- You are now looking for the value **'usrname'** inside **all** of the cw-xxx.py files.
-Once it is found, you need to edit the values for **'usrname'** and **'passwd'**. Make sure you edit inside the the quotation marks( ' ' ). 
+- Next you need to change another thing in the cw-xxx.py files, change the following ``url_second=``` to ```url_second= "insert_your_itGlue_login_site_here"```
+- You are now looking for the value **'useremail ='**.
+Once it is found, you need to edit the values for **'useremail ='** and **'paswrd ='**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
 - 'passwd' is your password for your login at Automate Control Center.
 Once these fields have been entered, press CTRL+F again.
 - The next value we are looking for is **'epwd'**
-This will take you down to the Office 365 login information values. Make sure to enter your data INSIDE the quotation marks.
-- **'email'** is your email for Office 365.
-- **'epwd'** is your password for Office 365.
+This will take you down to the ITglue login information values. Make sure to enter your data INSIDE the quotation marks.
+- **'useremail'** is your email for ITglue.
+- **'paswrd'** is your password for ITglue.
 That is all for this step!, you should be good to go.
 
 # Optional Step - Watch Live Steps at Server!
 This is probably easier if you have to two displays, but:\
-Open a browser up to a new tab and go to BruhBoxChat | BrinxBot (nels277.repl.co)\[https://bruhboxchat.nels277.repl.co/BrinxBot
+Open a browser up to a new tab and go to BruhBoxChat | BrinxBot (icxnelly.repl.co)\[https://bruhboxchat.icxnelly.repl.co/BrinxBot
 this website chats with the Bot or in other words the script. You can see the status of the script here as it runs.\
 
 # Running the script!
 Now that everything has been configured, you are ready to begin the automation!\
 - Open a terminal up and make sure you change into the CW-Automation directory, type out: ```cd CW-Automation```
-- Next type out: ```sudo chmod +x start.sh```
-- Next to run the script, type out: ```./start.sh TB```. -**Note. This is the fully automated version.**
-- And to run it type out: ```./start.sh``` with either 1-4, A, T, or TB as an arguement
-So for example run it as ```./start.sh 1``` would run OP1(Reboot ticket type) would run.
-- Alternatively, type out ```./start.sh A``` for a quick rundown of status of Automate Agents.
-If you want just a return of the tickets on the service board, type out: ```./start.sh T``` and you can decide from there which OP to run ```./script.sh (1-4)```.
+- to run the script, type out: ```./start.sh T```. -**Note. This pulls the CW service board.**
+- And to run the script for On-Core tickets: ```./start.sh 1```.
+So for example run it as ```./start.sh 1``` would run OP1(Backup Missed ticket type) would run.
 - type ```./start.sh H``` to see more information. \
 
-After starting the script with your chosen arguement **(1,2,3,4,A,T,TB,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
+After starting the script with your chosen arguement **(1,T,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 

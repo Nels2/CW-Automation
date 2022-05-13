@@ -291,7 +291,6 @@ def itGlueLogind():#logs iunto IT Glue
     passEnter.send_keys(Keys.RETURN)
     # MFA junk....
     secret = ''
-    mfacode = otp.get_totp(secret)
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.NAME, 'mfa')))
     print_blue("MFA Code: " + str(mfacode))
     mfa_e = driver.find_element(By.NAME, "mfa")
@@ -309,6 +308,33 @@ def itGlueLogind():#logs iunto IT Glue
             print_red("#### -- Unable to login. -- #####")
             print("The script cannot continue without having access to IT Glue.")
             pass 
+
+
+def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
+    companyNameImport = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
+    driver.implicitly_wait(3)
+
+    # select first listed company...
+    print_green("#### -- Searching for: "+companyNameImport+" in IT Glue ... -- ####") 
+    searchFor = driver.find_element(by=By.CSS_SELECTOR, value ='label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')
+    driver.implicitly_wait(2)
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
+    driver.implicitly_wait(10)
+    # send again so it is actually pasted into the search field.....
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
+    #click company 
+    searchFor.send_keys(companyNameImport)
+    enterCompanyProfile = driver.find_element(by=By.CSS_SELECTOR, value ='td.column-name').click()
+    driver.implicitly_wait(3)
+    print_green("#### -- The page for "+companyNameImport+" in IT Glue, has loaded successfully! -- ####")
+    # select document side bar item to load documents for company.
+    loadDocPage = driver.find_element(by=By.CSS_SELECTOR, value ='li.sidebar-item:nth-child(6)').click()
+    print_green("#### -- Current on "+companyNameImport+"'s Documents page. -- ####")
+    #end timer that started in cw_oncore.py
+    end = timer()
+    startImport = pickle.load( open( "startTime.p", "rb"))
+    print_red('Script Completion Time:'+ str(end-startImport)+ " seconds.")
+    # end
 
 def startTym():#starts a timer so we can keep track of how long this script takes.
     start = timer()

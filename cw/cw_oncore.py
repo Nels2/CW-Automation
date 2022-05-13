@@ -6,7 +6,7 @@ from selenium.common.exceptions import ElementClickInterceptedException
 import time
 from time import sleep
 import re
-from cw_howto import cwLogind, serverConnect, startTym, clickOnTicket, grabClientInfo, grabTicketInfo, identify_POP, identify_VIP, lookForNewTixOnly, itGlueLogind, driver, pickle, os, pathlib, datetime, colored, cprint, EC, AC, By, S_er, E_er, WDE_er, print_blue, timer, sys, print_alt_yellow, print_green, print_red, print_yellow, print_alt_green
+from cw_howto import cwLogind, serverConnect, startTym, clickOnTicket, grabClientInfo, grabTicketInfo, identify_POP, identify_VIP, lookForNewTixOnly, itGlueLogind, itGlueSearch, driver, pickle, os, pathlib, datetime, colored, cprint, EC, AC, By, S_er, E_er, WDE_er, print_blue, timer, sys, print_alt_yellow, print_green, print_red, print_yellow, print_alt_green
 # USE ONLY FOR oncore TICKETS!!!
 #
 #
@@ -44,4 +44,6 @@ grabClientInfo()
 # -- grabbing ticket information --
 grabTicketInfo()
 url_third = driver.current_url
-# end
+# this was inside cw_itgluegrab.py moved it here as it really can just be a function instead of whole other file.
+itGlueLogind()# logs into IT Glue
+itGlueSearch()# Searches in IT Glue for the company that was in the ticket.

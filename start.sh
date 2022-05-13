@@ -21,97 +21,31 @@ fi
 
 if [ $1 == "1" ]
 then 
-    vartype=Back up Missed
+    vartype=Back_up_Missed
     echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
     echo "[BrinxBot]: Running ticket type solver with current method..."
     python3 cw/cw_oncore.py
 fi
-if [ $1 == "2" ]
-then 
-    vartype=edgeupdate
-    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running ticket type solver with current method..."
-    python3 cw/cw_edgeu.py
-fi
-if [ $1 == "3" ]
-then 
-    vartype=Disk_Cleanup
-    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running ticket type solver with current method..."
-    python3 cw/cw_diskcleanup.py
-fi
-if [ $1 == "4" ]
-then 
-    vartype=Nic_Packet_Error 
-    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running ticket type solver with current method..."
-    python3 cw/cw_nic.py
-fi
 if [ $1 == "H" ]
 then 
     clear
-    echo  ----------- Ticket Types Information ----------------
-    echo  OP1 is Backup Missed Ticket type...     ./start.sh 1      
-    echo  OP2 is edgeupdate stopped Ticket type... ./start.sh 2 
-    echo  OP3 is Disk Cleanup Ticket type...       ./start.sh 3 
-    echo  OP4 is Nic Packet Error Ticket type...   ./start.sh 4 
-    echo  -----------------------------------------------------
-    echo  -----------  Additional Information  ----------------
-    echo  T is to pull the Service Board to the Terminal...
-    echo  TB is to pull srbrd and autocomplete tickets...
-    echo  A is to pull All agent statuses....
-    echo  -----------------------------------------------------
-    echo Above are the following arguments you can use with start.sh.
-    echo After the above, is the correct way to pass an argument to start.sh
-fi
-if [ $1 == "A" ]
-then
-    echo  ----------------- Pulling Agent Status of 150 Agents... -----------------------
-    python3 cw/cw_automateAgents.py
+    echo  "-------------| BrinxBot, a small script to help with automation.
+|------------| Ticket Types Information |----------------------------------
+|
+|--> OP1 is Backup Missed Ticket type ...      ./start.sh 1  
+|
+|------------|  Additional Information  |----------------------------------
+|
+|--> T is to pull the Service Board to the Terminal ...
+|--> Above are the following arguments you can use with start.sh.
+|--> After the above, is the correct way to pass an argument to start.sh
+|
+|--------------------------------------------------------------------------"
 fi
 if [ $1 == "T" ]
 then 
-    echo  ----------------- Loading Ticket Information From Today.. -----------------------
+    echo "----------- Loading Ticket Information From Today .. -------------"
     python3 cw/cw_srvcebrd.py
-fi
-if [ $1 == "TB" ]
-then 
-    echo  -----------------         Checking Ticket Amounts         ---------------------
-    python3 cw/cw_srvcebrd.py
-    file=ticket_types.txt
-    DC=tickets/DC.p
-    EU=tickets/EU.p
-    NT=tickets/NT.p
-    RT=tickets/RT.p
-    if grep -q Reboot "$file"; then
-        echo [BrinxBot]: Running reboot ticket type solver with current method...
-        echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $RT) reboot tickets today.
-        python3 cw/cw_reboot.py
-    else 
-        echo "[BrinxBot]: No reboot type tickets according to ticket_types.txt, continuing to next ticket type..."
-    fi 
-    if grep -q edgeupdate "$file"; then
-        echo [BrinxBot]: Running edgeupdate ticket type solver with current method...
-        echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $EU) edgeupdate tickets today.
-        python3 cw/cw_edgeu.py
-    else 
-        echo "[BrinxBot]: No edgeupdate type tickets according to ticket_types.txt, continuing to next ticket type..."
-    fi 
-    if grep -q Cleanup "$file"; then
-        echo [BrinxBot]: Running Disk Cleanup ticket type solver with current method...
-        echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $DC) Disk Cleanup tickets today.
-        python3 cw/cw_diskcleanup.py
-    else 
-        echo "[BrinxBot]: No Disk Cleanup type tickets according to ticket_types.txt, continuing to next ticket type..."
-    fi 
-    if grep -q NIC "$file"; then
-        echo [BrinxBot]: Running NIC Packet Error ticket type solver with current method...
-        echo [BrinxBot]: There are a total of $(grep -ao '[0-9]*' $NT) NIC tickets today.
-        python3 cw/cw_nic.py
-    else 
-        echo "[BrinxBot]: No NIC type tickets according to ticket_types.txt,..."
-    fi 
-    echo "[BrinxBot]: Done."
 fi
 echo "[BrinxBot]: EOL...Shutting Down..."
 
