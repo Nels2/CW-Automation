@@ -46,7 +46,7 @@ the next part is changing the IT Glue Login.
 - **You are going to CTRL+F more than once.**
 - First you need to search for 'url_second=' 
 - **Change the url to match your hoested rmm automate login site.**
-- Next you need to change another thing in the cw-xxx.py files, change the following ``url_second=``` to ```url_second= "insert_your_itGlue_login_site_here"```
+- Next you need to change another thing in the cw-xxx.py files, change the following ```url_second=``` to ```url_second= "insert_your_itGlue_login_site_here"```
 - You are now looking for the value **'useremail ='**.
 Once it is found, you need to edit the values for **'useremail ='** and **'paswrd ='**. Make sure you edit inside the the quotation marks( ' ' ). 
 - 'usrname' is your username for your login at Automate Control Center. 
@@ -69,6 +69,6 @@ Now that everything has been configured, you are ready to begin the automation!\
 - to run the script, type out: ```./start.sh T```. -**Note. This pulls the CW service board.**
 - And to run the script for On-Core tickets: ```./start.sh 1```.
 So for example run it as ```./start.sh 1``` would run OP1(Backup Missed ticket type) would run.
-- type ```./start.sh H``` to see more information. \
+- type ```./start.sh H``` to see more information. 
 
 After starting the script with your chosen arguement **(1,T,H)**, the script will run. **Make sure to pay attention to the terminal as well.** 
