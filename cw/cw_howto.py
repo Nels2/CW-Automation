@@ -290,7 +290,7 @@ def itGlueLogind():#logs iunto IT Glue
     passEnter.send_keys(paswrd)
     passEnter.send_keys(Keys.RETURN)
     # MFA junk....
-    secret = ''
+    mfacode = ''
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.NAME, 'mfa')))
     print_blue("MFA Code: " + str(mfacode))
     mfa_e = driver.find_element(By.NAME, "mfa")
