@@ -166,4 +166,3 @@ if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on 
         pass
 else:
     pass
-#driver.quit()

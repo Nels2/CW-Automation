@@ -1,17 +1,8 @@
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
@@ -23,17 +14,26 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type

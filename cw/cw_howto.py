@@ -7,11 +7,13 @@ from selenium.common.exceptions import WebDriverException as WDE_er
 from selenium.common.exceptions import ElementNotInteractableException as E_er
 from selenium.common.exceptions import StaleElementReferenceException as S_er
 from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains as AC
 from termcolor import colored, cprint
 from timeit import default_timer as timer
 import onetimepass as otp
 import pathlib
 import os
+import sys
 import time
 from time import sleep
 import pickle
@@ -52,8 +54,6 @@ def cwLogind():# logs into Connectwise.
     driver.switch_to.default_content()
     # clicking proceed so i can continue
     try:
-        time.sleep(3)
-        #pro_clk = driver.find_element_by_xpath("//input[@value='Proceed']")
         pro_clk = driver.find_element(by=By.XPATH, value ='//input[@value="Proceed"]')
         pro_clk.click()
         print_yellow("#### -- Proceed was clicked -- ####")
@@ -273,15 +273,10 @@ def serverConnect():#connects to my self-made chat site thaat just establishes t
 
 def itGlueLogind():#logs iunto IT Glue
     url_second = "" # make sure this is for YOUR itglue, where-ever it is hosted..
-    options = webdriver.FirefoxOptions()
-    options.headless = False
-    driver = webdriver.Firefox(options=options)
-    driver.execute_script("window.open('about:blank','tab2');")
-    driver.switch_to.window("tab2")
     driver.get(url_second)
     now = datetime.datetime.now()
     pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
-    print_blue(pre + "[BrinxBot]: Switched to second Window. Focus is here currently.")
+    print_blue(pre + "[BrinxBot]: Switched to Next Window. Focus is here currently.")
     print_yellow("#### --------- Begin IT Glue Connection --------- ####")
     alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 6.0 -- ####', 'red', attrs=['reverse', 'blink'])
     print(alt_logo)
@@ -295,12 +290,13 @@ def itGlueLogind():#logs iunto IT Glue
     passEnter.send_keys(paswrd)
     passEnter.send_keys(Keys.RETURN)
     # MFA junk....
-    secret = 'bjs3obz3yphrvgq7olvlukc4uttldysh'
+    secret = ''
     mfacode = otp.get_totp(secret)
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.NAME, 'mfa')))
     print_blue("MFA Code: " + str(mfacode))
     mfa_e = driver.find_element(By.NAME, "mfa")
     mfa_e.send_keys(mfacode)
+    driver.implicitly_wait(2)
     mfa_e.send_keys(Keys.RETURN)
     LoginVerify = True
     while LoginVerify:
@@ -319,8 +315,37 @@ def startTym():#starts a timer so we can keep track of how long this script take
     print_yellow(start)
     pickle.dump( start, open( "startTime.p", "wb"))
 # ticket stuff. 
+
+def clickOnTicket():
+    WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
+    try:
+        driver.implicitly_wait(4.25)
+        ticket = driver.find_element(by=By.XPATH, value="/html/body/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[1]/div[4]/div/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/table/tbody[2]/tr[1]/td[7]/div/a").click()
+        action = AC(driver)
+        action.double_click(ticket)
+        pass
+    except E_er:
+        print_yellow("#### -- Appears to be last ticket of this type. -- ####")
+        pass
+    except NoSuchElementException:
+        print_yellow('#### -- Trying again...  -- ####')
+        driver.implicitly_wait(1)
+        try:
+            ticket = driver.find_element(by=By.XPATH, value="/html/body/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[1]/div[4]/div/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/table/tbody[2]/tr[1]/td[7]/div/a").click()
+            action = AC(driver)
+            action.double_click(ticket)
+        except NoSuchElementException:
+            print_red('#### -- There were no tickets found -- #####')
+            print_yellow('#### -- !! Exiting.. !! -- ####')
+            sys.exit()
+            pass
+        except E_er:
+            print_yellow('#### -- Ticket Function 2 Was Not Used!(NO TICKET FOUND) -- ####')
+            sys.exit()
+            pass
+
 def grabClientInfo():#grabs client info
-    print("#### -- Downloading Client Information ... -- ####")
+    print("#### -- Done ... -- ####")
     companyN = driver.find_element(by=By.ID, value='x-auto-183-input')
     contactN = driver.find_element(by=By.ID, value='gwt-uid-156')
     emailN = driver.find_element(by=By.ID, value='gwt-uid-157')
@@ -336,9 +361,13 @@ def grabClientInfo():#grabs client info
     print_blue("Address:  "+addressOne.get_attribute('value') + ' '+ (cityLo.get_attribute('value')+', ' +stateLo.get_attribute('value') +' '+ (zipLo.get_attribute('value'))))
     print_alt_yellow("#### -------------------------- ####")
 
+    #save company name & company contact name to file so it can be used later....
+    comps = companyN.get_attribute('value')
+    conts = contactN.get_attribute('value')
+    pickle.dump( comps, open( "tickets/ticket_info/companyName.p", "wb"))
+    pickle.dump(conts, open( "tickets/ticket_info/companyContact.p", "wb"))
+
 def grabTicketInfo():#grabs ticket info
-    print("#### -- Downloading Ticket Information ...     -- ####")
-    
     ticketNum = driver.find_element(by=By.CSS_SELECTOR, value='#x-auto-186-label').text
     ageOfTicket = driver.find_element(by=By.CSS_SELECTOR, value='.GE0S-T1CK0M > b:nth-child(1)').text
     boardT = driver.find_element(by=By.ID, value='x-auto-187-input')
@@ -358,7 +387,13 @@ def grabTicketInfo():#grabs ticket info
         print_blue(ticketDescriptionB)
     except NoSuchElementException:
         pass
-    print_alt_yellow("#### -------------------------------------------- ####")
+    print_alt_yellow("#### ---------------------- ####")
+
+    #save ticket number, age & ticket description to file so it can be used later....
+    tikNum = str(ticketNum)
+    aoT = str(ageOfTicket)
+    pickle.dump( tikNum, open( "tickets/ticket_info/ticketNumber.p", "wb"))
+    pickle.dump( aoT, open( "tickets/ticket_info/ageOfTicket.p", "wb"))
 
 def identify_POP():#verifies whether the ticket page has a pop up loaded, if it does, the script closes it.
     time.sleep(0.2)
