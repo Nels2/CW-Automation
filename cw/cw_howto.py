@@ -63,25 +63,30 @@ def cwLogind():# logs into Connectwise.
         pass
     print_green("#### -- Logged in! -- ####")
 
+def lookForNewTixOnly():#searches for 'new' tickets in the CW service board.
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
+    status_of_tickets = driver.find_element(by=By.XPATH, value="//*[@id='Description-input']") # look for tickets that are new
+    status_of_tickets.send_keys("New")
+    status_of_tickets.send_keys(Keys.RETURN)
+    time.sleep(3)
+
 def serviceBoard_Pull():#pulls the cw service board into the terminal to get an idea of tickets, mostly just so the script knows how many/what tickets need to be looked at.
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
     try:
-        #TotalAMTT = driver.find_element_by_css_selector(".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)").text
         TotalAMTT = driver.find_element(by=By.CSS_SELECTOR, value ='.GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text
         pass
     except S_er:
-        #TotalAMTT = driver.find_element_by_css_selector(".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)").text
         TotalAMTT = driver.find_element(by=By.CSS_SELECTOR, value ='.GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text
     stri = TotalAMTT
     Amt = stri.split("- ",1)[1]
     stri = Amt
     PGAmt = stri.split(" of",1)[0]
-    PGAmt4loop = 40
+    PGAmt4loop = 150 # amount of tickets allowed on view in single page in connectwise service board, manually set of course. othwerwise set to x = int(PGAmt) on line 90.
     stri = TotalAMTT
     Amts = stri.split("of ",1)[1]
     driver.implicitly_wait(2)
 
-    x = int(PGAmt4loop)
+    x = int(PGAmt)
     i = int(1)
     file = pathlib.Path("ticket_types.txt")
     if file.exists():
@@ -116,11 +121,12 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
             pass
         pickle.dump( str(PGAmt), open( "tickets/PGAmt.p", "wb"))
         pickle.dump( Amts, open( "tickets/Amts.p", "wb"))
-        #TicketNumber = driver.find_element_by_xpath(path2).text
-        TicketNumber = driver.find_element(by=By.XPATH, value =(path2)).text
-        #Ticketlist = driver.find_element_by_xpath(path1).text
-        Ticketlist = driver.find_element(by=By.XPATH, value =(path1)).text
-        TicketCompany = driver.find_element(by=By.CSS_SELECTOR, value =(path0)).text
+        try:
+            TicketNumber = driver.find_element(by=By.XPATH, value =(path2)).text
+            Ticketlist = driver.find_element(by=By.XPATH, value =(path1)).text
+            TicketCompany = driver.find_element(by=By.CSS_SELECTOR, value =(path0)).text
+        except NoSuchElementException:
+            print_red("#### -- No More Tickets Found. -- ####")
         if 'Reboot' in Ticketlist:
             ticketT = 'Reboot Type'
             pass
@@ -212,6 +218,9 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
             found_UT = line.find('Unknown')
             if found_UT != -1 and found_UT != 0:
                 total_UT += 1
+    pickle.dump( (PGAmt), open( "misc/PGAmt.p", "wb")) # save current page for loop
+    pickle.dump( (Amts), open( "misc/PGAmt.p", "wb"))
+
     print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
     print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board: " + Amts + " -- ####")
     print_yellow("#### -- Total Amount of Tickets Today Under This Page Only:   " + PGAmt + " -- ####")
@@ -247,11 +256,37 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
     pickle.dump( str(count), open( "count/TCP_count.p", "wb"))
     print_yellow('#### ---------------------------------------------------------- ####')
 
-def lookForNewTixOnly():#searches for 'new' tickets in the CW service board.
-    
-    status_of_tickets = driver.find_element(by=By.XPATH, value="//*[@id='Description-input']") # look for tickets that are new
-    status_of_tickets.send_keys("New")
-    time.sleep(1)
+def loadTicketAmt(): # load file that has total ticket types
+    total_ood = pickle.load( open( "tickets/OD.p", "rb"))
+    total_OD = int(total_ood)
+    total_d = pickle.load( open( "tickets/DC.p", "rb"))
+    total_dc = int(total_d)
+    total_def = pickle.load( open( "tickets/DE.p", "rb"))
+    total_de = int(total_d)
+    total_w = pickle.load( open( "tickets/WE.p", "rb"))
+    total_WE = int(total_w)
+    total_d = pickle.load( open( "tickets/DC.p", "rb"))
+    total_dc = int(total_d)
+    total_g = pickle.load( open( "tickets/GPKT.p", "rb"))
+    total_gpkt = int(total_g)
+    total_tet = pickle.load( open( "tickets/TCP.p", "rb"))
+    total_tcp = int(total_tet) 
+    pass
+
+def cwTicketTypeSearch(): # searches in ConnectWise for a specfic ticket type.
+    ticket_typeImport = pickle.load( open( "ticket_info.p", "rb"))
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
+    search = driver.find_element(by=By.XPATH, value="//input[@id='Summary-input']")
+    time.sleep(0.5)
+    lookForNewTixOnly()
+    search.send_keys(ticket_typeImport)
+    search.send_keys(Keys.RETURN)
+
+def nextPageClick():# clicks the '>' arrow so the next page loads. might have to do it a lot so I turned it into a function.
+    print_yellow('#### -----------Pulling Next Page------- ####')
+    driver.find_element_by_css_selector('div.GE0S-T1CIRG:nth-child(4)').click()
+    driver.implicitly_wait(8)
+    print_yellow('#### -----------Page Pull:  -------- ####')
 
 def serverConnect():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
     try:
@@ -309,7 +344,6 @@ def itGlueLogind():#logs iunto IT Glue
             print("The script cannot continue without having access to IT Glue.")
             pass 
 
-
 def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
     companyNameImport = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
     driver.implicitly_wait(3)
@@ -335,13 +369,11 @@ def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
     startImport = pickle.load( open( "startTime.p", "rb"))
     print_red('Script Completion Time:'+ str(end-startImport)+ " seconds.")
     # end
-
 def startTym():#starts a timer so we can keep track of how long this script takes.
     start = timer()
     print_yellow(start)
     pickle.dump( start, open( "startTime.p", "wb"))
-# ticket stuff. 
-
+# ticketing stuff. 
 def clickOnTicket():
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
     try:
@@ -421,6 +453,10 @@ def grabTicketInfo():#grabs ticket info
     pickle.dump( tikNum, open( "tickets/ticket_info/ticketNumber.p", "wb"))
     pickle.dump( aoT, open( "tickets/ticket_info/ageOfTicket.p", "wb"))
 
+def saveCurrentWebLink():# save current link so brinxbot can return to ticket page to submit notes.
+    url_third = driver.current_url 
+    pickle.dump( str(url_third), open ( "misc/url.p", "wb"))
+
 def identify_POP():#verifies whether the ticket page has a pop up loaded, if it does, the script closes it.
     time.sleep(0.2)
     popUp = driver.find_elements(by=By.CSS_SELECTOR, value='#x-auto-282') #identify pop up
@@ -431,7 +467,7 @@ def identify_POP():#verifies whether the ticket page has a pop up loaded, if it 
     else:
         print_blue("no pop up this time ..")
 
-def identify_VIP():# verifies is the client is a VIP client or not.
+def identify_VIP():# verifies is the client is a VIP client or not. doesn't mean anything yet for the script.
     #identify if ticket is VIP or not.
     vipCheck = driver.find_elements(by=By.CSS_SELECTOR, value='.GE0S-T1CI4C > div:nth-child(1)')
     sized = len(vipCheck) #get list size again
