@@ -1,14 +1,10 @@
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import ElementNotInteractableException
-from cw_howto import cwLogind, lookForNewTixOnly, serviceBoard_Pull, loadTicketAmt, nextPageClick, driver, pickle, os, pathlib, datetime, colored, cprint, EC, By, S_er, E_er, print_blue, print_alt_yellow, print_green, print_red, print_yellow, timer
-import time
-from time import sleep
+from cw_howto import cwLogind, lookForNewTixOnly, serviceBoard_Pull, loadTicketAmt, nextPageClick, startTym, endTym, pickle, print_blue, print_alt_yellow, print_yellow
 import re
 # Created by Nelson Orellana (Nels2 @ GitHub), 2021.26.02 updated: 2022.05.10
 # This script is intended to grab todays(date ran) service board to get an overview of tickets without having to login.
 #
+startTym()
 cwLogind() #log into CW
 lookForNewTixOnly() #enters 'New' for ticket type
 serviceBoard_Pull() # pulls the service board
@@ -123,3 +119,4 @@ if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on 
         pass
 else:
     pass
+endTym()

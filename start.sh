@@ -26,17 +26,24 @@ then
     echo "[BrinxBot]: Running ticket type solver with current method..."
     python3 cw/cw_oncore.py
 fi
+if [ $1 == "2" ]
+then 
+    vartype=GPKT
+    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
+    echo "[BrinxBot]: Running ticket type solver with current method..."
+    python3 cw/cw_gpkt.py
+fi
 if [ $1 == "H" ]
 then 
     clear
     echo  "-------------| BrinxBot, a small script to help with automation.
 |------------| Ticket Types Information |----------------------------------
 |
-|--> OP1 is Backup Missed Ticket type ...      ./start.sh 1  
-|
+|--> OP1 is Backup Missed Ticket type ...         ./start.sh 1  
+|--> OP2 is Get Product Keys Failed type ...      ./start.sh 2 
 |------------|  Additional Information  |----------------------------------
 |
-|--> T is to pull the Service Board to the Terminal ...
+|--> T is to pull the Service Board ticket list to the Terminal ...
 |--> Above are the following arguments you can use with start.sh.
 |--> After the above, is the correct way to pass an argument to start.sh
 |

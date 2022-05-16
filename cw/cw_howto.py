@@ -31,6 +31,7 @@ options.headless = False # switch to true if you dont want this to be viisble wh
 driver = webdriver.Firefox(options=options)
 driver.get(url)
 
+# connectwise stuff section
 def cwLogind():# logs into Connectwise.
     comp = ''
     userd = ''
@@ -67,8 +68,6 @@ def lookForNewTixOnly():#searches for 'new' tickets in the CW service board.
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
     status_of_tickets = driver.find_element(by=By.XPATH, value="//*[@id='Description-input']") # look for tickets that are new
     status_of_tickets.send_keys("New")
-    status_of_tickets.send_keys(Keys.RETURN)
-    time.sleep(3)
 
 def serviceBoard_Pull():#pulls the cw service board into the terminal to get an idea of tickets, mostly just so the script knows how many/what tickets need to be looked at.
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
@@ -88,11 +87,11 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
 
     x = int(PGAmt)
     i = int(1)
-    file = pathlib.Path("ticket_types.txt")
+    file = pathlib.Path("tickets/ticket_types.txt")
     if file.exists():
-        os.remove("ticket_types.txt")
-        print_yellow("ticket_types.txt has been cleared!")
-        creatd = open('ticket_types.txt', 'w')
+        os.remove("tickets/ticket_types.txt")
+        print_yellow("tickets/ticket_types.txt has been cleared!")
+        creatd = open('tickets/ticket_types.txt', 'w')
         creatd.close()
     else:
         pass
@@ -157,10 +156,13 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
         elif 'Backup Missed' in Ticketlist:
             ticketT = 'Backup Missed Type'
             pass
+        elif 'Backup Exec Alert: Storage Error' in Ticketlist:
+            ticketT = 'Backup Missed Type'
+            pass
         else:
             ticketT = 'Unknown'
             pass
-        with open('ticket_types.txt', 'a') as f:
+        with open('tickets/ticket_types.txt', 'a') as f:
             print("Ticket Type: ", ticketT, file=f)
         print_alt_yellow('Ticket Number[#] & Type: ' + TicketNumber + ' & ' + ticketT + ": ")
         print_blue('->> Ticket Company Name: ' + TicketCompany)
@@ -183,7 +185,7 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
     total_WE = 0
     total_UT = 0
     count = 0
-    with open('ticket_types.txt') as f:
+    with open('tickets/ticket_types.txt') as f:
         for line in f:
             found_gpk = line.find('GPK Type')
             if found_gpk != -1 and found_gpk != 0:
@@ -274,10 +276,9 @@ def loadTicketAmt(): # load file that has total ticket types
     pass
 
 def cwTicketTypeSearch(): # searches in ConnectWise for a specfic ticket type.
-    ticket_typeImport = pickle.load( open( "ticket_info.p", "rb"))
+    ticket_typeImport = pickle.load( open( "tickets/ticket_info.p", "rb"))
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
     search = driver.find_element(by=By.XPATH, value="//input[@id='Summary-input']")
-    time.sleep(0.5)
     lookForNewTixOnly()
     search.send_keys(ticket_typeImport)
     search.send_keys(Keys.RETURN)
@@ -288,92 +289,7 @@ def nextPageClick():# clicks the '>' arrow so the next page loads. might have to
     driver.implicitly_wait(8)
     print_yellow('#### -----------Page Pull:  -------- ####')
 
-def serverConnect():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
-    try:
-        print_yellow("#### -- Establishing External Connection to Server .. -- ####")
-        the_url = "https://bruhboxchat.icxnelly.repl.co/BrinxBot"
-        options = webdriver.FirefoxOptions()
-        options.headless = True
-        driverTwo = webdriver.Firefox(options=options)
-        driverTwo.get(the_url)
-        time.sleep(1)
-        Connection = driverTwo.find_element_by_css_selector("#message")
-        Connection.send_keys("/name BrinxBot" + Keys.RETURN)
-        Connection.send_keys("Connection has been established ..." + Keys.RETURN)
-        print_green("#### -- SUCCESS -- #####")
-    except WDE_er:
-        print_red("#### -- FAIL -- ####")
-        print_red("Server Connection Failed. No login was made to the Server. Continuing...")
-    driverTwo.quit()
-
-def itGlueLogind():#logs iunto IT Glue
-    url_second = "" # make sure this is for YOUR itglue, where-ever it is hosted..
-    driver.get(url_second)
-    now = datetime.datetime.now()
-    pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
-    print_blue(pre + "[BrinxBot]: Switched to Next Window. Focus is here currently.")
-    print_yellow("#### --------- Begin IT Glue Connection --------- ####")
-    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 6.0 -- ####', 'red', attrs=['reverse', 'blink'])
-    print(alt_logo)
-
-    useremail = '' #usr login
-    paswrd = ''
-
-    usrEnter = driver.find_element(by=By.NAME, value='username')
-    usrEnter.send_keys(useremail)
-    passEnter = driver.find_element(by=By.NAME, value='password')
-    passEnter.send_keys(paswrd)
-    passEnter.send_keys(Keys.RETURN)
-    # MFA junk....
-    mfacode = ''
-    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.NAME, 'mfa')))
-    print_blue("MFA Code: " + str(mfacode))
-    mfa_e = driver.find_element(By.NAME, "mfa")
-    mfa_e.send_keys(mfacode)
-    driver.implicitly_wait(2)
-    mfa_e.send_keys(Keys.RETURN)
-    LoginVerify = True
-    while LoginVerify:
-        try:
-            WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')))
-            print_green("#### -- Logged in sucessfully! -- ####")
-            pass
-            break
-        except ValueError:
-            print_red("#### -- Unable to login. -- #####")
-            print("The script cannot continue without having access to IT Glue.")
-            pass 
-
-def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
-    companyNameImport = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
-    driver.implicitly_wait(3)
-
-    # select first listed company...
-    print_green("#### -- Searching for: "+companyNameImport+" in IT Glue ... -- ####") 
-    searchFor = driver.find_element(by=By.CSS_SELECTOR, value ='label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')
-    driver.implicitly_wait(2)
-    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
-    driver.implicitly_wait(10)
-    # send again so it is actually pasted into the search field.....
-    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
-    #click company 
-    searchFor.send_keys(companyNameImport)
-    enterCompanyProfile = driver.find_element(by=By.CSS_SELECTOR, value ='td.column-name').click()
-    driver.implicitly_wait(3)
-    print_green("#### -- The page for "+companyNameImport+" in IT Glue, has loaded successfully! -- ####")
-    # select document side bar item to load documents for company.
-    loadDocPage = driver.find_element(by=By.CSS_SELECTOR, value ='li.sidebar-item:nth-child(6)').click()
-    print_green("#### -- Current on "+companyNameImport+"'s Documents page. -- ####")
-    #end timer that started in cw_oncore.py
-    end = timer()
-    startImport = pickle.load( open( "startTime.p", "rb"))
-    print_red('Script Completion Time:'+ str(end-startImport)+ " seconds.")
-    # end
-def startTym():#starts a timer so we can keep track of how long this script takes.
-    start = timer()
-    print_yellow(start)
-    pickle.dump( start, open( "startTime.p", "wb"))
-# ticketing stuff. 
+# ticketing stuff inside ConnectWise section.
 def clickOnTicket():
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
     try:
@@ -404,19 +320,22 @@ def clickOnTicket():
 
 def grabClientInfo():#grabs client info
     print("#### -- Done ... -- ####")
-    companyN = driver.find_element(by=By.ID, value='x-auto-183-input')
+    
+    companyN = driver.find_element(by=By.ID, value='x-auto-177-input')
     contactN = driver.find_element(by=By.ID, value='gwt-uid-156')
-    emailN = driver.find_element(by=By.ID, value='gwt-uid-157')
-    addressOne= driver.find_element(by=By.ID, value='gwt-uid-160')
-    cityLo = driver.find_element(by=By.ID, value='gwt-uid-162')
-    stateLo = driver.find_element(by=By.ID, value='x-auto-184-input')
-    zipLo =  driver.find_element(by=By.ID, value='gwt-uid-163')
+    #
+    #contactN = driver.find_element(by=By.ID, value='gwt-uid-156')
+    #emailN = driver.find_element(by=By.ID, value='gwt-uid-157')
+    #addressOne= driver.find_element(by=By.ID, value='gwt-uid-160')
+    #cityLo = driver.find_element(by=By.ID, value='gwt-uid-162')
+    #stateLo = driver.find_element(by=By.ID, value='x-auto-184-input')
+    #zipLo =  driver.find_element(by=By.ID, value='gwt-uid-163')
 
     print_alt_yellow("#### -- Client Information:   -- ####")
     print_blue("Company:  "+companyN.get_attribute('value'))
     print_blue("Contact:  "+contactN.get_attribute('value'))
-    print_blue("Email:    "+emailN.get_attribute('value'))
-    print_blue("Address:  "+addressOne.get_attribute('value') + ' '+ (cityLo.get_attribute('value')+', ' +stateLo.get_attribute('value') +' '+ (zipLo.get_attribute('value'))))
+    #print_blue("Email:    "+emailN.get_attribute('value'))
+    #print_blue("Address:  "+addressOne.get_attribute('value') + ' '+ (cityLo.get_attribute('value')+', ' +stateLo.get_attribute('value') +' '+ (zipLo.get_attribute('value'))))
     print_alt_yellow("#### -------------------------- ####")
 
     #save company name & company contact name to file so it can be used later....
@@ -426,11 +345,11 @@ def grabClientInfo():#grabs client info
     pickle.dump(conts, open( "tickets/ticket_info/companyContact.p", "wb"))
 
 def grabTicketInfo():#grabs ticket info
-    ticketNum = driver.find_element(by=By.CSS_SELECTOR, value='#x-auto-186-label').text
+    ticketNum = driver.find_element(by=By.CSS_SELECTOR, value='#x-auto-180-label').text
     ageOfTicket = driver.find_element(by=By.CSS_SELECTOR, value='.GE0S-T1CK0M > b:nth-child(1)').text
-    boardT = driver.find_element(by=By.ID, value='x-auto-187-input')
-    statusT = driver.find_element(by=By.ID, value='x-auto-189-input')
-    typeofT = driver.find_element(by=By.ID, value='x-auto-190-input')
+    boardT = driver.find_element(by=By.ID, value='x-auto-181-input')
+    statusT = driver.find_element(by=By.ID, value='x-auto-183-input')
+    typeofT = driver.find_element(by=By.ID, value='x-auto-184-input')
     ticketDescriptionA = driver.find_element(by=By.CSS_SELECTOR, value='.TicketNote-initialNote > div:nth-child(6) > div:nth-child(1) > label:nth-child(1) > p:nth-child(1)').text
 
     print_alt_yellow("#### -- Ticket Information: -- ####")
@@ -450,20 +369,22 @@ def grabTicketInfo():#grabs ticket info
     #save ticket number, age & ticket description to file so it can be used later....
     tikNum = str(ticketNum)
     aoT = str(ageOfTicket)
+    tot = typeofT.get_attribute('value')
     pickle.dump( tikNum, open( "tickets/ticket_info/ticketNumber.p", "wb"))
     pickle.dump( aoT, open( "tickets/ticket_info/ageOfTicket.p", "wb"))
+    pickle.dump( tot, open( "tickets/ticket_info/ticketType.p", "wb"))
 
 def saveCurrentWebLink():# save current link so brinxbot can return to ticket page to submit notes.
     url_third = driver.current_url 
     pickle.dump( str(url_third), open ( "misc/url.p", "wb"))
 
 def identify_POP():#verifies whether the ticket page has a pop up loaded, if it does, the script closes it.
-    time.sleep(0.2)
-    popUp = driver.find_elements(by=By.CSS_SELECTOR, value='#x-auto-282') #identify pop up
+    time.sleep(1.5)
+    popUp = driver.find_elements(by=By.ID, value='x-auto-276') #identify pop up
     size = len(popUp) #get list size
     if(size>0):#check condition
         print_blue("There is a pop up.. closing...")
-        closePopUp = driver.find_element(by=By.XPATH, value ="/html/body/div[6]/div[2]/div[1]/div/div/div[2]/div/div/div").click()
+        closePopUp = driver.find_element(by=By.XPATH, value ="/html/body/div[5]/div[2]/div[1]/div/div/div[2]/div/div/div/div/div/div").click()
     else:
         print_blue("no pop up this time ..")
 
@@ -479,7 +400,125 @@ def identify_VIP():# verifies is the client is a VIP client or not. doesn't mean
         print_blue("#### -- Client is not VIP. -- ####")
         clientVIPStatus = False
 
+# server connection to my chat room section
+
+def serverConnect():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
+    try:
+        print_yellow("#### -- Establishing External Connection to Server .. -- ####")
+        the_url = "https://bruhboxchat.icxnelly.repl.co/BrinxBot"
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        driverTwo = webdriver.Firefox(options=options)
+        driverTwo.get(the_url)
+        time.sleep(1)
+        Connection = driverTwo.find_element_by_css_selector("#message")
+        Connection.send_keys("/name BrinxBot" + Keys.RETURN)
+        Connection.send_keys("Connection has been established ..." + Keys.RETURN)
+        print_green("#### -- SUCCESS -- #####")
+    except WDE_er:
+        print_red("#### -- FAIL -- ####")
+        print_red("Server Connection Failed. No login was made to the Server. Continuing...")
+    driverTwo.quit()
 
 
+def serverMessageSend():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
+    try:
+        ticketAge = pickle.load( open( "tickets/ticket_info/ticketNumber.p", "rb"))
+        nameOfCompany = pickle.load(open( "tickets/ticket_info/companyName.p", "rb"))
+        contactOfCompany = pickle.load(open( "tickets/ticket_info/companyContact.p", "rb"))
+        typeOfTicket = pickle.load(open( "tickets/ticket_info/ticketType.p", "rb"))
+        print_yellow("#### -- reconnecting to Server .. -- ####")
+        the_url = "https://bruhboxchat.icxnelly.repl.co/BrinxBot"
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        driverTwo = webdriver.Firefox(options=options)
+        driverTwo.get(the_url)
+        time.sleep(1)
+        Connection = driverTwo.find_element_by_css_selector("#message")
+        Connection.send_keys("/name BrinxBot" + Keys.RETURN)
+        Connection.send_keys("Currently working on.. : " + Keys.RETURN)
+        Connection.send_keys("Ticket:       "+ ticketAge + Keys.RETURN)
+        Connection.send_keys("Ticket Type:  "+ typeOfTicket + Keys.RETURN)
+        Connection.send_keys("Company:      "+ nameOfCompany + Keys.RETURN)
+        Connection.send_keys("Contact:      "+ contactOfCompany + Keys.RETURN)
+        print_green("#### -- SUCCESS -- #####")
+    except WDE_er:
+        print_red("#### -- FAIL -- ####")
+        print_red("Server Connection Failed. No login was made to the Server. Continuing...")
+    driverTwo.quit()
 
+# IT Glue stuff section
+
+def itGlueLogind():#logs iunto IT Glue
+    url_second = "" # make sure this is for YOUR itglue, where-ever it is hosted..
+    driver.get(url_second)
+    now = datetime.datetime.now()
+    pre = "[" + now.strftime('%Y-%m-%d %I:%M:%S %P') + "]: "
+    print_blue(pre + "[BrinxBot]: Switched to Next Window. Focus is here currently.")
+    print_yellow("#### --------- Begin IT Glue Connection --------- ####")
+    alt_logo = colored('#### -- BrinxBot, an ICX Creation | Version 6.0 -- ####', 'red', attrs=['reverse', 'blink'])
+    print(alt_logo)
+
+    useremail = '' #usr login
+    paswrd = ''
+
+    usrEnter = driver.find_element(by=By.NAME, value='username')
+    usrEnter.send_keys(useremail)
+    passEnter = driver.find_element(by=By.NAME, value='password')
+    passEnter.send_keys(paswrd)
+    passEnter.send_keys(Keys.RETURN)
+    # MFA junk....
+    secret = ''
+    mfacode = otp.get_totp(secret)
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.NAME, 'mfa')))
+    print_blue("MFA Code: " + str(mfacode))
+    mfa_e = driver.find_element(By.NAME, "mfa")
+    mfa_e.send_keys(mfacode)
+    driver.implicitly_wait(2)
+    mfa_e.send_keys(Keys.RETURN)
+    LoginVerify = True
+    while LoginVerify:
+        try:
+            WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')))
+            print_green("#### -- Logged in sucessfully! -- ####")
+            pass
+            break
+        except ValueError:
+            print_red("#### -- Unable to login. -- #####")
+            print("The script cannot continue without having access to IT Glue.")
+            pass 
+
+def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
+    companyNameImport = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
+    driver.implicitly_wait(3)
+    # select first listed company...
+    print_green("#### -- Searching for: "+companyNameImport+" in IT Glue ... -- ####") 
+    searchFor = driver.find_element(by=By.CSS_SELECTOR, value ='label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')
+    driver.implicitly_wait(2)
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
+    driver.implicitly_wait(10)
+    # send again so it is actually pasted into the search field.....
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
+    #click company 
+    searchFor.send_keys(companyNameImport)
+    enterCompanyProfile = driver.find_element(by=By.CSS_SELECTOR, value ='td.column-name').click()
+    driver.implicitly_wait(3)
+    print_green("#### -- The page for "+companyNameImport+" in IT Glue, has loaded successfully! -- ####")
+    # select document side bar item to load documents for company.
+    loadDocPage = driver.find_element(by=By.CSS_SELECTOR, value ='li.sidebar-item:nth-child(6)').click()
+    print_green("#### -- Current on "+companyNameImport+"'s Documents page. -- ####")
+    #end timer that started in cw_oncore.py
+
+# Timer stuff section
+
+def startTym():#starts a timer so we can keep track of how long this script takes.
+    start = timer()
+    print_yellow(start)
+    pickle.dump( start, open( "misc/timer/startTime.p", "wb"))
+    
+def endTym():# Ends the timer
+    end = timer()
+    startImport = pickle.load( open( "misc/timer/startTime.p", "rb"))
+    print_red('Script Completion Time:'+ str(end-startImport)+ " seconds.")
+    # end
 
