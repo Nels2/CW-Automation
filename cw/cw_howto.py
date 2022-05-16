@@ -219,7 +219,7 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
             if found_UT != -1 and found_UT != 0:
                 total_UT += 1
     pickle.dump( (PGAmt), open( "misc/PGAmt.p", "wb")) # save current page for loop
-    pickle.dump( (Amts), open( "misc/PGAmt.p", "wb"))
+    pickle.dump( (Amts), open( "misc/Amts.p", "wb"))
 
     print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
     print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board: " + Amts + " -- ####")
