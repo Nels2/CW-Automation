@@ -44,13 +44,16 @@ def cwLogind():# logs into Connectwise.
     p = driver.find_element(by=By.NAME, value='Password')
     p.send_keys(pasd)
     p.send_keys(Keys.RETURN)
+
     # MFA junk....
     time.sleep(3)
     driver.switch_to.frame('authenticationFrame')
-    mfacode = input("enter mfa code please: ")
-    mfa_e = driver.find_element(By.NAME, "auth_pin")
-    mfa_e.send_keys(mfacode)
-    mfa_e.send_keys(Keys.RETURN)
+    secret_og = ''
+    mfacode_og = otp.get_totp(secret_og)
+    print_blue("MFA Code: " + str(mfacode_og))
+    mfa_enterit = driver.find_element(By.NAME, "auth_pin")
+    mfa_enterit.send_keys(mfacode_og)
+    mfa_enterit.send_keys(Keys.RETURN)
     time.sleep(3)
     driver.switch_to.default_content()
     # clicking proceed so i can continue
@@ -420,7 +423,6 @@ def serverConnect():#connects to my self-made chat site thaat just establishes t
         print_red("Server Connection Failed. No login was made to the Server. Continuing...")
     driverTwo.quit()
 
-
 def serverMessageSend():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
     try:
         ticketAge = pickle.load( open( "tickets/ticket_info/ticketNumber.p", "rb"))
@@ -436,11 +438,11 @@ def serverMessageSend():#connects to my self-made chat site thaat just establish
         time.sleep(1)
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name BrinxBot" + Keys.RETURN)
-        Connection.send_keys("Currently working on.. : " + Keys.RETURN)
-        Connection.send_keys("Ticket:       "+ ticketAge + Keys.RETURN)
+        Connection.send_keys("Currently working on: " + Keys.RETURN)
+        Connection.send_keys("Ticket:          "+ ticketAge + Keys.RETURN)
         Connection.send_keys("Ticket Type:  "+ typeOfTicket + Keys.RETURN)
         Connection.send_keys("Company:      "+ nameOfCompany + Keys.RETURN)
-        Connection.send_keys("Contact:      "+ contactOfCompany + Keys.RETURN)
+        Connection.send_keys("Contact:         "+ contactOfCompany + Keys.RETURN)
         print_green("#### -- SUCCESS -- #####")
     except WDE_er:
         print_red("#### -- FAIL -- ####")
@@ -489,28 +491,30 @@ def itGlueLogind():#logs iunto IT Glue
             pass 
 
 def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
-    companyNameImport = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
-    driver.implicitly_wait(3)
+    cw_Import = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
+    driver.implicitly_wait(5)
     # select first listed company...
-    print_green("#### -- Searching for: "+companyNameImport+" in IT Glue ... -- ####") 
+    print_green("#### -- Searching for: "+cw_Import+" in IT Glue ... -- ####") 
     searchFor = driver.find_element(by=By.CSS_SELECTOR, value ='label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')
-    driver.implicitly_wait(2)
+    driver.implicitly_wait(5)
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(5)
     # send again so it is actually pasted into the search field.....
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
     #click company 
-    searchFor.send_keys(companyNameImport)
-    enterCompanyProfile = driver.find_element(by=By.CSS_SELECTOR, value ='td.column-name').click()
-    driver.implicitly_wait(3)
-    print_green("#### -- The page for "+companyNameImport+" in IT Glue, has loaded successfully! -- ####")
+    searchFor.send_keys(cw_Import)
+    #driver.find_element(by=By.CSS_SELECTOR, value ='td.column-name').click() 
+    driver.find_element(by=By.CSS_SELECTOR, value ='.react-table-body > div:nth-child(1) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(3)').click() # load first loaded element on page which SHOULD be the company looked up.
+
+def itGlueLoadDocPage():# loads of document page of whatever company was imported from itGlueSearch()
+    cw_Import = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
+    driver.implicitly_wait(5)
+    print_green("#### -- The page for "+cw_Import+" in IT Glue, has loaded successfully! -- ####")
     # select document side bar item to load documents for company.
     loadDocPage = driver.find_element(by=By.CSS_SELECTOR, value ='li.sidebar-item:nth-child(6)').click()
-    print_green("#### -- Current on "+companyNameImport+"'s Documents page. -- ####")
-    #end timer that started in cw_oncore.py
+    print_green("#### -- Current on "+cw_Import+"'s Documents page. -- ####")
 
 # Timer stuff section
-
 def startTym():#starts a timer so we can keep track of how long this script takes.
     start = timer()
     print_yellow(start)

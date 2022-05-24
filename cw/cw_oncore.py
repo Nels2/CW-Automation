@@ -1,4 +1,4 @@
-from cw_howto import cwLogind, cwTicketTypeSearch, serverConnect, serverMessageSend, startTym, endTym, clickOnTicket, grabClientInfo, grabTicketInfo, saveCurrentWebLink, identify_POP, identify_VIP, lookForNewTixOnly, itGlueLogind, itGlueSearch, pickle
+from cw_howto import cwLogind, cwTicketTypeSearch, serverConnect, serverMessageSend, startTym, endTym, clickOnTicket, grabClientInfo, grabTicketInfo, saveCurrentWebLink, identify_POP, identify_VIP, itGlueLogind, itGlueSearch, itGlueLoadDocPage, pickle
 # USE ONLY FOR oncore TICKETS!!!
 #  -----ConnectWise AutoBot, By Nels2------Built 2022.05.12 ----
 # --------------------------------------------------------------
@@ -19,4 +19,5 @@ saveCurrentWebLink()# saves current ticket page's link for future use.
 serverMessageSend() # sends message to server of what brinxbot is currently working on.
 itGlueLogind()# logs into IT Glue
 itGlueSearch()# Searches in IT Glue for the company that was in the ticket.
+itGlueLoadDocPage()# load "Documents" page of whatever comapny is loaded up.
 endTym()# ends timer n prints time 
