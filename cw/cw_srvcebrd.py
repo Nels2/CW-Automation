@@ -1,5 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
-from cw_howto import cwLogind, lookForNewTixOnly, serviceBoard_Pull, loadTicketAmt, nextPageClick, startTym, endTym, pickle, print_blue, print_alt_yellow, print_yellow
+from cw_howto import cwLogind, lookForNewTixOnly, serviceBoard_Pull, loadTicketAmt, nextPageClick, startTym, endTym, pickle, print_blue, print_alt_yellow, print_yellow, print_red
 import re
 # Created by Nelson Orellana (Nels2 @ GitHub), 2021.26.02 updated: 2022.05.10
 # This script is intended to grab todays(date ran) service board to get an overview of tickets without having to login.
@@ -17,7 +17,7 @@ if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on 
     PGamt = pickle.load( open( "tickets/DC.p", "rb"))
     Amts = pickle.load( open( "tickets/DC.p", "rb"))
     if PGamt == Amts:# make sure this isnt the first page again by comparing total tickets on page versus total
-        print('#### -- There is not another page of tickets to pull. -- ####')
+        print_red('[BrinxBot]: #### -- There is not another page of tickets to pull. -- ####')
         pass
     else:
         nextPageClick()
@@ -25,7 +25,7 @@ if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on 
         loadTicketAmt()
     if total_gpkt <= 1 or total_dc <= 1:#usually the final page, had to make some adjustments as it final page loads differently.
         if PGamt == Amts:
-            print('#### -- There is not another page of tickets to pull. -- ####')
+            print_red('[BrinxBot]: #### -- There is not another page of tickets to pull. -- ####')
             pass
         else:
             try:
@@ -80,7 +80,8 @@ if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on 
                             total_UT += 1
                 Amts = pickle.load( open( "tickets/Amts.p", "rb"))
                 PGAmt = pickle.load( open( "tickets/PGAmt.p", "rb"))
-                print('#### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
+                print('[BrinxBot]: #### -- End of Ticket List for this Page'+ '(' + PGAmt + ' of '+ Amts + ') -- ####')
+                print_green("[BrinxBot]: Generated ticket menu! displaying.. ")
                 print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board: " + Amts + " -- ####")
                 print_alt_yellow('#### -- Total Amount of Each Ticket Type Today On This Page -- ####')
                 print_blue("|    Out of Date/Offline PC:                   "+str(total_OD)+"      ")

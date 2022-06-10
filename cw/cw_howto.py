@@ -27,7 +27,7 @@ print_green = lambda x: cprint(x, 'green')
 print_alt_green = lambda x: cprint(x, 'green', attrs=['bold'])
 url = ""#your CW login site
 options = webdriver.FirefoxOptions()
-options.headless = False # switch to true if you dont want this to be viisble while its running.
+options.headless = True # switch to true if you dont want this to be viisble while its running.
 driver = webdriver.Firefox(options=options)
 driver.get(url)
 
@@ -46,26 +46,40 @@ def cwLogind():# logs into Connectwise.
     p.send_keys(Keys.RETURN)
 
     # MFA junk....
-    time.sleep(3)
+    driver.implicitly_wait(3)
     driver.switch_to.frame('authenticationFrame')
     secret_og = ''
     mfacode_og = otp.get_totp(secret_og)
-    print_blue("MFA Code: " + str(mfacode_og))
+    print_blue("[BrinxBot]: MFA Code is " + str(mfacode_og))
     mfa_enterit = driver.find_element(By.NAME, "auth_pin")
     mfa_enterit.send_keys(mfacode_og)
     mfa_enterit.send_keys(Keys.RETURN)
-    time.sleep(3)
+    driver.implicitly_wait(2)
     driver.switch_to.default_content()
-    # clicking proceed so i can continue
+    # incase the mfa code is expired
+    try:
+        mfacode_inval = driver.find_element_by_css_selector("#errorContainer")
+        mfa_str = mfacode_inval.text
+        print(mfa_str)
+        print_yellow("[BrinxBot]: mfa code: " + mfa_str + " is invalid, generating another one..")
+        mfacode_og2 = otp.get_totp(secret_og)
+        print_blue("[BrinxBot]: MFA Code is " + str(mfacode_og2))
+        mfa_enterit2 = driver.find_element(By.NAME, "auth_pin")
+        mfa_enterit2.send_keys(mfacode_og2)
+        mfa_enterit2.send_keys(Keys.RETURN)
+        driver.implicitly_wait(0.5)
+    except NoSuchElementException:
+        pass
+    # clicking proceed so brinxbot can continue
     try:
         pro_clk = driver.find_element(by=By.XPATH, value ='//input[@value="Proceed"]')
         pro_clk.click()
-        print_yellow("#### -- Proceed was clicked -- ####")
+        print_yellow("[BrinxBot]: #### -- Proceed was clicked -- ####")
     except E_er:
         pass
     except NoSuchElementException:
         pass
-    print_green("#### -- Logged in! -- ####")
+    print_green("[BrinxBot]: #### -- Logged in! -- ####")
 
 def lookForNewTixOnly():#searches for 'new' tickets in the CW service board.
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, 'Summary-input')))
@@ -73,16 +87,33 @@ def lookForNewTixOnly():#searches for 'new' tickets in the CW service board.
     status_of_tickets.send_keys("New")
 
 def serviceBoard_Pull():#pulls the cw service board into the terminal to get an idea of tickets, mostly just so the script knows how many/what tickets need to be looked at.
+    # implementing a wait time here because sometimes, it is pulled too early and shows up as "Loading" instead of "1 - 100 of 548" for example.
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
+    try:
+        waitUntilPageLoadsFully = WebDriverWait(driver, 5)
+        waitUntilPageLoadsFully.until(EC.presence_of_element_located((By.CSS_SELECTOR,".GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)")))
+        print_green("[BrinxBot]: Page load happened")
+    except TimeException:
+        print_red("[BrinxBot]: Timeout happened no page load, so no ticket amt")
+    # try to grab ticket numbers.
     try:
         TotalAMTT = driver.find_element(by=By.CSS_SELECTOR, value ='.GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text
         pass
     except S_er:
         TotalAMTT = driver.find_element(by=By.CSS_SELECTOR, value ='.GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text
-    stri = TotalAMTT
-    Amt = stri.split("- ",1)[1]
-    stri = Amt
-    PGAmt = stri.split(" of",1)[0]
+    # implement a little try except block to make sure ticket amounts are actually grabbed ....
+    try:
+        stri = TotalAMTT
+        Amt = stri.split("- ",1)[1]
+        stri = Amt
+        PGAmt = stri.split(" of",1)[0]
+    except IndexError:
+        time.sleep(5)
+        TotalAMTT = driver.find_element(by=By.CSS_SELECTOR, value ='.GE0S-T1CERG > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)').text
+        stri = TotalAMTT
+        Amt = stri.split("- ",1)[1]
+        stri = Amt
+        PGAmt = stri.split(" of",1)[0]
     PGAmt4loop = 150 # amount of tickets allowed on view in single page in connectwise service board, manually set of course. othwerwise set to x = int(PGAmt) on line 90.
     stri = TotalAMTT
     Amts = stri.split("of ",1)[1]
@@ -93,7 +124,7 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
     file = pathlib.Path("tickets/ticket_types.txt")
     if file.exists():
         os.remove("tickets/ticket_types.txt")
-        print_yellow("tickets/ticket_types.txt has been cleared!")
+        print_yellow("[BrinxBot]: tickets/ticket_types.txt has been cleared!")
         creatd = open('tickets/ticket_types.txt', 'w')
         creatd.close()
     else:
@@ -128,7 +159,7 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
             Ticketlist = driver.find_element(by=By.XPATH, value =(path1)).text
             TicketCompany = driver.find_element(by=By.CSS_SELECTOR, value =(path0)).text
         except NoSuchElementException:
-            print_red("#### -- No More Tickets Found. -- ####")
+            print_red("[BrinxBot]: #### -- No More Tickets Found. -- ####")
         if 'Reboot' in Ticketlist:
             ticketT = 'Reboot Type'
             pass
@@ -176,18 +207,8 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
         else:
             i += 1
         pass
-    total_gpk = 0
-    total_mmp = 0
-    total_tcp = 0
-    total_bfa = 0
-    total_dc = 0
-    total_de = 0
-    total_bm = 0
-    total_reb = 0
-    total_OD = 0
-    total_WE = 0
-    total_UT = 0
-    count = 0
+    # set ticket types to zero. 11 birds one stone!
+    total_gpk = total_mmp = total_tcp = total_bfa = total_bm = total_dc = total_de = total_reb = total_OD = total_WE = total_UT = count = 0
     with open('tickets/ticket_types.txt') as f:
         for line in f:
             found_gpk = line.find('GPK Type')
@@ -230,33 +251,36 @@ def serviceBoard_Pull():#pulls the cw service board into the terminal to get an 
     print_yellow("#### -- Total Amount of Tickets Today Under the Alerts Board: " + Amts + " -- ####")
     print_yellow("#### -- Total Amount of Tickets Today Under This Page Only:   " + PGAmt + " -- ####")
     print_alt_yellow('#### -- Total Amount of Each Ticket Type Today On This Page -- ####')
-    print_blue("|    Out of Date/Offline PC:                   "+str(total_OD)+"      ")
-    print_blue("|    Disk Cleanup Type:                        "+str(total_dc)+"      ")
-    print_blue("|    Drive Error Type:                         "+str(total_de)+"      ")
-    print_blue("|    WebRoot Error Type:                       "+str(total_WE)+"      ")
-    print_blue("|    Machine Missing Patches Type:             "+str(total_mmp)+"     ")
-    print_blue("|    'Get Product Keys Failed' Type:           "+str(total_gpk)+"     ")
-    print_blue("|    TCP Error Type:                           "+str(total_tcp)+"     ")
-    print_blue("|    Brute Force Attack Type:                  "+str(total_bfa)+"     ")
-    print_blue("|    Backup Missed Type:                       "+str(total_bm)+"     ")
-    print_blue("|    Unknown:                                  "+str(total_UT)+"      ")
+    print_blue("|    Out of Date/Offline PC:                     "+str(total_OD)+"      ")
+    print_blue("|    Disk Cleanup Type:                          "+str(total_dc)+"      ")
+    print_blue("|    Drive Error Type:                           "+str(total_de)+"      ")
+    print_blue("|    WebRoot Error Type:                         "+str(total_WE)+"      ")
+    print_blue("|    Machine Missing Patches Type:               "+str(total_mmp)+"     ")
+    print_blue("|    'Get Product Keys Failed' Type:             "+str(total_gpk)+"     ")
+    print_blue("|    TCP Error Type:                             "+str(total_tcp)+"     ")
+    print_blue("|    Brute Force Attack Type:                    "+str(total_bfa)+"     ")
+    print_blue("|    Backup Missed Type:                         "+str(total_bm)+"     ")
+    print_blue("|    Unknown:                                    "+str(total_UT)+"      ")
     print_alt_yellow('#### --   Ticket Types That BrinxBot Can Work(red.):  -- ####')
-    print_blue("|    Out of Date/Offine PC Type:               "+str(total_OD)+"      ")
+    print_blue("|    Out of Date/Offine PC Type:                 "+str(total_OD)+"      ")
     pickle.dump( str(total_OD), open( "tickets/OD.p", "wb"))
     pickle.dump( str(count), open( "count/OD_count.p", "wb"))
-    print_blue("|    Disk Cleanup Type:                        "+str(total_dc)+"      ")
+    print_blue("|    Disk Cleanup Type:                          "+str(total_dc)+"      ")
     pickle.dump( str(total_dc), open( "tickets/DC.p", "wb"))
     pickle.dump( str(count), open( "count/dc_count.p", "wb"))
-    print_blue("|    Drive Error Type:                         "+str(total_de)+"      ")
+    print_blue("|    Drive Error Type:                           "+str(total_de)+"      ")
     pickle.dump( str(total_de), open( "tickets/DE.p", "wb"))
     pickle.dump( str(count), open( "count/de_count.p", "wb"))
-    print_blue("|    WebRoot Error Type:                       "+str(total_WE)+"      ")
+    print_blue("|    Backup Missed Type:                         "+str(total_bm)+"      ")
+    pickle.dump( str(total_bm), open( "tickets/BM.p", "wb"))
+    pickle.dump( str(count), open( "count/bm_count.p", "wb"))
+    print_blue("|    WebRoot Error Type:                         "+str(total_WE)+"      ")
     pickle.dump( str(total_WE), open( "tickets/WE.p", "wb"))
     pickle.dump( str(count), open( "count/WE_count.p", "wb"))
-    print_blue("|    'Get Product Keys Failed' Type:           "+str(total_gpk)+"      ")
+    print_blue("|    'Get Product Keys Failed' Type:             "+str(total_gpk)+"      ")
     pickle.dump( str(total_gpk), open( "tickets/GPKT.p", "wb"))
     pickle.dump( str(count), open( "count/gpkt_count.p", "wb"))
-    print_blue("|    TCP Error Type:                           "+str(total_tcp)+"      ")
+    print_blue("|    TCP Error Type:                             "+str(total_tcp)+"      ")
     pickle.dump( str(total_tcp), open( "tickets/TCP.p", "wb"))
     pickle.dump( str(count), open( "count/TCP_count.p", "wb"))
     print_yellow('#### ---------------------------------------------------------- ####')
@@ -268,6 +292,8 @@ def loadTicketAmt(): # load file that has total ticket types
     total_dc = int(total_d)
     total_def = pickle.load( open( "tickets/DE.p", "rb"))
     total_de = int(total_d)
+    total_bml = pickle.load( open( "tickets/BM.p", "rb"))
+    total_bm = int(total_bml)
     total_w = pickle.load( open( "tickets/WE.p", "rb"))
     total_WE = int(total_w)
     total_d = pickle.load( open( "tickets/DC.p", "rb"))
@@ -287,12 +313,12 @@ def cwTicketTypeSearch(): # searches in ConnectWise for a specfic ticket type.
     search.send_keys(Keys.RETURN)
 
 def nextPageClick():# clicks the '>' arrow so the next page loads. might have to do it a lot so I turned it into a function.
-    print_yellow('#### -----------Pulling Next Page------- ####')
+    print_yellow('[BrinxBot]: #### -----------Pulling Next Page------- ####')
     driver.find_element_by_css_selector('div.GE0S-T1CIRG:nth-child(4)').click()
     driver.implicitly_wait(8)
     print_yellow('#### -----------Page Pull:  -------- ####')
 
-# ticketing stuff inside ConnectWise section.
+# ticketing stuff inside ConnectWise (section)
 def clickOnTicket():
     WebDriverWait(driver, 200).until(EC.presence_of_element_located((By.CLASS_NAME, 'GE0S-T1CAVF')))
     try:
@@ -302,32 +328,31 @@ def clickOnTicket():
         action.double_click(ticket)
         pass
     except E_er:
-        print_yellow("#### -- Appears to be last ticket of this type. -- ####")
+        print_yellow("[BrinxBot]: #### -- Appears to be last ticket of this type. -- ####")
         pass
     except NoSuchElementException:
-        print_yellow('#### -- Trying again...  -- ####')
+        print_yellow('[BrinxBot]: #### -- Trying again...  -- ####')
         driver.implicitly_wait(1)
         try:
             ticket = driver.find_element(by=By.XPATH, value="/html/body/div[2]/div[2]/div/div[2]/div/div[3]/div/div[3]/div/div[2]/div/div[1]/div/div[2]/div/div[2]/div/div[1]/div[4]/div/div[2]/div/div/div[2]/div[1]/div/div[2]/div[1]/table/tbody[2]/tr[1]/td[7]/div/a").click()
             action = AC(driver)
             action.double_click(ticket)
         except NoSuchElementException:
-            print_red('#### -- There were no tickets found -- #####')
-            print_yellow('#### -- !! Exiting.. !! -- ####')
+            print_red('[BrinxBot]: #### -- There were no tickets found -- #####')
+            print_yellow('[BrinxBot]: #### -- !! Exiting.. !! -- ####')
             sys.exit()
             pass
         except E_er:
-            print_yellow('#### -- Ticket Function 2 Was Not Used!(NO TICKET FOUND) -- ####')
+            print_yellow('[BrinxBot]: #### -- Ticket Function 2 Was Not Used!(NO TICKET FOUND) -- ####')
             sys.exit()
             pass
 
 def grabClientInfo():#grabs client info
-    print("#### -- Done ... -- ####")
+    print("[BrinxBot]: #### -- Done ... -- ####")
     
     companyN = driver.find_element(by=By.ID, value='x-auto-177-input')
     contactN = driver.find_element(by=By.ID, value='gwt-uid-156')
-    #
-    #contactN = driver.find_element(by=By.ID, value='gwt-uid-156')
+    # values that can be grabbed but are not.
     #emailN = driver.find_element(by=By.ID, value='gwt-uid-157')
     #addressOne= driver.find_element(by=By.ID, value='gwt-uid-160')
     #cityLo = driver.find_element(by=By.ID, value='gwt-uid-162')
@@ -386,10 +411,10 @@ def identify_POP():#verifies whether the ticket page has a pop up loaded, if it 
     popUp = driver.find_elements(by=By.ID, value='x-auto-276') #identify pop up
     size = len(popUp) #get list size
     if(size>0):#check condition
-        print_blue("There is a pop up.. closing...")
+        print_blue("[BrinxBot]: There is a pop up.. closing...")
         closePopUp = driver.find_element(by=By.XPATH, value ="/html/body/div[5]/div[2]/div[1]/div/div/div[2]/div/div/div/div/div/div").click()
     else:
-        print_blue("no pop up this time ..")
+        print_blue("[BrinxBot]: no pop up this time ..")
 
 def identify_VIP():# verifies is the client is a VIP client or not. doesn't mean anything yet for the script.
     #identify if ticket is VIP or not.
@@ -397,17 +422,17 @@ def identify_VIP():# verifies is the client is a VIP client or not. doesn't mean
     sized = len(vipCheck) #get list size again
     #check condition
     if(sized>0):
-        print_yellow("#### -- Client is VIP! -- ####")
+        print_yellow("[BrinxBot]: #### -- Client is VIP! -- ####")
         clientVIPStatus = True
     else:
-        print_blue("#### -- Client is not VIP. -- ####")
+        print_blue("[BrinxBot]: #### -- Client is not VIP. -- ####")
         clientVIPStatus = False
 
-# server connection to my chat room section
+# server connection to my chat room (section)
 
 def serverConnect():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
     try:
-        print_yellow("#### -- Establishing External Connection to Server .. -- ####")
+        print_yellow("[BrinxBot]: #### -- Establishing External Connection to Server .. -- ####")
         the_url = "https://bruhboxchat.icxnelly.repl.co/BrinxBot"
         options = webdriver.FirefoxOptions()
         options.headless = True
@@ -417,10 +442,10 @@ def serverConnect():#connects to my self-made chat site thaat just establishes t
         Connection = driverTwo.find_element_by_css_selector("#message")
         Connection.send_keys("/name BrinxBot" + Keys.RETURN)
         Connection.send_keys("Connection has been established ..." + Keys.RETURN)
-        print_green("#### -- SUCCESS -- #####")
+        print_green("[BrinxBot]: #### -- SUCCESS -- #####")
     except WDE_er:
-        print_red("#### -- FAIL -- ####")
-        print_red("Server Connection Failed. No login was made to the Server. Continuing...")
+        print_red("[BrinxBot]: #### -- FAIL -- ####")
+        print_red("[BrinxBot]: Server Connection Failed. No login was made to the Server. Continuing...")
     driverTwo.quit()
 
 def serverMessageSend():#connects to my self-made chat site thaat just establishes the connection, I'll add to it more later.
@@ -429,7 +454,7 @@ def serverMessageSend():#connects to my self-made chat site thaat just establish
         nameOfCompany = pickle.load(open( "tickets/ticket_info/companyName.p", "rb"))
         contactOfCompany = pickle.load(open( "tickets/ticket_info/companyContact.p", "rb"))
         typeOfTicket = pickle.load(open( "tickets/ticket_info/ticketType.p", "rb"))
-        print_yellow("#### -- reconnecting to Server .. -- ####")
+        print_yellow("[BrinxBot]: #### -- reconnecting to Server .. -- ####")
         the_url = "https://bruhboxchat.icxnelly.repl.co/BrinxBot"
         options = webdriver.FirefoxOptions()
         options.headless = True
@@ -443,13 +468,13 @@ def serverMessageSend():#connects to my self-made chat site thaat just establish
         Connection.send_keys("Ticket Type:  "+ typeOfTicket + Keys.RETURN)
         Connection.send_keys("Company:      "+ nameOfCompany + Keys.RETURN)
         Connection.send_keys("Contact:         "+ contactOfCompany + Keys.RETURN)
-        print_green("#### -- SUCCESS -- #####")
+        print_green("[BrinxBot]: #### -- SUCCESS -- #####")
     except WDE_er:
-        print_red("#### -- FAIL -- ####")
-        print_red("Server Connection Failed. No login was made to the Server. Continuing...")
+        print_red("[BrinxBot]: #### -- FAIL -- ####")
+        print_red("[BrinxBot]: Server Connection Failed. No login was made to the Server. Continuing...")
     driverTwo.quit()
 
-# IT Glue stuff section
+# IT Glue stuff (section)
 
 def itGlueLogind():#logs iunto IT Glue
     url_second = "" # make sure this is for YOUR itglue, where-ever it is hosted..
@@ -482,19 +507,19 @@ def itGlueLogind():#logs iunto IT Glue
     while LoginVerify:
         try:
             WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')))
-            print_green("#### -- Logged in sucessfully! -- ####")
+            print_green("[BrinxBot]: #### -- Logged in sucessfully! -- ####")
             pass
             break
         except ValueError:
-            print_red("#### -- Unable to login. -- #####")
-            print("The script cannot continue without having access to IT Glue.")
+            print_red("[BrinxBot]: #### -- Unable to login. -- #####")
+            print("[BrinxBot]: The script cannot continue without having access to IT Glue.")
             pass 
 
 def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
     cw_Import = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
     driver.implicitly_wait(5)
     # select first listed company...
-    print_green("#### -- Searching for: "+cw_Import+" in IT Glue ... -- ####") 
+    print_green("[BrinxBot]: #### -- Searching for: "+cw_Import+" in IT Glue ... -- ####") 
     searchFor = driver.find_element(by=By.CSS_SELECTOR, value ='label.form-label:nth-child(2) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)')
     driver.implicitly_wait(5)
     WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.CSS_SELECTOR, '.react-table-body > div:nth-child(1)')))
@@ -509,20 +534,20 @@ def itGlueSearch():# Searches in IT Glue for the company that was in the ticket.
 def itGlueLoadDocPage():# loads of document page of whatever company was imported from itGlueSearch()
     cw_Import = pickle.load( open( "tickets/ticket_info/companyName.p", "rb"))
     driver.implicitly_wait(5)
-    print_green("#### -- The page for "+cw_Import+" in IT Glue, has loaded successfully! -- ####")
+    print_green("[BrinxBot]: #### -- The page for "+cw_Import+" in IT Glue, has loaded successfully! -- ####")
     # select document side bar item to load documents for company.
     loadDocPage = driver.find_element(by=By.CSS_SELECTOR, value ='li.sidebar-item:nth-child(6)').click()
     print_green("#### -- Current on "+cw_Import+"'s Documents page. -- ####")
 
-# Timer stuff section
+# Timer stuff (section)
 def startTym():#starts a timer so we can keep track of how long this script takes.
     start = timer()
-    print_yellow(start)
+    print_yellow("[BrinxBot]: Started Timer at: " + str(start) + " seconds.")
     pickle.dump( start, open( "misc/timer/startTime.p", "wb"))
     
 def endTym():# Ends the timer
     end = timer()
     startImport = pickle.load( open( "misc/timer/startTime.p", "rb"))
-    print_red('Script Completion Time:'+ str(end-startImport)+ " seconds.")
+    print_alt_green('[Brinxbot]: Task completed in '+ str(end-startImport)+ " seconds.")
     # end
 

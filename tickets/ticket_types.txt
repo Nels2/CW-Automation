@@ -1,8 +1,11 @@
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
-Ticket Type:  Disk Cleanup Type
+Ticket Type:  WebRoot Error
+Ticket Type:  WebRoot Error
 Ticket Type:  Unknown
+Ticket Type:  WebRoot Error
+Ticket Type:  WebRoot Error
+Ticket Type:  Machine Missing Patches Type
+Ticket Type:  Machine Missing Patches Type
+Ticket Type:  Machine Missing Patches Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
@@ -10,39 +13,57 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
+Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
 Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
 Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
 Ticket Type:  Backup Missed Type
@@ -55,81 +76,29 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
@@ -138,12 +107,43 @@ Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
-Ticket Type:  Backup Missed Type
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
 Ticket Type:  Unknown
-Ticket Type:  Backup Missed Type
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
+Ticket Type:  Unknown
