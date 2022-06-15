@@ -2,7 +2,7 @@
 clear
 echo "CW-Automation [BrinxBot] v6.1, Created by Nels2. 2022"
 echo ""
-echo ---------------------------------------------------------------------------------
+echo "---------------------------------------------------------------------------------"
 echo "_BBBBBB____RRRRRR___I__NN________N__X_________X__BBBBBB_______OO_____TTTTTTT__!!!_"
 echo "_B_____B___R_____R__I__N_N_______N___X_______X___B_____B____OO__OO______T_____!!!_"
 echo "_B______B__R_____R__I__N__N______N____X_____X____B______B__O______O_____T_____!!!_"
@@ -19,21 +19,21 @@ if [ $1 == "T" ]
 then 
     echo "[BrinxBot]: $USER! you can view tickets and autocomplete with 'TB' instead of 'T'!"
 else
-    echo "[BrinxBot]: $USER! I will complete the task!"
+    echo "[BrinxBot]: Starting..."
 fi 
 
 if [ $1 == "1" ]
 then 
     vartype=Back_up_Missed
-    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running ticket type solver with current method..."
+    echo [BrinxBot]: OK $USER! I will complete the following ticket type: $vartype
+    echo "[BrinxBot]: Launching cw_oncore.py..."
     python3 cw/cw_oncore.py
 fi
 if [ $1 == "2" ]
 then 
     vartype=GPKT
-    echo [BrinxBot]: OK $USER! I Will complete the following ticket type: $vartype
-    echo "[BrinxBot]: Running ticket type solver with current method..."
+    echo [BrinxBot]: OK $USER! I will complete the following ticket type: $vartype
+    echo "[BrinxBot]: Launching cw_gpkt.py..."
     python3 cw/cw_gpkt.py
 fi
 if [ $1 == "H" ]
@@ -54,12 +54,12 @@ then
 fi
 if [ $1 == "T" ]
 then 
-    echo "[BrinxBot]: Loading Ticket Information From Today .."
+    echo "[BrinxBot]: Launching cw_srvcebrd.py .."
     python3 cw/cw_srvcebrd.py
 fi
 
 if [ $1 == "TB" ]
 then 
-    echo "[BrinxBot]: This option doesn't exist yet!"
+    echo "[BrinxBot]: This option doesn't actually exist yet!"
 fi
-echo "[BrinxBot]: End of script...Shutting Down..."
+echo "[BrinxBot]: End of script... Exiting..."

@@ -8,9 +8,11 @@ startTym()
 cwLogind() #log into CW
 lookForNewTixOnly() #enters 'New' for ticket type
 serviceBoard_Pull() # pulls the service board
-loadTicketAmt() # loads ticket amount from file(s)
-total_d = pickle.load( open( "tickets/DC.p", "rb")) # total_dc & total_gpkt are not included in the saveTicketAmt() function as these are the only ones used right now. saveTicketAmt() is not being fully used currently, meaning not all ticket types are looked at right now but still will be useful to have for when I do need it.
+loadTicketAmt() # loads ticket amount from file(s) # fix
+total_d = pickle.load( open( "tickets/DC.p", "rb"))
 total_dc = int(total_d)
+total_bml = pickle.load( open( "tickets/BM.p", "rb"))
+total_bm = int(total_bml)
 total_g = pickle.load( open( "tickets/GPKT.p", "rb"))
 total_gpkt = int(total_g)
 if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on page 1
@@ -23,6 +25,7 @@ if total_gpkt <= 1 or total_dc <= 1:# run as long there are no tickets to do on 
         nextPageClick()
         serviceBoard_Pull()
         loadTicketAmt()
+        total_gpkt, total_bm=loadTicketAmt()
     if total_gpkt <= 1 or total_dc <= 1:#usually the final page, had to make some adjustments as it final page loads differently.
         if PGamt == Amts:
             print_red('[BrinxBot]: #### -- There is not another page of tickets to pull. -- ####')

@@ -41,6 +41,7 @@ This will bring you to THREE values you need to change.
 - **'userd'** is your username for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 - **'pasd'** is your password for ConnectWise.** make sure you type it INSIDE the quotation marks.**
 That is all you need to do for cw_xxx.py. make sure you hit **SAVE!** 
+
 # Editing! Part 2 of 2 inside 
 Now that in cw_howto.py the connectwise login information has been taken care of.\
 the next part is changing the IT Glue Login.

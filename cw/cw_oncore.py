@@ -11,7 +11,7 @@ cwLogind()# logs into ConnectWise.
 cwTicketTypeSearch()# let the field populate... then searches for tickets that start with "On-Core" then clicks on the first one
 clickOnTicket()#Next is viewing what the ticket is about to make sure it is correct before continuing...
 identify_POP()# identify if there is a pop up on the screen, if so to close it.
-print("#### -- Downloading Ticket & Client Information ... -- ####")
+print("[BrinxBot]: #### -- Downloading Ticket & Client Information ... -- ####")
 identify_VIP()#identify if client is VIP or not.
 grabClientInfo()# --grabbing client information-- 
 grabTicketInfo()# -- grabbing ticket information --
