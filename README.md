@@ -6,7 +6,7 @@ this script is to be used to **complete** following ticket types:
 This is merely a project I decided to go about to learn how to web scrape. I actually plan to use this script to automate opening tickets/closing tickets in ConnectWise, along with running a script in IT Glue that grabs documentation based the ticket's issue.
 Feel Free to use..
 Requires selenium and geckodriver.
-# NOTICE: This project is now being worked on again. it will be slow, but there will be a re-write and more to come soon!
+# NOTICE: This project is fully abandoned as of 2025, as I no longer work for an MSP.
 # cw-xx.py/cw_xxx.py refers to ```cw_howto.py```
 CW-Automation is project I took on to teach myself how to web-scrape, and to make noise tickets a thing of the past. These/this script(s) is product of hours of research and testing.
 # Step 1 - Starting Out
